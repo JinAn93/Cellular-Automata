@@ -6,6 +6,8 @@ Cellular Automata, or CA, are grid based simulations that rely on interactions b
 
 * Cell class: 
 
+![Overview Diagram](Overview_Diagram.png "Our CRC cards")
+
 private int currstate
 
 private int nextstate
@@ -32,9 +34,9 @@ setY(int): void
 
 Rule classes will inherit
 
-abstract applyRule(Cell, List<Cell>): void method
+abstract applyRule(Cell, List<List<Cell>>): void method
 
-getPercent(int state, List<Cell>): double method
+getPercent(int state, List<List<Cell>>): double method
 
 * firstRule class (sub-class that extends Rule class)
 
@@ -103,6 +105,8 @@ handle errors(): void method
 
 #User Interface
 
+![Image of Buttons](Interface_Buttons.jpg "Our CRC cards")
+
 Overall, users will interact with the program for three main purposes. First, users will input the XML file and the program will take in the file for simulation to be run. This interaction would not need any components for the users and program; however, if the data is inappropriate, the users will be notified. Secondly, the users will be able to start and pause/resume the simulation, and lastly, they can make each simulation run faster or slower. For all three purposes, we will use buttons for each functions (start, pause/resume, and speed up/down). The primary erroneous situations would be when users put inappropriate data into the program. For instance, if the data is empty or it does not contain all the necessary information for its particular simulation, we will not run the simulation and let the user know that appropriate information must be taken in. Also, when users click Speed- button too much that it will stop or have negative speed, we will not handle inappropriate inputs and let the user know that you cannot make speed = 0. 
 
 #Design Details 
@@ -140,15 +144,15 @@ setY(int): void - sets y location of cell
 This component defines the general structure and holds shared methods for implementing the rules of the simulation.  The Rules classes must be responsible for interpreting the state information of each cell and applying the predetermined set of rules to actually drive the simulation.  This abstract class is to be inherited by specific subclasses, one for each type of simulation that our program will be able to run.  It contains methods that should be commonly necessary, regardless of simulation type.  The rules classes will be accessed by the CellManager and by extension Timeline classes because the abstract applyRule method will need to be called at every frame of the main simulation loop.  It will have access, via CellManager’s ArrayList of cells, to all the active cells in a simulation as it will need to get, handle, and update state information for each of the cells.  We chose to use this inheritance hierarchy for applying the rules of each simulation beacuse it should allow our program to be as flexible as possible when applying a new set of rules.  In order to incorperate a whole new simulation, a single subclass is all that should need to be added to the program, without impacting other areas or causing a need for redundant code.
 Rule classes will inherit
 
-abstract applyRule(Cell, List<Cell>): void method - this abstract method will be the most important for each subclass.  Based on specific simulation rules defined in the subclass, this method will interpret and update state information for every cell in the grid and essentially act as the major driver behind the simulation’s function.
+abstract applyRule(Cell, List<List<Cell>>): void method - this abstract method will be the most important for each subclass.  Based on specific simulation rules defined in the subclass, this method will interpret and update state information for every cell in the grid and essentially act as the major driver behind the simulation’s function.
 
-getPercent(int state, List<Cell>): double method - returns the percentage of cells in a grid in a certain state at a given instant in the simulation
+getPercent(int state, List<List<Cell>>): double method - returns the percentage of cells in a grid in a certain state at a given instant in the simulation
 
 Rules (subclass): One rules subclass will be made for every simulation type that the program will be able to run.  Each subclass will hold and implement information specific to the rules defined by its type of simulation.
 
 * CellManager class
 
-There are four specific features that cellManager class does. First, setup() method within the class will set up the grid of cells by creating Cell Objects and adding them into the list<list<Cell>> and initialize its state based on the XML input file. setUp() method will be called from Main / Cell society class and the class will pass an integer that tells which simulation we are running. Secondly, after a cycle of simulation, updateStates() method will be called from Timeline Class and the class will pass the integer that indicates which simulation the program is running to this method. What updateState() method does is to call applyRule method within Rule Class and pass the cellList and the integer that indicates which simulation. Third, moveNextToCurrentState() method is also called from Timeline Class. The method will access each Cell Object, put the nextState value into currentState value, and initializes the nextState value. Finally, getCellList() is a public getter method for the private List<List<Cell>> cellList so that other classes can access the CellList. 
+There are four specific features that cellManager class does. First, setup() method within the class will set up the grid of cells by creating Cell Objects and adding them into the list<list<list<Cell>> and initialize its state based on the XML input file. setUp() method will be called from Main / Cell society class and the class will pass an integer that tells which simulation we are running. Secondly, after a cycle of simulation, updateStates() method will be called from Timeline Class and the class will pass the integer that indicates which simulation the program is running to this method. What updateState() method does is to call applyRule method within Rule Class and pass the cellList and the integer that indicates which simulation. Third, moveNextToCurrentState() method is also called from Timeline Class. The method will access each Cell Object, put the nextState value into currentState value, and initializes the nextState value. Finally, getCellList() is a public getter method for the private List<List<Cell>> cellList so that other classes can access the CellList. 
 
 * Display class:
 
