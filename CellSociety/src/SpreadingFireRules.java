@@ -13,11 +13,11 @@ public class SpreadingFireRules extends SimulationRules {
     }
 
     @Override
-    protected void applyRule (List<ArrayList<Cell>> cellList) {
-        for (int i = 0; i < cellList.size(); i++) {
-            for (int j = 0; j < cellList.get(0).size(); j++) {
+    protected void applyRule (Cell[][] cellGrid) {
+        for (int i = 0; i < cellGrid.length; i++) {
+            for (int j = 0; j < cellGrid[0].length; j++) {
                 int nextState = findNextState();
-                cellList.get(i).get(j).setNextState(nextState);
+                cellGrid[i][j].setNextState(nextState);
             }
         }
     }

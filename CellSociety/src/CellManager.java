@@ -1,12 +1,12 @@
 import java.util.*;
 
 public class CellManager {
-    private List<ArrayList<Cell>> cellList;
+    private Cell[][] cellGrid;
     
-    public void generateList(){
-        cellList = new ArrayList<ArrayList<Cell>>();
+    public void generateList(int n){
+        cellGrid = new Cell[n+2][n+2];
     }
-    public List<ArrayList<Cell>> getCellList(){
-        return cellList;
+    public Cell[][] getCellList(){
+        return cellGrid;
     }
 }

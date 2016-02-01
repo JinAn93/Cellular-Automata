@@ -8,7 +8,7 @@ public abstract class SimulationRules {
     public SimulationRules(int states){
         numStates = states;
     }
-    protected abstract void applyRule(List<ArrayList<Cell>> cellList);
+    protected abstract void applyRule(Cell[][] cellGrid);
     protected Random getRand(){
         return rand;
     }
