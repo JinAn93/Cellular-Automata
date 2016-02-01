@@ -12,7 +12,7 @@ public class Display {
 	private Rectangle[][] Grid;
 	
 	
-	public void initDisplay(int rows, int columns){
+	public void initDisplay(int rows, int columns, int states){
 		CELL_WIDTH = DISPLAY_WIDTH/columns;
 		CELL_HEIGHT = DISPLAY_HEIGHT/rows;
 		
@@ -25,7 +25,11 @@ public class Display {
             	Grid[i][j].setWidth(CELL_WIDTH);
             	Grid[i][j].setHeight(CELL_HEIGHT);
             }
-		}	
+		}
+		Color[] colors = new Color[states];
+		for (int k=0; k<states; k++){
+			colors[k] = Color.hsb(k*360/states, 1.0, 1.0);
+		}
 	}
 
 	public void updateDisplay(Cell[][] cellGrid){
