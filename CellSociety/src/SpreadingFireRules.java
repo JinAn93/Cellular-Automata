@@ -6,22 +6,14 @@ public class SpreadingFireRules extends SimulationRules {
     private static final int TREE = 1;
     private static final int BURNING = 2;
     private double probCatch;
-    
-    public SpreadingFireRules(int states, double prob){
+
+    public SpreadingFireRules (int states, double prob) {
         super(states);
         probCatch = prob;
     }
 
-    @Override
-    protected void applyRule (Cell[][] cellGrid) {
-        for (int i = 0; i < cellGrid.length; i++) {
-            for (int j = 0; j < cellGrid[0].length; j++) {
-                int nextState = findNextState();
-                cellGrid[i][j].setNextState(nextState);
-            }
-        }
-    }
 
+    @Override
     protected int findNextState (Cell curr, Cell North, Cell South, Cell East, Cell West) {
         if (isEmpty(curr)) {
             return EMPTY;
@@ -29,11 +21,11 @@ public class SpreadingFireRules extends SimulationRules {
         else if (isBurning(curr)) {
             return EMPTY;
         }
-        else if (isTree(curr) && checkBurning(North,South,East,West)) {
-            if(getRand().nextDouble()<probCatch){
+        else if (isTree(curr) && checkBurning(North, South, East, West)) {
+            if (getRand().nextDouble() < probCatch) {
                 return TREE;
             }
-            else{
+            else {
                 return BURNING;
             }
         }
