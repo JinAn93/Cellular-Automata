@@ -7,7 +7,8 @@ public class SpreadingFireRules extends SimulationRules {
     private static final int BURNING = 2;
     private double probCatch;
     
-    public SpreadingFireRules(double prob){
+    public SpreadingFireRules(int states, double prob){
+        super(states);
         probCatch = prob;
     }
 
