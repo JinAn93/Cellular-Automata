@@ -3,6 +3,7 @@ public class Cell {
     private int numStates;
     private int currState;
     private int nextState;
+    private boolean isSatisfied = true;
     
     public Cell(int numState, int curr){
         numStates = numState;
@@ -24,5 +25,11 @@ public class Cell {
 
     public void setNextState (int nextState) {
         this.nextState = nextState;
+    }
+    public boolean isSatisfied(){
+        return isSatisfied;
+    }
+    public void setSatisfied(Boolean bool){
+        isSatisfied = bool;
     }
 }

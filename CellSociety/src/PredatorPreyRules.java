@@ -7,7 +7,7 @@ public class PredatorPreyRules extends SimulationRules {
     }
 
     @Override
-    protected int findNextState (Cell curr, Cell North, Cell South, Cell East, Cell West) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
         // TODO Auto-generated method stub
         return 0;
     }
