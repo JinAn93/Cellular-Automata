@@ -7,24 +7,32 @@ import javafx.animation.KeyFrame;
 
 public class Time {
 	private Timeline timeline;
+	private Duration stepTime;
 	private CellManager Cells;
 	private Display celldisplay;
+	private List<String> info;
 	
 	private double speed;
-	
+	public Time (List<String> inf){
+		info = inf;
+		initSimulation();
+	}
 	private void checkConditions(){
-		
+		if (info.isEmpty()){
+//			error
+		}
 	}
 	public void initSimulation(){
+		checkConditions();
 		CellManager Cells = new CellManager();
-		Display celldisplay = new Display(rows, columns, states);
+		Display celldisplay = new Display(info.get());
 		
-		Cells.setUp();
+		Cells.setUp(rows);
 		celldisplay.initDisplay();
 		
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(speed),
+		timeline.getKeyFrames().add(new KeyFrame(stepTime,
 				   e -> step()));
 				 timeline.playFromStart();
 	}
@@ -36,13 +44,13 @@ public class Time {
 		celldisplay.updateDisplay(Cells.getCellList());
 	}
 	
-	
 	public double getSpeed(){
 		return speed;
 	}
 
 	public void setSpeed(double s ){
 		speed = s;
+		stepTime = new Duration(speed);
 	}
 	
 	public void pauseAnimation(){
