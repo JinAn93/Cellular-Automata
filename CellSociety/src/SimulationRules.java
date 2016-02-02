@@ -4,6 +4,8 @@ import java.util.*;
 public abstract class SimulationRules {
     
     protected static final int EMPTY = 0;
+    protected static final int BLOCKED = -1;
+    
     private final int numStates;
     private Random rand = new Random();    
 
@@ -12,8 +14,11 @@ public abstract class SimulationRules {
     }
 
     protected void applyRule (Cell[][] cellGrid) {
-        for (int i = 1; i < cellGrid.length - 1; i++) {
-            for (int j = 1; j < cellGrid[0].length - 1; j++) {
+        for (int i = 0; i < cellGrid.length; i++) {
+            for (int j = 0; j < cellGrid[0].length; j++) {
+                if(checkState(cellGrid[i][j],BLOCKED)){
+                    continue;
+                }
                 Cell[] neighbors = setNeighbors(cellGrid, i, j);
                 int nextState = findNextState(cellGrid[i][j], neighbors,cellGrid);
                 cellGrid[i][j].setNextState(nextState);
@@ -56,8 +61,8 @@ public abstract class SimulationRules {
         return count;
     }
     protected boolean isGridOpen(Cell[][] grid){
-        for (int i = 1; i < grid.length - 1; i++) {
-            for (int j = 1; j < grid[0].length - 1; j++) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 if(isEmpty(grid[i][j])&& isNextEmpty(grid[i][j])){
                     return true;
                 }
