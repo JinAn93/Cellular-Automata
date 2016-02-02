@@ -19,6 +19,7 @@ public class CellManager {
         	cellGrid[n+1][i].setCurrState(-1);
         	cellGrid[n+i][i].setCurrState(-1);
         }
+    }
 
     public Cell[][] getCellList(){
         return cellGrid;
