@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<simulation>
+	<name>Spreading_Fire</name>
+	<title>SF_Tester1</title>
+	<author>Team15</author>
+	<settings>
+		<probability>0.3</probability>
+	</settings>
+	<dimension>5x5</dimension>
+	<Initial>
+
+
+
+
+
+	</Initial>
+</simulation>
