@@ -7,7 +7,7 @@ public class CellManager {
     private SimulationRules sim3 = new SpreadingFireRules();
     private SimulationRules sim4 = new GameOfLifeRules();
     
-    public void generateList(int n){
+    public void setUp(int n){
         cellGrid = new Cell[n+2][n+2];
         for(int i=0; i<n+2; i++){
         	cellGrid[0][i].setCurrState(-1);
