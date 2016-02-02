@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<simulation>
+	<name>Predator_Prey</name>
+	<title>PP_Tester1</title>
+	<author>Team15</author>
+	<settings>
+		<reproduce></reproduce>
+	</settings>
+	<dimension>5x5</dimension>
+	<Initial>
+
+
+
+
+
+	</Initial>
+</simulation>
