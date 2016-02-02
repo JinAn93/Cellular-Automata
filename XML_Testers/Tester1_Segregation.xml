@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<simulation>
+	<name>Segregation</name>
+	<title>Seg_Tester1</title>
+	<author>Team15</author>
+	<settings>
+		<percentage>50</percentage>
+	</settings>
+	<dimension>5x5</dimension>
+	<Initial>
+		
+
+
+
+		
+	</Initial>
+</simulation>
