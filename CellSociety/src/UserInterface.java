@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.List;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,11 +17,12 @@ public class UserInterface {
     private Scene myScene;
     private Group root;
     private Time time;
+    private List<String> info = null;
     
     public void initStage(Stage s){
         s.setTitle("Cell Society");
 
-        time = new Time();
+        time = new Time(info);
         root = new Group();
 
         root.getChildren().add(makeButtons());
@@ -30,6 +32,8 @@ public class UserInterface {
         s.setScene(myScene);
 
     }
+    
+    
     
     private HBox makeButtons(){
     	Button start = new Button("Start");
@@ -58,7 +62,8 @@ public class UserInterface {
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
     	File file = fileChooser.showOpenDialog(new Stage());
-    
-//    	XML use file
+    	XMLReader readfile = new XMLReader();
+    	info = readfile.readXMLFile(file);
+
     }
 }
