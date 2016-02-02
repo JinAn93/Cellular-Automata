@@ -1,5 +1,8 @@
 import javafx.animation.Timeline;
-import javafx.util.Duration;
+import javafx.scene.shape.Shape;
+import javafx.util.*;
+import java.util.*;
+
 import javafx.animation.KeyFrame;
 
 public class Time {
@@ -49,5 +52,15 @@ public class Time {
 	public void resumeAnimation(){
 		timeline.play();
 	}
-
+	public void stepAnimation(){
+		timeline.pause();
+		step();
+	}
+	public List<Shape> getCellDisplay(){
+		List<Shape> list = new ArrayList<Shape>();
+		for (Shape[] array: celldisplay.getDisplay()){
+			list.addAll(Arrays.asList(array));
+		}
+		return list;
+	}
 }

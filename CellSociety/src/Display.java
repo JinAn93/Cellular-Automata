@@ -4,8 +4,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class Display {
-	public final static int DISPLAY_WIDTH = 300;
-	public final static int DISPLAY_HEIGHT= 300;
+	public final static int DISPLAY_WIDTH = 400;
+	public final static int DISPLAY_HEIGHT= 400;
 	private int COLUMNS;
 	private int ROWS;
 	private int STATES;
@@ -45,6 +45,9 @@ public class Display {
                 Grid[i][j].setFill(colors[cellGrid[i+1][j+1].getCurrState()]); 		
             }
         }
+	}
+	public Shape[][] getDisplay(){
+		return Grid;
 	}
 
 }
