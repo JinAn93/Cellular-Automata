@@ -1,6 +1,8 @@
 import java.io.File;
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,27 +36,26 @@ public class UserInterface {
     }
     
     
-    
+    private Button makeButton(String name, EventHandler<ActionEvent> e){
+    	Button b = new Button(name);
+    	b.setOnAction(e);
+    	return b;
+    }
     private HBox makeButtons(){
-    	Button start = new Button("Start");
-        Button pause = new Button("Pause");
-        Button resume = new Button("Resume");
-        Button step = new Button("Step");
-        Button addspeed = new Button("Speed +");
-        Button reducespeed = new Button("Speed -");
-        Button loadfile = new Button("Load File");
-        
-        start.setOnAction(e -> time.initSimulation());
-        pause.setOnAction(e -> time.pauseAnimation());
-        resume.setOnAction(e -> time.resumeAnimation());
-        step.setOnAction(e -> time.stepAnimation());
-        addspeed.setOnAction(e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
-        reducespeed.setOnAction(e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
+    	
+    	Button start = makeButton(???, e -> time.initSimulation());
+    	Button pause = makeButton(???, e -> time.pauseAnimation());
+        Button resume = makeButton(???, e -> time.resumeAnimation());
+        Button step = makeButton(???, e -> time.stepAnimation());
+        Button addspeed = makeButton(???, e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
+        Button reducespeed = makeButton(???, e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
+        Button loadfile = makeButton(???, e-> fileLoader());
+      
 
-        loadfile.setOnAction(e-> fileLoader());
         HBox buttonlayout = new HBox(SPACING);
-        buttonlayout.setLayoutY(HEIGHT*7/8);
+        
         buttonlayout.getChildren().addAll(start,pause, resume, step, addspeed, reducespeed, loadfile);
+        buttonlayout.setLayoutY(HEIGHT-buttonlayout.getHeight());
         return buttonlayout;
     }
     
