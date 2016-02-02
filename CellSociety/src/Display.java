@@ -1,20 +1,19 @@
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 public class Display {
 	private int DISPLAY_WIDTH = 300;
 	private int DISPLAY_HEIGHT= 300;
-	private int CELL_WIDTH;
-	private int CELL_HEIGHT;
 	private Color[] colors;
 	
-	private Rectangle[][] Grid;
+	private Shape[][] Grid;
 	
 	
 	public void initDisplay(int rows, int columns, int states){
-		CELL_WIDTH = DISPLAY_WIDTH/columns;
-		CELL_HEIGHT = DISPLAY_HEIGHT/rows;
+		int CELL_WIDTH = DISPLAY_WIDTH/columns;
+		int CELL_HEIGHT = DISPLAY_HEIGHT/rows;
 		
 		Rectangle[][] Grid = new Rectangle[columns][rows];
 		for (int i = 0; i < columns; i++) {
@@ -33,9 +32,9 @@ public class Display {
 	}
 
 	public void updateDisplay(Cell[][] cellGrid){
-        for (int i = 0; i < cellGrid.length; i++) {
-            for (int j = 0; j < cellGrid[0].length; j++) {
-                Grid[i][j].setFill(colors[cellGrid[i][j].getCurrState()]); 		
+        for (int i = 0; i < cellGrid.length-2; i++) {
+            for (int j = 0; j < cellGrid[0].length-2; j++) {
+                Grid[i][j].setFill(colors[cellGrid[i+1][j+1].getCurrState()]); 		
             }
         }
 	}
