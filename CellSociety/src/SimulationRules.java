@@ -31,7 +31,15 @@ public abstract class SimulationRules {
     protected boolean isEmpty (Cell currCell) {
         return (currCell.getCurrState() == EMPTY);
     }
-    
+    protected boolean isNextEmpty(Cell currCell){
+        return (currCell.getNextState()==EMPTY);
+    }
+    protected boolean checkState(Cell curr, int state){
+        return (curr.getCurrState()==state);
+    }
+    protected boolean checkNextState(Cell curr, int state){
+        return (curr.getNextState()==state);
+    }
     protected double calculateLikeNeighbors(Cell curr,Cell[] neighbors){
         double likeCount = countNeighborState(neighbors,curr.getCurrState());
         double occupiedNeighbors = neighbors.length-countNeighborState(neighbors,EMPTY);
@@ -50,7 +58,7 @@ public abstract class SimulationRules {
     protected boolean isGridOpen(Cell[][] grid){
         for (int i = 1; i < grid.length - 1; i++) {
             for (int j = 1; j < grid[0].length - 1; j++) {
-                if(isEmpty(grid[i][j])){
+                if(isEmpty(grid[i][j])&& isNextEmpty(grid[i][j])){
                     return true;
                 }
             }

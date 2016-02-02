@@ -29,7 +29,7 @@ public class SegregationRules extends SimulationRules {
         while (isGridOpen(grid)) {//check if this is the condition we want
             int x = getRand().nextInt(grid[0].length-3)+1;
             int y = getRand().nextInt(grid.length-3)+1;
-            if (isEmpty(grid[x][y]) && grid[x][y].getNextState() == EMPTY) {
+            if (isEmpty(grid[x][y]) && isNextEmpty(grid[x][y])) {
                 grid[x][y].setNextState(state);
                 break;
             }
