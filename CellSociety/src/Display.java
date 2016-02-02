@@ -4,20 +4,28 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class Display {
-	private int DISPLAY_WIDTH = 300;
-	private int DISPLAY_HEIGHT= 300;
+	public final static int DISPLAY_WIDTH = 300;
+	public final static int DISPLAY_HEIGHT= 300;
+	private int COLUMNS;
+	private int ROWS;
+	private int STATES;
 	private Color[] colors;
 	
 	private Shape[][] Grid;
 	
+	public Display(int rows, int columns, int states){
+		COLUMNS = columns;
+		ROWS = rows;
+		STATES = states;
+	}
 	
-	public void initDisplay(int rows, int columns, int states){
-		int CELL_WIDTH = DISPLAY_WIDTH/columns;
-		int CELL_HEIGHT = DISPLAY_HEIGHT/rows;
+	public void initDisplay(){
+		int CELL_WIDTH = DISPLAY_WIDTH/COLUMNS;
+		int CELL_HEIGHT = DISPLAY_HEIGHT/ROWS;
 		
-		Rectangle[][] Grid = new Rectangle[columns][rows];
-		for (int i = 0; i < columns; i++) {
-            for (int j = 0; j < rows; j++) {
+		Rectangle[][] Grid = new Rectangle[COLUMNS][ROWS];
+		for (int i = 0; i < COLUMNS; i++) {
+            for (int j = 0; j < ROWS; j++) {
             	Grid[i][j] = new Rectangle();
             	Grid[i][j].setX(CELL_WIDTH*i);
             	Grid[i][j].setY(CELL_HEIGHT*j);
@@ -25,9 +33,9 @@ public class Display {
             	Grid[i][j].setHeight(CELL_HEIGHT);
             }
 		}
-		Color[] colors = new Color[states];
-		for (int k=0; k<states; k++){
-			colors[k] = Color.hsb(k*360/states, 1.0, 1.0);
+		Color[] colors = new Color[STATES];
+		for (int k=0; k<STATES; k++){
+			colors[k] = Color.hsb(k*360/STATES, 1.0, 1.0);
 		}
 	}
 

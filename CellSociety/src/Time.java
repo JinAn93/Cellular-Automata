@@ -12,18 +12,18 @@ public class Time {
 	private void checkConditions(){
 		
 	}
-	private void initSimulation(){
+	public void initSimulation(){
 		CellManager Cells = new CellManager();
-		Display celldisplay = new Display();
+		Display celldisplay = new Display(rows, columns, states);
 		
 		Cells.setUp();
-		celldisplay.initDisplay(rows, columns, states);
+		celldisplay.initDisplay();
 		
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(speed),
 				   e -> step()));
-				 timeline.play();
+				 timeline.playFromStart();
 	}
 
 	private void step(){
@@ -31,7 +31,6 @@ public class Time {
 		Cells.moveNextToCurrentState();
 		
 		celldisplay.updateDisplay(Cells.getCellList());
-		
 	}
 	
 	
@@ -41,6 +40,14 @@ public class Time {
 
 	public void setSpeed(double s ){
 		speed = s;
+	}
+	
+	public void pauseAnimation(){
+		timeline.pause();
+	}
+	
+	public void resumeAnimation(){
+		timeline.play();
 	}
 
 }
