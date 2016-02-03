@@ -94,9 +94,12 @@ public class PredatorPreyRules extends SimulationRules {
 
     @Override
     protected void setSimulationParameters (String[] simParams) {
+
         reproductionTime = Double.parseDouble(simParams[0]);
         startEnergy = Double.parseDouble(simParams[1]);
         fishEnergy = Double.parseDouble(simParams[2]);
+       
+
     }
 
 }

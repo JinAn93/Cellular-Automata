@@ -37,7 +37,8 @@ public class SpreadingFireRules extends SimulationRules {
 
     @Override
     protected void setSimulationParameters (String[] simParams) {
-        probCatch = Double.parseDouble(simParams[0]);        
+        probCatch = Double.parseDouble(simParams[0]);       
+       
     }
 
 }

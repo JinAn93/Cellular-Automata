@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class UserInterface {
 	public static final double WIDTH = 500;
 	public static final double HEIGHT = 500;
-	public static final double SPEED_CHANGE = 10;
+	public static final double SPEED_CHANGE = 500;
 	public static final double SPACING = 10;
 	private Scene myScene;
 	private Group root;
@@ -48,8 +48,8 @@ public class UserInterface {
 		Button pause = makeButton("pause", e -> {if(time!=null){time.pauseAnimation();}});
 		Button resume = makeButton("resume", e -> {if(time!=null){time.resumeAnimation();}});
 		Button step = makeButton("step", e -> {if(time!=null){time.stepAnimation();}});
-		Button addspeed = makeButton("speed+", e -> {if(time!=null){time.setSpeed(time.getSpeed()+SPEED_CHANGE);}});
-		Button reducespeed = makeButton("speed-", e -> {if(time!=null){time.setSpeed(time.getSpeed()-SPEED_CHANGE);}});
+		Button addspeed = makeButton("speed+", e -> {if(time!=null&&time.getSpeed()-SPEED_CHANGE>0){time.setSpeed(time.getSpeed()-SPEED_CHANGE);}});
+		Button reducespeed = makeButton("speed-", e -> {if(time!=null){time.setSpeed(time.getSpeed()+SPEED_CHANGE);}});
 		Button loadfile = makeButton("load file", e-> fileLoader());
 
 

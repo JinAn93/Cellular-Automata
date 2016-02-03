@@ -27,7 +27,7 @@ public abstract class SimulationRules {
         int count = 0;
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                cellGrid[i][j].setCurrState(entry[count]);
+                cellGrid[i][j].setCurrState(entry[count]);                
                 count++;
             }
         }

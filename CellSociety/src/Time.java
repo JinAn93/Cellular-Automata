@@ -7,7 +7,7 @@ import javafx.animation.KeyFrame;
 
 public class Time {
 
-	public static final double INITIAL_SPEED = 1;// address this: put in xml? what is the "correct" time?
+	public static final double INITIAL_SPEED = 1000;// address this: put in xml? what is the "correct" time?
 	private List<String> simulations =Arrays.asList("Segregation", "Predator_Prey", "Spreading_Fire","Game_of_Life");
 	
 	private Timeline timeline;
@@ -41,16 +41,17 @@ public class Time {
 		name = settings[0];
 		title = settings[1];
 		author= settings[2];
-		n =  settings[3].charAt(0)-'0';
-		m =  settings[3].charAt(2)-'0';
+		numstates = Integer.parseInt(settings[3]);
+		n =  settings[4].charAt(0)-'0';
+		m =  settings[4].charAt(2)-'0';
 
-		char[] ini = settings[4].toCharArray();
+		char[] ini = settings[5].toCharArray();
 		initial = new int[ini.length];
 		for(int i=0; i<ini.length;i++ ){
 			initial[i] = ini[i]-'0';
 		}
-		if (settings.length>4){
-			params = Arrays.copyOfRange(settings, 5, settings.length);
+		if (settings.length>5){
+			params = Arrays.copyOfRange(settings, 6, settings.length);		
 		}
 		else{
 			params = null;
@@ -73,6 +74,7 @@ public class Time {
 		celldisplay = new Display(n, m, numstates);
 
 		Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
+		System.out.println("Grid Stuff "+n+" "+m);
 
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
@@ -86,6 +88,7 @@ public class Time {
 		Cells.moveNextToCurrentState();
 
 		celldisplay.updateDisplay(Cells.getCellList());
+		timeline.setDelay(new Duration(speed));
 	}
 
 	public double getSpeed(){
