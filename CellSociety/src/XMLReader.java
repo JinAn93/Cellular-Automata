@@ -19,6 +19,7 @@ public class XMLReader {
 	private static final String NAME = "name";
 	private static final String TITLE = "title";
 	private static final String AUTHOR = "author";
+	private static final String NUMSTATES = "numstates";
 	private static final String PERCENTAGE = "percentage";
 	private static final String REPRODUCE = "reproduce";
 	private static final String STARTENERGY = "startEnergy";
@@ -44,6 +45,7 @@ public class XMLReader {
 					strsimInfo+=whichSim;
 					strsimInfo+=((",") + (eElement.getElementsByTagName(TITLE).item(0).getTextContent()));
 					strsimInfo+=((",") + (eElement.getElementsByTagName(AUTHOR).item(0).getTextContent()));
+					strsimInfo+=((",") + (eElement.getElementsByTagName(NUMSTATES).item(0).getTextContent()));
 					strsimInfo+=((",") + (eElement.getElementsByTagName(DIMENSION).item(0).getTextContent()));
 					strsimInfo+=((",") + (eElement.getElementsByTagName(INITIAL).item(0).getTextContent()));
 					if(whichSim.equals(SEG)){ 

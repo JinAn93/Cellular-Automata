@@ -3,6 +3,7 @@
 	<name>Game_of_Life</name>
 	<title>GOL_Tester1</title>
 	<author>Team15</author>
+	<numstates>2</numstates>
 	<dimension>5x5</dimension>
-	<Initial>0110010101110010111100001</Initial>
+	<Initial>2112212121112212111122221</Initial>
 </simulation>
