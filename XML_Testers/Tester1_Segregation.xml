@@ -1,20 +1,9 @@
 <?xml version="1.0"?>
 <simulation>
-<name>Segregation</name>
+	<name>Segregation</name>
 	<title>Seg_Tester1</title>
 	<author>Team15</author>
-	<setting>
-		<percentage>50</percentage>
-	</setting>
+	<percentage>50</percentage>
 	<dimension>5x5</dimension>
-	<Initial>
-		00000
-		00000
-		00000
-		00000
-		00000
-	</Initial>
+	<Initial>0000000000000000000000000</Initial>
 </simulation>
-
-
-a string separated by comma
