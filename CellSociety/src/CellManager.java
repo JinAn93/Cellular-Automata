@@ -6,18 +6,24 @@ public class CellManager {
     private SimulationRules sim2 = new PredatorPreyRules();
     private SimulationRules sim3 = new SpreadingFireRules();
     private SimulationRules sim4 = new GameOfLifeRules();
+    private int myWhichsim;
     
-    public void setUp(int n){
-        cellGrid = new Cell[n+2][n+2];
-        for(int i=0; i<n+2; i++){
-        	cellGrid[0][i].setCurrState(-1);
-        	cellGrid[0][i].setNextState(-1);
-        	cellGrid[i][0].setCurrState(-1);
-        	cellGrid[i][0].setNextState(-1);
-        	cellGrid[i][n+1].setCurrState(-1);
-        	cellGrid[i][n+1].setNextState(-1);
-        	cellGrid[n+1][i].setCurrState(-1);
-        	cellGrid[n+i][i].setCurrState(-1);
+    public void setUp(int r, int c, int whichsim){
+        cellGrid = new Cell[r+2][c+2];
+        this.myWhichsim = whichsim;
+        for(int i=0; i<r+2; i++){
+        	for(int j=0; j<c+2; j++){
+        		if(i==0 || i == r+1){
+        			cellGrid[i][j].setCurrState(-1);
+            		cellGrid[i][j].setNextState(-1);
+        		}
+        		else{
+        			cellGrid[i][0].setCurrState(-1);
+        			cellGrid[i][0].setNextState(-1);
+        			cellGrid[i][c+1].setCurrState(-1);
+        			cellGrid[i][c+1].setNextState(-1);
+        		}		
+        	}
         }
     }
 
@@ -26,6 +32,7 @@ public class CellManager {
     }
     
     public void updateStates(int whichSim){
+    	
     	if(whichSim == 1)
     		sim1.applyRule(cellGrid);
     	if(whichSim == 2)
