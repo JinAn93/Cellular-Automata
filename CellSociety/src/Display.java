@@ -31,6 +31,7 @@ public class Display {
             	Grid[i][j].setY(CELL_HEIGHT*j);
             	Grid[i][j].setWidth(CELL_WIDTH);
             	Grid[i][j].setHeight(CELL_HEIGHT);
+            	Grid[i][j].setFill(Color.ALICEBLUE);
             }
 		}
 		Color[] colors = new Color[STATES];
