@@ -35,7 +35,7 @@ public class XMLReader {
 			Document doc = dBuilder.parse(file); 
 			doc.getDocumentElement().normalize();
 			String whichSim = "";
-			NodeList nList = doc.getElementsByTagName("simulation");
+			NodeList nList = doc.getElementsByTagName(SIMULATION);
 			for (int i=0; i<nList.getLength(); i++){
 				Node nNode = nList.item(i);
 				if(nNode.getNodeType() == Node.ELEMENT_NODE){
@@ -44,6 +44,8 @@ public class XMLReader {
 					strsimInfo+=whichSim;
 					strsimInfo+=((",") + (eElement.getElementsByTagName(TITLE).item(0).getTextContent()));
 					strsimInfo+=((",") + (eElement.getElementsByTagName(AUTHOR).item(0).getTextContent()));
+					strsimInfo+=((",") + (eElement.getElementsByTagName(DIMENSION).item(0).getTextContent()));
+					strsimInfo+=((",") + (eElement.getElementsByTagName(INITIAL).item(0).getTextContent()));
 					if(whichSim == SEG){ 
 						strsimInfo+=((",") + (eElement.getElementsByTagName(PERCENTAGE).item(0).getTextContent()));
 					}
@@ -55,9 +57,7 @@ public class XMLReader {
 						
 					if(whichSim == SF){
 						strsimInfo+=((",") + (eElement.getElementsByTagName(PROBABILITY).item(0).getTextContent()));					
-					}
-					strsimInfo+=((",") + (eElement.getElementsByTagName(DIMENSION).item(0).getTextContent()));
-					strsimInfo+=((",") + (eElement.getElementsByTagName(INITIAL).item(0).getTextContent()));
+					}				
 				}
 			}
 		}
