@@ -98,7 +98,7 @@ public class PredatorPreyRules extends SimulationRules {
         reproductionTime = Double.parseDouble(simParams[0]);
         startEnergy = Double.parseDouble(simParams[1]);
         fishEnergy = Double.parseDouble(simParams[2]);
-       
+       //System.out.println(fishEnergy);
 
     }
 
