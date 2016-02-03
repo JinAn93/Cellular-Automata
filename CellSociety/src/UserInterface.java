@@ -44,12 +44,12 @@ public class UserInterface {
 	}
 	private HBox makeButtons(){
 //TODO: make a resources file for buttons
-		Button start = makeButton("start", e -> time.startAnimation());
-		Button pause = makeButton("pause", e -> time.pauseAnimation());
-		Button resume = makeButton("resume", e -> time.resumeAnimation());
-		Button step = makeButton("step", e -> time.stepAnimation());
-		Button addspeed = makeButton("speed+", e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
-		Button reducespeed = makeButton("speed-", e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
+		Button start = makeButton("start", e -> {if(time!=null){time.startAnimation();}});
+		Button pause = makeButton("pause", e -> {if(time!=null){time.pauseAnimation();}});
+		Button resume = makeButton("resume", e -> {if(time!=null){time.resumeAnimation();}});
+		Button step = makeButton("step", e -> {if(time!=null){time.stepAnimation();}});
+		Button addspeed = makeButton("speed+", e -> {if(time!=null){time.setSpeed(time.getSpeed()+SPEED_CHANGE);}});
+		Button reducespeed = makeButton("speed-", e -> {if(time!=null){time.setSpeed(time.getSpeed()-SPEED_CHANGE);}});
 		Button loadfile = makeButton("load file", e-> fileLoader());
 
 
@@ -65,9 +65,11 @@ public class UserInterface {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		File file = fileChooser.showOpenDialog(new Stage());
-		XMLReader readfile = new XMLReader();
-		info = readfile.readXMLFile(file);
-		makeTime();
+		if(file!=null){
+		    XMLReader readfile = new XMLReader();
+		    info = readfile.readXMLFile(file);
+		    makeTime();
+		}
 	}
 
 
