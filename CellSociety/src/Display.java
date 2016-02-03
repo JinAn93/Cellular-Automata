@@ -11,19 +11,20 @@ public class Display {
 	private int STATES;
 	private Color[] colors;
 	
-	private Shape[][] Grid;
+	private Rectangle[][] Grid;
 	
 	public Display(int rows, int columns, int states){
 		COLUMNS = columns;
 		ROWS = rows;
 		STATES = states;
+		initDisplay();
 	}
 	
 	public void initDisplay(){
 		int CELL_WIDTH = DISPLAY_WIDTH/COLUMNS;
 		int CELL_HEIGHT = DISPLAY_HEIGHT/ROWS;
 		
-		Rectangle[][] Grid = new Rectangle[COLUMNS][ROWS];
+		Grid = new Rectangle[COLUMNS][ROWS];
 		for (int i = 0; i < COLUMNS; i++) {
             for (int j = 0; j < ROWS; j++) {
             	Grid[i][j] = new Rectangle();
@@ -31,7 +32,7 @@ public class Display {
             	Grid[i][j].setY(CELL_HEIGHT*j);
             	Grid[i][j].setWidth(CELL_WIDTH);
             	Grid[i][j].setHeight(CELL_HEIGHT);
-            	Grid[i][j].setFill(Color.ALICEBLUE);
+            	Grid[i][j].setFill(Color.rgb(i*255/COLUMNS, j*255/ROWS, 0));
             }
 		}
 		Color[] colors = new Color[STATES];
@@ -43,7 +44,7 @@ public class Display {
 	public void updateDisplay(Cell[][] cellGrid){
         for (int i = 0; i < cellGrid.length-2; i++) {
             for (int j = 0; j < cellGrid[0].length-2; j++) {
-                Grid[i][j].setFill(colors[cellGrid[i+1][j+1].getCurrState()]); 		
+                Grid[i][j].setFill(colors[cellGrid[i+1][j+1].getCurrState()-1]); 		
             }
         }
 	}

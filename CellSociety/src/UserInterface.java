@@ -44,7 +44,7 @@ public class UserInterface {
 	}
 	private HBox makeButtons(){
 
-		Button start = makeButton("start", e -> time.initSimulation());
+		Button start = makeButton("start", e -> time.startAnimation());
 		Button pause = makeButton("pause", e -> time.pauseAnimation());
 		Button resume = makeButton("resume", e -> time.resumeAnimation());
 		Button step = makeButton("step", e -> time.stepAnimation());
@@ -66,7 +66,6 @@ public class UserInterface {
 		File file = fileChooser.showOpenDialog(new Stage());
 		XMLReader readfile = new XMLReader();
 		info = readfile.readXMLFile(file);
-		System.out.println("-"+info+"-");
 		makeTime();
 	}
 
