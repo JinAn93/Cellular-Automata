@@ -18,6 +18,7 @@ public class Time {
 	private String title;
 	private String author;
 	private double settings;
+	private int numstates;
 	private int n;
 	private int m;
 	private String initial;
@@ -50,10 +51,10 @@ public class Time {
 	
 	public void initSimulation(){
 		checkConditions();
-		CellManager Cells = new CellManager();
-		Display celldisplay = new Display(n, m, );
+		 Cells = new CellManager();
+		 celldisplay = new Display(n, m, numstates );
 		
-		Cells.setUp(rows);
+		Cells.setUp(n, m, name);
 		celldisplay.initDisplay();
 		
 		timeline = new Timeline();

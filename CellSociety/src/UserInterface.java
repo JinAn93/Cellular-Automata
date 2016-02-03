@@ -24,18 +24,20 @@ public class UserInterface {
     public void initStage(Stage s){
         s.setTitle("Cell Society");
 
-        time = new Time(info);
         root = new Group();
 
         root.getChildren().add(makeButtons());
-        root.getChildren().addAll(time.getCellDisplay());
         
         myScene = new Scene(root, WIDTH,HEIGHT, Color.WHITE);
         s.setScene(myScene);
 
     }
     
-    
+    private void makeTime(){
+      time = new Time(info);
+      root.getChildren().addAll(time.getCellDisplay());
+
+    }
     private Button makeButton(String name, EventHandler<ActionEvent> e){
     	Button b = new Button(name);
     	b.setOnAction(e);
@@ -43,19 +45,19 @@ public class UserInterface {
     }
     private HBox makeButtons(){
     	
-    	Button start = makeButton(???, e -> time.initSimulation());
-    	Button pause = makeButton(???, e -> time.pauseAnimation());
-        Button resume = makeButton(???, e -> time.resumeAnimation());
-        Button step = makeButton(???, e -> time.stepAnimation());
-        Button addspeed = makeButton(???, e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
-        Button reducespeed = makeButton(???, e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
-        Button loadfile = makeButton(???, e-> fileLoader());
+    	Button start = makeButton("start", e -> time.initSimulation());
+    	Button pause = makeButton("pause", e -> time.pauseAnimation());
+        Button resume = makeButton("resume", e -> time.resumeAnimation());
+        Button step = makeButton("step", e -> time.stepAnimation());
+        Button addspeed = makeButton("speed+", e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
+        Button reducespeed = makeButton("speed-", e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
+        Button loadfile = makeButton("load file", e-> fileLoader());
       
 
         HBox buttonlayout = new HBox(SPACING);
         
         buttonlayout.getChildren().addAll(start,pause, resume, step, addspeed, reducespeed, loadfile);
-        buttonlayout.setLayoutY(HEIGHT-buttonlayout.getHeight());
+        buttonlayout.setLayoutY(HEIGHT*7/8);
         return buttonlayout;
     }
     
@@ -65,6 +67,8 @@ public class UserInterface {
     	File file = fileChooser.showOpenDialog(new Stage());
     	XMLReader readfile = new XMLReader();
     	info = readfile.readXMLFile(file);
-
+    	for (String e: info){
+    	System.out.println(e);
+    	}
     }
 }
