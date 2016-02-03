@@ -68,7 +68,7 @@ public class UserInterface {
     	XMLReader readfile = new XMLReader();
     	info = readfile.readXMLFile(file);
     	for (String e: info){
-    	System.out.println(e);
+    	System.out.println("-"+e+"-");
     	}
     }
 }

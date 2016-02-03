@@ -6,6 +6,8 @@ import java.util.*;
 import javafx.animation.KeyFrame;
 
 public class Time {
+	private List<String> simulations =Arrays.asList("Segregation", "Predator_Prey", "Spreading_Fire","Game_of_Life");
+	
 	private Timeline timeline;
 	private Duration stepTime;
 	private CellManager Cells;
@@ -54,7 +56,7 @@ public class Time {
 		 Cells = new CellManager();
 		 celldisplay = new Display(n, m, numstates );
 		
-		Cells.setUp(n, m, name);
+		Cells.setUp(n, m, simulations.lastIndexOf(name));
 		celldisplay.initDisplay();
 		
 		timeline = new Timeline();
