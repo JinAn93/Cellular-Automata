@@ -67,8 +67,12 @@ public class UserInterface {
     	File file = fileChooser.showOpenDialog(new Stage());
     	XMLReader readfile = new XMLReader();
     	info = readfile.readXMLFile(file);
-    	for (String e: info){
-    	System.out.println("-"+e+"-");
-    	}
+    	for (String s: info){
+			s.replaceAll("\\s","");
+	    	System.out.println("-"+s+"-");
+
+		}
+    	makeTime();
+    	
     }
 }
