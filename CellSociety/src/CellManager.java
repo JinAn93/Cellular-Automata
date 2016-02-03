@@ -8,7 +8,7 @@ public class CellManager {
     private SimulationRules sim4 = new GameOfLifeRules();
     private int myWhichsim;
     
-    public void setUp(int r, int c, int whichsim){
+    public void setUp(int r, int c, int whichsim, int[] entry){
         cellGrid = new Cell[r+2][c+2];
         this.myWhichsim = whichsim;
         for(int i=0; i<r+2; i++){
@@ -16,39 +16,58 @@ public class CellManager {
         		if(i==0 || i == r+1){
         			cellGrid[i][j].setCurrState(-1);
             		cellGrid[i][j].setNextState(-1);
-        		}
-        		else{
-        			cellGrid[i][0].setCurrState(-1);
-        			cellGrid[i][0].setNextState(-1);
-        			cellGrid[i][c+1].setCurrState(-1);
-        			cellGrid[i][c+1].setNextState(-1);
-        		}		
+        		}	
         	}
+			cellGrid[i][0].setCurrState(-1);
+			cellGrid[i][0].setNextState(-1);
+			cellGrid[i][c+1].setCurrState(-1);
+			cellGrid[i][c+1].setNextState(-1);
         }
     }
 
+    public void fillCellgrid(int[] entry){
+    	int count = 0;
+    	for(int i=1; i<cellGrid.length-1;i++){
+    		for(int j=1; j<cellGrid[0].length-1; j++){
+    			cellGrid[i][j].setCurrState(entry[count]);
+    			count++;
+    		}
+    	}
+    }
+    
     public Cell[][] getCellList(){
         return cellGrid;
     }
     
-    public void updateStates(int whichSim){
+    public void updateStates(){
     	
-    	if(whichSim == 1)
+    	if(myWhichsim == 1)
     		sim1.applyRule(cellGrid);
-    	if(whichSim == 2)
+    	if(myWhichsim == 2)
     		sim2.applyRule(cellGrid);
-    	if(whichSim == 3)
+    	if(myWhichsim == 3)
     		sim3.applyRule(cellGrid);
-    	if(whichSim == 4)
+    	if(myWhichsim == 4)
     		sim4.applyRule(cellGrid);
     }
     
     public void moveNextToCurrentState(){
-    	for(int i=1; i<cellGrid.length-1; i++){
-    		for(int j=1; j<cellGrid[0].length; j++){
-    			cellGrid[i][j].setCurrState(cellGrid[i][j].getNextState());
-    			cellGrid[i][j].setNextState(0);
+    	for(int i=0; i<cellGrid.length; i++){
+    		for(int j=0; j<cellGrid[0].length; j++){
+    			if(cellGrid[i][j].getCurrState() != -1){
+    				cellGrid[i][j].setCurrState(cellGrid[i][j].getNextState());
+        			cellGrid[i][j].setNextState(0);			
+    			}
     		}
     	}
     }
+    
+    public int getWhichsim(){
+    	return myWhichsim;
+    }
+    
+    public void setWhichsim(int whichSim){
+    	this.myWhichsim = whichSim;
+    }
+    
 }

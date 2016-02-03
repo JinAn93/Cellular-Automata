@@ -4,8 +4,9 @@
 	<title>PP_Tester1</title>
 	<author>Team15</author>
 	<settings>
-		<reproduce></reproduce>
+		<reproduce>3,</reproduce>
 	</settings>
+	<numstates>3</numstates>
 	<dimension>5x5</dimension>
 	<Initial>
 

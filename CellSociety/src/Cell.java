@@ -1,13 +1,9 @@
 
-public abstract class Cell {
-    private int currState;
-    private int nextState;
-
-
-    public Cell (int curr) {
-        currState = curr;
-        nextState = 0;
-    }
+public class Cell {
+    private int currState = 0;
+    private int nextState = 0;
+    private int turnsOnState = 0;
+    private int energy;
 
     public int getCurrState () {
         return currState;
@@ -25,6 +21,20 @@ public abstract class Cell {
         this.nextState = nextState;
     }
     
-   
+    
+    public int getTurnsOnState () {
+        return turnsOnState;
+    }
+
+    public void setTurnsOnState (int turnsOnState) {
+        this.turnsOnState = turnsOnState;
+    }
+    public int getEnergy () {
+        return energy;
+    }
+
+    public void setEnergy (int energy) {
+        this.energy = energy;
+    }
 
 }
