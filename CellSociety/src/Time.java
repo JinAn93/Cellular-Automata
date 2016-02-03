@@ -19,11 +19,11 @@ public class Time {
 	private String name;
 	private String title;
 	private String author;
-	private double settings;
+	private String settings;
 	private int numstates;
 	private int n;
 	private int m;
-	private String initial;
+	private int[] initial;
 	
 	public Time (List<String> info){
 		settingsFromFile(info);
@@ -32,31 +32,36 @@ public class Time {
 	}
 	
 	private void settingsFromFile(List<String> info){
-		name = info.get(1);
-		title = info.get(2);
-		author= info.get(3);
-		settings = Integer.parseInt(info.get(4));
-		String[] dim = info.get(5).split("x");
+		
+		name = info.get(0);
+		title = info.get(1);
+		author= info.get(2);
+		settings = info.get(3);
+		String[] dim = info.get(4).split("x");
 		n = Integer.parseInt(dim[0]);
 		m = Integer.parseInt(dim[1]);
-		initial = info.get(6);
-	}
-	
-	private void checkConditions(){
-		if (info.isEmpty()){
-//			error
+		char[] ini = info.get(5).toCharArray();
+		initial = new int[ini.length];
+		for(int i=0; i<ini.length;i++ ){
+			initial[i] = ini[i]-'0';
 		}
 	}
+	
+//	private void checkConditions(){
+//		if (info.isEmpty()){
+////			error
+//		}
+//	}
 	
 	
 	
 	
 	public void initSimulation(){
-		checkConditions();
+//		checkConditions();
 		 Cells = new CellManager();
 		 celldisplay = new Display(n, m, numstates );
 		
-		Cells.setUp(n, m, simulations.lastIndexOf(name));
+		Cells.setUp(n, m, simulations.lastIndexOf(name), initial);
 		celldisplay.initDisplay();
 		
 		timeline = new Timeline();

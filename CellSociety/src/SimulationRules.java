@@ -2,6 +2,7 @@ import java.util.*;
 
 public abstract class SimulationRules {
 
+
 	protected static final int EMPTY = 0;
 	protected static final int BLOCKED = -1;
 

@@ -5,6 +5,7 @@ public class Cell {
     private int turnsOnState = 0;
     private int energy;
 
+
     public int getCurrState () {
         return currState;
     }
