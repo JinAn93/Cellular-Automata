@@ -46,16 +46,16 @@ public class XMLReader {
 					strsimInfo+=((",") + (eElement.getElementsByTagName(AUTHOR).item(0).getTextContent()));
 					strsimInfo+=((",") + (eElement.getElementsByTagName(DIMENSION).item(0).getTextContent()));
 					strsimInfo+=((",") + (eElement.getElementsByTagName(INITIAL).item(0).getTextContent()));
-					if(whichSim == SEG){ 
+					if(whichSim.equals(SEG)){ 
 						strsimInfo+=((",") + (eElement.getElementsByTagName(PERCENTAGE).item(0).getTextContent()));
 					}
-					if(whichSim == PP){
+					if(whichSim.equals(PP)){
 						strsimInfo+=((",") + (eElement.getElementsByTagName(REPRODUCE).item(0).getTextContent()));
 						strsimInfo+=((",") + (eElement.getElementsByTagName(STARTENERGY).item(0).getTextContent()));
 						strsimInfo+=((",") + (eElement.getElementsByTagName(FISHENERGY).item(0).getTextContent()));
 					}
 						
-					if(whichSim == SF){
+					if(whichSim.equals(SF)){
 						strsimInfo+=((",") + (eElement.getElementsByTagName(PROBABILITY).item(0).getTextContent()));					
 					}				
 				}
