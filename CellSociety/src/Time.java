@@ -9,7 +9,7 @@ public class Time {
 
 	public static final double INITIAL_SPEED = 1;// address this: put in xml? what is the "correct" time?
 	private List<String> simulations =Arrays.asList("Segregation", "Predator_Prey", "Spreading_Fire","Game_of_Life");
-
+	
 	private Timeline timeline;
 	private Duration stepTime;
 	private CellManager Cells;
@@ -21,7 +21,7 @@ public class Time {
 	private String name;
 	private String title;
 	private String author;
-	private int numstates;
+	private int numstates = 2; //change this to make flexible--put in xml?
 	private int n;
 	private int m;
 	private int[] initial;
