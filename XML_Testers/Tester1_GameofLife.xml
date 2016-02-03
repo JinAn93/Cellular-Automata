@@ -3,13 +3,6 @@
 	<name>Game_of_Life</name>
 	<title>GOL_Tester1</title>
 	<author>Team15</author>
-	<settings></settings>
 	<dimension>5x5</dimension>
-	<Initial>
-		01100
-		10101
-		11001
-		01111
-		00001
-	</Initial>
+	<Initial>0110010101110010111100001</Initial>
 </simulation>

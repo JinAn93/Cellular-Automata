@@ -11,38 +11,59 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XMLReader {
-
-	public List<String> readXMLFile(File file){
-		List<String> simInfo = new ArrayList<String>();
+	private static final String SEG = "Segregation";
+	private static final String GOL = "Game_of_Life";
+	private static final String PP = "Predator_Prey";
+	private static final String SF = "Spreading_Fire";
+	private static final String SIMULATION = "simulation";
+	private static final String NAME = "name";
+	private static final String TITLE = "title";
+	private static final String AUTHOR = "author";
+	private static final String PERCENTAGE = "percentage";
+	private static final String REPRODUCE = "reproduce";
+	private static final String STARTENERGY = "startenergy";
+	private static final String FISHENERGY = "fishENERGY";
+	private static final String PROBABILITY = "probability";
+	private static final String DIMENSION = "dimension";
+	private static final String INITIAL = "Initial";
+	
+	public String readXMLFile(File file){
+		String strsimInfo = new String();
 		try{
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file); 
 			doc.getDocumentElement().normalize();
-			
+			String whichSim = "";
 			NodeList nList = doc.getElementsByTagName("simulation");
 			for (int i=0; i<nList.getLength(); i++){
 				Node nNode = nList.item(i);
 				if(nNode.getNodeType() == Node.ELEMENT_NODE){
 					Element eElement = (Element) nNode;
-					simInfo.add(eElement.getElementsByTagName("name").item(0).getTextContent());
-					simInfo.add(eElement.getElementsByTagName("title").item(0).getTextContent());
-					simInfo.add(eElement.getElementsByTagName("author").item(0).getTextContent());
-					simInfo.add(eElement.getElementsByTagName("settings").item(0).getTextContent());
-					simInfo.add(eElement.getElementsByTagName("dimension").item(0).getTextContent());
-					simInfo.add(eElement.getElementsByTagName("Initial").item(0).getTextContent());
+					whichSim += (eElement.getElementsByTagName(NAME).item(0).getTextContent());
+					strsimInfo+=whichSim;
+					strsimInfo+=((",") + (eElement.getElementsByTagName(TITLE).item(0).getTextContent()));
+					strsimInfo+=((",") + (eElement.getElementsByTagName(AUTHOR).item(0).getTextContent()));
+					if(whichSim == SEG){ 
+						strsimInfo+=((",") + (eElement.getElementsByTagName(PERCENTAGE).item(0).getTextContent()));
+					}
+					if(whichSim == PP){
+						strsimInfo+=((",") + (eElement.getElementsByTagName(REPRODUCE).item(0).getTextContent()));
+						strsimInfo+=((",") + (eElement.getElementsByTagName(STARTENERGY).item(0).getTextContent()));
+						strsimInfo+=((",") + (eElement.getElementsByTagName(FISHENERGY).item(0).getTextContent()));
+					}
+						
+					if(whichSim == SF){
+						strsimInfo+=((",") + (eElement.getElementsByTagName(PROBABILITY).item(0).getTextContent()));					
+					}
+					strsimInfo+=((",") + (eElement.getElementsByTagName(DIMENSION).item(0).getTextContent()));
+					strsimInfo+=((",") + (eElement.getElementsByTagName(INITIAL).item(0).getTextContent()));
 				}
 			}
-			//name of simulation
-			//title for simulation
-			//author of simulation
-			//settings for global configuration parameters
-			//dimensions of grid and initial configuration of the states for cells
-			
-			}
+		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
-		return simInfo;
+		return strsimInfo;
 	}
 }
