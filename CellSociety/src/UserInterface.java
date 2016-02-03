@@ -1,6 +1,8 @@
 import java.io.File;
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,39 +24,40 @@ public class UserInterface {
     public void initStage(Stage s){
         s.setTitle("Cell Society");
 
-        time = new Time(info);
         root = new Group();
 
         root.getChildren().add(makeButtons());
-        root.getChildren().addAll(time.getCellDisplay());
         
         myScene = new Scene(root, WIDTH,HEIGHT, Color.WHITE);
         s.setScene(myScene);
 
     }
     
-    
-    
-    private HBox makeButtons(){
-    	Button start = new Button("Start");
-        Button pause = new Button("Pause");
-        Button resume = new Button("Resume");
-        Button step = new Button("Step");
-        Button addspeed = new Button("Speed +");
-        Button reducespeed = new Button("Speed -");
-        Button loadfile = new Button("Load File");
-        
-        start.setOnAction(e -> time.initSimulation());
-        pause.setOnAction(e -> time.pauseAnimation());
-        resume.setOnAction(e -> time.resumeAnimation());
-        step.setOnAction(e -> time.stepAnimation());
-        addspeed.setOnAction(e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
-        reducespeed.setOnAction(e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
+    private void makeTime(){
+      time = new Time(info);
+      root.getChildren().addAll(time.getCellDisplay());
 
-        loadfile.setOnAction(e-> fileLoader());
+    }
+    private Button makeButton(String name, EventHandler<ActionEvent> e){
+    	Button b = new Button(name);
+    	b.setOnAction(e);
+    	return b;
+    }
+    private HBox makeButtons(){
+    	
+    	Button start = makeButton("start", e -> time.initSimulation());
+    	Button pause = makeButton("pause", e -> time.pauseAnimation());
+        Button resume = makeButton("resume", e -> time.resumeAnimation());
+        Button step = makeButton("step", e -> time.stepAnimation());
+        Button addspeed = makeButton("speed+", e -> time.setSpeed(time.getSpeed()+SPEED_CHANGE));
+        Button reducespeed = makeButton("speed-", e -> time.setSpeed(time.getSpeed()-SPEED_CHANGE));
+        Button loadfile = makeButton("load file", e-> fileLoader());
+      
+
         HBox buttonlayout = new HBox(SPACING);
-        buttonlayout.setLayoutY(HEIGHT*7/8);
+        
         buttonlayout.getChildren().addAll(start,pause, resume, step, addspeed, reducespeed, loadfile);
+        buttonlayout.setLayoutY(HEIGHT*7/8);
         return buttonlayout;
     }
     
@@ -64,6 +67,8 @@ public class UserInterface {
     	File file = fileChooser.showOpenDialog(new Stage());
     	XMLReader readfile = new XMLReader();
     	info = readfile.readXMLFile(file);
-
+    	for (String e: info){
+    	System.out.println("-"+e+"-");
+    	}
     }
 }

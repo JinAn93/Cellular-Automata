@@ -4,8 +4,8 @@ public class SegregationRules extends SimulationRules {
     private static final int SECOND = 2;
     private double percentToSatisfy;
 
-    public SegregationRules (int states, double percent) {
-        super(states);
+    public SegregationRules (double percent) {
+        super();
         percentToSatisfy = percent;
     }
 
