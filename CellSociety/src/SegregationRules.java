@@ -39,6 +39,7 @@ public class SegregationRules extends SimulationRules {
     @Override
     protected void setSimulationParameters (String[] simParams) {
         percentToSatisfy = Double.parseDouble(simParams[0]);
+        
     }
 
 }
