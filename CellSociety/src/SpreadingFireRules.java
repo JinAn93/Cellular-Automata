@@ -6,9 +6,8 @@ public class SpreadingFireRules extends SimulationRules {
     private static final int BURNING = 2;
     private double probCatch;
 
-    public SpreadingFireRules (int states, double prob) {
-        super(states);
-        probCatch = prob;
+    public SpreadingFireRules () {
+        super();
     }
 
     @Override
@@ -34,6 +33,11 @@ public class SpreadingFireRules extends SimulationRules {
     private boolean checkBurning (Cell North, Cell South, Cell East, Cell West) {
         return checkState(North, BURNING) || checkState(South, BURNING) ||
                checkState(East, BURNING) || checkState(West, BURNING);
+    }
+
+    @Override
+    protected void setSimulationParameters (String[] simParams) {
+        probCatch = Double.parseDouble(simParams[0]);        
     }
 
 }

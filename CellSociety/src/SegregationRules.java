@@ -4,9 +4,8 @@ public class SegregationRules extends SimulationRules {
     private static final int SECOND = 2;
     private double percentToSatisfy;
 
-    public SegregationRules (double percent) {
+    public SegregationRules () {
         super();
-        percentToSatisfy = percent;
     }
 
     @Override
@@ -35,6 +34,11 @@ public class SegregationRules extends SimulationRules {
             }
 
         }
+    }
+
+    @Override
+    protected void setSimulationParameters (String[] simParams) {
+        percentToSatisfy = Double.parseDouble(simParams[0]);
     }
 
 }

@@ -3,9 +3,8 @@ public class GameOfLifeRules extends SimulationRules {
     public static final int ALIVE = 1;
     public static final int DEAD = 2;
     
-    public GameOfLifeRules (int states) {
-        super(states);
-        // TODO Auto-generated constructor stub
+    public GameOfLifeRules () {
+        super();
     }
 
 
@@ -38,6 +37,12 @@ public class GameOfLifeRules extends SimulationRules {
     
     protected boolean isAlive(Cell curr){
         return(curr.getCurrState()==ALIVE);
+    }
+
+
+    @Override
+    protected void setSimulationParameters (String[] simParams) {
+        //No Parameters to Set for this Simulation
     }
 
 }
