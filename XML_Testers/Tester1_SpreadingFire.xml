@@ -8,10 +8,10 @@
 	</settings>
 	<dimension>5x5</dimension>
 	<Initial>
-
-
-
-
-
+		00001
+		10000
+		00010
+		00000
+		00000
 	</Initial>
 </simulation>

@@ -6,10 +6,10 @@
 	<settings></settings>
 	<dimension>5x5</dimension>
 	<Initial>
-
-
-
-
-
+		01100
+		10101
+		11001
+		01111
+		00001
 	</Initial>
 </simulation>

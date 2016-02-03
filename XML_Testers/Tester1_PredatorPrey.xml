@@ -4,15 +4,17 @@
 	<title>PP_Tester1</title>
 	<author>Team15</author>
 	<settings>
-		<reproduce>3,</reproduce>
+		<reproduce>1</reproduce>
+		<startEnergy>3</startEnergy>
+		<fishEnergy>1</fishEnergy>
 	</settings>
 	<numstates>3</numstates>
 	<dimension>5x5</dimension>
 	<Initial>
-
-
-
-
-
+		10002
+		01112
+		01001
+		00012
+		11111
 	</Initial>
 </simulation>
