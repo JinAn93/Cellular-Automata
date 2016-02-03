@@ -9,11 +9,12 @@ public class CellManager {
     private SimulationRules myRules;
 
     public void setUp (int r, int c, int whichSim, int[] entry, String[] simParams) {
-        myRules = myPossibleRules[whichSim - 1];  // Possible error here, may not be -1
+        myRules = myPossibleRules[whichSim];  // Possible error here, may not be -1
         cellGrid = new Cell[r + 2][c + 2];
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
-                if (i == 0 || i == r + 1) {
+            	cellGrid[i][j] = new Cell();
+            	if (i == 0 || i == r + 1) {
                     cellGrid[i][j].setCurrState(SimulationRules.BLOCKED);
                     cellGrid[i][j].setNextState(SimulationRules.BLOCKED);
                 }
