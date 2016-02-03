@@ -19,32 +19,38 @@ public class Time {
 	private String name;
 	private String title;
 	private String author;
-	private String settings;
 	private int numstates;
 	private int n;
 	private int m;
 	private int[] initial;
+	private String[] params;
 	
-	public Time (List<String> info){
+	public Time (String info){
 		settingsFromFile(info);
 		//break up string w/method
 		initSimulation();
 	}
 	
-	private void settingsFromFile(List<String> info){
+	private void settingsFromFile(String info){
+		String[] settings = info.split(",");
+		name = settings[0];
+		title = settings[1];
+		author= settings[2];
+		n =  settings[3].charAt(0)-'0';
+		m =  settings[3].charAt(2)-'0';
 		
-		name = info.get(0);
-		title = info.get(1);
-		author= info.get(2);
-		settings = info.get(3);
-		String[] dim = info.get(4).split("x");
-		n = Integer.parseInt(dim[0]);
-		m = Integer.parseInt(dim[1]);
-		char[] ini = info.get(5).toCharArray();
+		char[] ini = settings[4].toCharArray();
 		initial = new int[ini.length];
 		for(int i=0; i<ini.length;i++ ){
 			initial[i] = ini[i]-'0';
 		}
+		if (settings.length>5){
+			params = Arrays.copyOfRange(settings, 5, settings.length);
+		}
+		else{
+			params = null;
+		}
+		
 	}
 	
 //	private void checkConditions(){
@@ -61,7 +67,7 @@ public class Time {
 		 Cells = new CellManager();
 		 celldisplay = new Display(n, m, numstates );
 		
-		Cells.setUp(n, m, simulations.lastIndexOf(name), initial);
+		Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
 		celldisplay.initDisplay();
 		
 		timeline = new Timeline();
