@@ -74,6 +74,7 @@ public class Time {
 		celldisplay = new Display(n, m, numstates);
 
 		Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
+		celldisplay.updateDisplay(Cells.getCellList());
 		System.out.println("Grid Stuff "+n+" "+m);
 
 		timeline = new Timeline();
