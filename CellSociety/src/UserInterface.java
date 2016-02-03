@@ -12,7 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class UserInterface {
-	public static final double WIDTH = 500;
+	public static final double WIDTH = 530;
 	public static final double HEIGHT = 500;
 	public static final double SPEED_CHANGE = 500;
 	public static final double SPACING = 10;
@@ -24,14 +24,11 @@ public class UserInterface {
 
 	public void initStage(Stage s){
 		s.setTitle("Cell Society");
-
+		s.setResizable(false);
 		root = new Group();
-
 		root.getChildren().add(makeButtons());
-
 		myScene = new Scene(root, WIDTH,HEIGHT, Color.WHITE);
 		s.setScene(myScene);
-
 	}
 
 	private void makeTime(){
@@ -39,6 +36,7 @@ public class UserInterface {
 		root.getChildren().addAll(time.getCellDisplay());
 
 	}
+	
 	private Button makeButton(String name, EventHandler<ActionEvent> e){
 	    ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE_BUTTONS);
 
@@ -55,14 +53,16 @@ public class UserInterface {
 		Button step = makeButton("step", e -> {if(time!=null){time.stepAnimation();}});
 		Button addspeed = makeButton("addspeed", e -> {if(time!=null&&time.getSpeed()-SPEED_CHANGE>0){time.setSpeed(time.getSpeed()-SPEED_CHANGE);}});
 		Button reducespeed = makeButton("reducespeed", e -> {if(time!=null){time.setSpeed(time.getSpeed()+SPEED_CHANGE);}});
+		Button reset = makeButton("reset", e -> {if(time!=null){time.pauseAnimation();makeTime();}});
 		Button loadfile = makeButton("loadfile", e-> fileLoader());
 
 
 		HBox buttonlayout = new HBox(SPACING);
 
-		buttonlayout.getChildren().addAll(start,pause, resume, step, addspeed, reducespeed, loadfile);
+		buttonlayout.getChildren().addAll(start, pause, resume, step, addspeed, reducespeed, reset, loadfile);
 //		TODO: figure out layout
 		buttonlayout.setLayoutY(HEIGHT*7/8);
+		buttonlayout.setLayoutX(SPACING);
 		return buttonlayout;
 	}
 
