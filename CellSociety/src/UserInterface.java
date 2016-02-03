@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ public class UserInterface {
 	public static final double HEIGHT = 500;
 	public static final double SPEED_CHANGE = 500;
 	public static final double SPACING = 10;
+	private String RESOURCE_PACKAGE_BUTTONS = "Resources/ButtonLabels";
 	private Scene myScene;
 	private Group root;
 	private Time time;
@@ -38,19 +40,22 @@ public class UserInterface {
 
 	}
 	private Button makeButton(String name, EventHandler<ActionEvent> e){
-		Button b = new Button(name);
+	    ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE_BUTTONS);
+
+		Button b = new Button(myResources.getString(name));
 		b.setOnAction(e);
 		return b;
 	}
 	private HBox makeButtons(){
+
 //TODO: make a resources file for buttons
 		Button start = makeButton("start", e -> {if(time!=null){time.startAnimation();}});
 		Button pause = makeButton("pause", e -> {if(time!=null){time.pauseAnimation();}});
 		Button resume = makeButton("resume", e -> {if(time!=null){time.resumeAnimation();}});
 		Button step = makeButton("step", e -> {if(time!=null){time.stepAnimation();}});
-		Button addspeed = makeButton("speed+", e -> {if(time!=null&&time.getSpeed()-SPEED_CHANGE>0){time.setSpeed(time.getSpeed()-SPEED_CHANGE);}});
-		Button reducespeed = makeButton("speed-", e -> {if(time!=null){time.setSpeed(time.getSpeed()+SPEED_CHANGE);}});
-		Button loadfile = makeButton("load file", e-> fileLoader());
+		Button addspeed = makeButton("addspeed", e -> {if(time!=null&&time.getSpeed()-SPEED_CHANGE>0){time.setSpeed(time.getSpeed()-SPEED_CHANGE);}});
+		Button reducespeed = makeButton("reducespeed", e -> {if(time!=null){time.setSpeed(time.getSpeed()+SPEED_CHANGE);}});
+		Button loadfile = makeButton("loadfile", e-> fileLoader());
 
 
 		HBox buttonlayout = new HBox(SPACING);
