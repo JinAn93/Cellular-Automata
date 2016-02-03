@@ -2,6 +2,7 @@
 public abstract class Cell {
     private int currState;
     private int nextState;
+    
 
 
     public Cell (int curr) {
