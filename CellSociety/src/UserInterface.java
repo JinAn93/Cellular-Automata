@@ -43,7 +43,7 @@ public class UserInterface {
 		return b;
 	}
 	private HBox makeButtons(){
-
+//TODO: make a resources file for buttons
 		Button start = makeButton("start", e -> time.startAnimation());
 		Button pause = makeButton("pause", e -> time.pauseAnimation());
 		Button resume = makeButton("resume", e -> time.resumeAnimation());
@@ -56,6 +56,7 @@ public class UserInterface {
 		HBox buttonlayout = new HBox(SPACING);
 
 		buttonlayout.getChildren().addAll(start,pause, resume, step, addspeed, reducespeed, loadfile);
+//		TODO: figure out layout
 		buttonlayout.setLayoutY(HEIGHT*7/8);
 		return buttonlayout;
 	}

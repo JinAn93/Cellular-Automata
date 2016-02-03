@@ -21,8 +21,8 @@ public class XMLReader {
 	private static final String AUTHOR = "author";
 	private static final String PERCENTAGE = "percentage";
 	private static final String REPRODUCE = "reproduce";
-	private static final String STARTENERGY = "startenergy";
-	private static final String FISHENERGY = "fishENERGY";
+	private static final String STARTENERGY = "startEnergy";
+	private static final String FISHENERGY = "fishEnergy";
 	private static final String PROBABILITY = "probability";
 	private static final String DIMENSION = "dimension";
 	private static final String INITIAL = "Initial";

@@ -4,6 +4,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class Display {
+//	TODO:check constants and decide on values
 	public final static int DISPLAY_WIDTH = 400;
 	public final static int DISPLAY_HEIGHT= 400;
 	private int COLUMNS;

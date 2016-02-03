@@ -7,7 +7,7 @@ import javafx.animation.KeyFrame;
 
 public class Time {
 
-	public static final double INITIAL_SPEED = 1;
+	public static final double INITIAL_SPEED = 1;// address this: put in xml? what is the "correct" time?
 	private List<String> simulations =Arrays.asList("Segregation", "Predator_Prey", "Spreading_Fire","Game_of_Life");
 
 	private Timeline timeline;
@@ -15,9 +15,9 @@ public class Time {
 	private CellManager Cells;
 	private Display celldisplay;
 
-	private double speed;// address this: put in xml? what is the "correct" time?
+	private double speed;
 
-
+//TODO: figure out what to do with these
 	private String name;
 	private String title;
 	private String author;
@@ -36,6 +36,7 @@ public class Time {
 	}
 
 	private void settingsFromFile(String info){
+		System.out.println(info);
 		String[] settings = info.split(",");
 		name = settings[0];
 		title = settings[1];
@@ -48,7 +49,7 @@ public class Time {
 		for(int i=0; i<ini.length;i++ ){
 			initial[i] = ini[i]-'0';
 		}
-		if (settings.length>5){
+		if (settings.length>4){
 			params = Arrays.copyOfRange(settings, 5, settings.length);
 		}
 		else{
