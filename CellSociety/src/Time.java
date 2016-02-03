@@ -21,7 +21,7 @@ public class Time {
 	private String name;
 	private String title;
 	private String author;
-	private int numstates = 2; //change this to make flexible--put in xml?
+	private int numstates = 3; //change this to make flexible--put in xml?
 	private int n;
 	private int m;
 	private int[] initial;

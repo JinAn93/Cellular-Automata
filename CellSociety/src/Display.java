@@ -26,6 +26,7 @@ public class Display {
 		int CELL_HEIGHT = DISPLAY_HEIGHT/ROWS;
 		
 		Grid = new Rectangle[COLUMNS][ROWS];
+//		TODO: more aesthetically pleasing colors?
 		colors = new Color[STATES];
 		for (int k=0; k<STATES; k++){
 			colors[k] = Color.hsb(k*360/STATES, 1.0, 1.0);
@@ -38,7 +39,7 @@ public class Display {
             	Grid[i][j].setY(CELL_HEIGHT*j);
             	Grid[i][j].setWidth(CELL_WIDTH);
             	Grid[i][j].setHeight(CELL_HEIGHT);
-            	Grid[i][j].setFill(colors[(i+j)%STATES]);
+//            	Grid[i][j].setFill(colors[(i+j)%STATES]); -this is just for debugging
             }
 		}
 		
@@ -47,7 +48,7 @@ public class Display {
 	public void updateDisplay(Cell[][] cellGrid){
         for (int i = 0; i < COLUMNS; i++) {
             for (int j = 0; j < ROWS; j++) {
-            	Color c = colors[cellGrid[i+1][j+1].getCurrState()-1];
+            	Color c = colors[cellGrid[i+1][j+1].getCurrState()];
                 Grid[i][j].setFill(c); 		
             }
         }
