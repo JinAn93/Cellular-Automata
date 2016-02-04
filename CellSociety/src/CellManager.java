@@ -34,7 +34,7 @@ public class CellManager {
 
     public void updateStates () {
         myRules.applyRule(cellGrid);
-    }
+    }	
 
     public void moveNextToCurrentState () {
         for (int i = 1; i < cellGrid.length-1; i++) {

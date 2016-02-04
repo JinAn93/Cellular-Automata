@@ -11,6 +11,13 @@ public class PredatorPreyRules extends SimulationRules {
         super();
 
     }
+    
+//    @Override
+//    protected void applyRule (Cell[][] cellGrid){
+//    	updateShark()
+//    	updatefish()
+//    	fillEmpty()
+//    }
 
     @Override
     protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
