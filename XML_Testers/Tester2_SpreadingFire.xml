@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<simulation>
+	<name>Spreading_Fire</name>
+	<title>SF_Tester1</title>
+	<author>Team15</author>
+	<numstates>3</numstates>
+	<setting>0.3</setting>
+	<dimension>10x10</dimension>
+	<Initial>0111110001011111000101111100010111110001011111000101111100010111110001011111000101111100010111110001</Initial>
+</simulation>

@@ -5,7 +5,7 @@ public abstract class SimulationRules {
 
     public static final int BLOCKED = -1;
     public static final int EMPTY = 0;
-    private Random rand = new Random();
+//    private Random rand;
 
     public SimulationRules () {
     }
@@ -29,7 +29,7 @@ public abstract class SimulationRules {
         int count = 0;
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                cellGrid[i][j].setCurrState(entry[count]);
+                cellGrid[j][i].setCurrState(entry[count]);
                 count++;
             }
         }
@@ -42,7 +42,7 @@ public abstract class SimulationRules {
     protected abstract void setSimulationParameters (String[] simParams);
 
     protected Random getRand () {
-        return rand;
+        return new Random();
     }
 
     protected boolean isEmpty (Cell currCell) {
