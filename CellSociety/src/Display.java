@@ -33,8 +33,9 @@ public class Display {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 Grid[i][j] = new Rectangle();
-                Grid[i][j].setX(CELL_WIDTH * i);
-                Grid[i][j].setY(CELL_HEIGHT * j);
+                Grid[i][j].setStroke(Color.BLACK);
+                Grid[i][j].setX(CELL_WIDTH * i+10);
+                Grid[i][j].setY(CELL_HEIGHT * j+10);
                 Grid[i][j].setWidth(CELL_WIDTH);
                 Grid[i][j].setHeight(CELL_HEIGHT);
 //              Grid[i][j].setFill(colors[(i+j)%STATES]); -this is just for debugging

@@ -11,21 +11,25 @@ public abstract class SimulationRules {
     }
 
     protected void applyRule (Cell[][] cellGrid) {
-        for (int i = 1; i < cellGrid.length-1; i++) {
-            for (int j = 1; j < cellGrid[0].length-1; j++) {              
-                    Cell[] neighbors = setNeighbors(cellGrid, i, j);
-                    int nextState = findNextState(cellGrid[i][j], neighbors,
-                                                  cellGrid);
-                    cellGrid[i][j].setNextState(nextState);                
+        for (int i = 1; i < cellGrid.length - 1; i++) {
+            for (int j = 1; j < cellGrid[0].length - 1; j++) {
+
+                Cell[] neighbors = setNeighbors(cellGrid, i, j);
+
+                int nextState = findNextState(cellGrid[i][j], neighbors,
+                                              cellGrid);
+                cellGrid[i][j].setNextState(nextState);
+
             }
         }
+
     }
 
     public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
-        int count = 0;      
+        int count = 0;
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                cellGrid[i][j].setCurrState(entry[count]);                
+                cellGrid[i][j].setCurrState(entry[count]);
                 count++;
             }
         }
