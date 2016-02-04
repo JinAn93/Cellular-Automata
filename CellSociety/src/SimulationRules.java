@@ -25,6 +25,8 @@ public abstract class SimulationRules {
 
     public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
         int count = 0;
+        System.out.println(cellGrid.length);
+        System.out.println(cellGrid[0].length);
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
                 cellGrid[i][j].setCurrState(entry[count]);                

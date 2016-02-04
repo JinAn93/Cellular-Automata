@@ -26,12 +26,12 @@ public class Display {
     }
 
     public void initDisplay () {
-        int CELL_WIDTH = DISPLAY_WIDTH / COLUMNS;
-        int CELL_HEIGHT = DISPLAY_HEIGHT / ROWS;
+        int CELL_WIDTH = DISPLAY_WIDTH / ROWS;
+        int CELL_HEIGHT = DISPLAY_HEIGHT / COLUMNS;
         initColors();
-        Grid = new Rectangle[COLUMNS][ROWS];
-        for (int i = 0; i < COLUMNS; i++) {
-            for (int j = 0; j < ROWS; j++) {
+        Grid = new Rectangle[ROWS][COLUMNS];
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 Grid[i][j] = new Rectangle();
                 Grid[i][j].setX(CELL_WIDTH * i);
                 Grid[i][j].setY(CELL_HEIGHT * j);
@@ -51,7 +51,7 @@ public class Display {
     }
 
     public void updateDisplay (Cell[][] cellGrid) {
-        for (int i = 1; i < cellGrid.length - 1; i++) {
+     	for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
                 Grid[i - 1][j - 1].setFill(colors[cellGrid[i][j].getCurrState()]);
             }

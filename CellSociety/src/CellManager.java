@@ -25,7 +25,7 @@ public class CellManager {
             cellGrid[i][c + 1].setNextState(SimulationRules.BLOCKED);
         }
         myRules.setSimulationParameters(simParams);
-        myRules.fillCellgrid(cellGrid,entry);        
+        myRules.fillCellgrid(cellGrid,entry);     
     }
 
     public Cell[][] getCellList () {
