@@ -17,11 +17,10 @@ public class SpreadingFireRules extends SimulationRules {
 //		}
 //		else 
 			if (checkState(curr, BURNING)) {
-				System.out.println("+");
 			return EMPTY;
 		}
 		else if (checkState(curr, TREE)) {			
-			if (checkBurning(neighbors[0], neighbors[1], neighbors[2], neighbors[3]) && getRand().nextDouble() > probCatch) {
+			if (checkBurning(neighbors[0], neighbors[1], neighbors[2], neighbors[3]) && getRand().nextDouble() < probCatch) {
 				return BURNING;
 			}
 			else {
@@ -39,7 +38,6 @@ public class SpreadingFireRules extends SimulationRules {
 	@Override
 	protected void setSimulationParameters (String[] simParams) {
 		probCatch = Double.parseDouble(simParams[0]);     
-		System.out.println(probCatch);
 
 	}
 
