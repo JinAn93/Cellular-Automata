@@ -7,15 +7,14 @@ import javafx.animation.KeyFrame;
 
 public class Time {
 
-	public static final double INITIAL_SPEED = 1000;// address this: put in xml? what is the "correct" time?
 	private List<String> simulations =Arrays.asList("Segregation", "Predator_Prey", "Spreading_Fire","Game_of_Life");
 	
 	private Timeline timeline;
-	private Duration stepTime = new Duration(INITIAL_SPEED);
+	private static final Duration STEPTIME = new Duration(1000);
 	private CellManager Cells;
 	private Display celldisplay;
 
-	private double speed;
+	private double speed = 1;
 
 //TODO: figure out what to do with these
 	private String name;
@@ -31,7 +30,6 @@ public class Time {
 		settingsFromFile(info);
 		//break up string w/method
 		initSimulation();
-		setSpeed(INITIAL_SPEED);
 	}
 
 	private void settingsFromFile(String info){
@@ -80,15 +78,13 @@ public class Time {
 
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.getKeyFrames().add(new KeyFrame(stepTime,
+		timeline.getKeyFrames().add(new KeyFrame(STEPTIME,
 				e -> step()));
-
 	}
 
 	private void step(){
 		Cells.updateStates();
 		Cells.moveNextToCurrentState();
-
 		celldisplay.updateDisplay(Cells.getCellList());
 	}
 
@@ -97,10 +93,9 @@ public class Time {
 	}
 
 	public void setSpeed(double s ){
-		stepTime = new Duration(speed);
-		timeline.setRate(s/speed);
+//		stepTime = new Duration(speed);
+		timeline.setRate(s);
 		speed = s;
-		System.out.println(speed);
 	}
 	
 	public void startAnimation(){
