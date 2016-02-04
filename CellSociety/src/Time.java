@@ -51,7 +51,7 @@ public class Time {
 			initial[i] = ini[i]-'0';
 		}
 		if (settings.length>5){
-			params = Arrays.copyOfRange(settings, 6, settings.length);		
+			params = settings[6].split(" ");		
 		}
 		else{
 			params = null;
