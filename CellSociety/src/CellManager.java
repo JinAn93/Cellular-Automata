@@ -25,7 +25,7 @@ public class CellManager {
             cellGrid[i][c + 1].setNextState(SimulationRules.BLOCKED);
         }
         myRules.setSimulationParameters(simParams);
-        myRules.fillCellgrid(cellGrid,entry);     
+        myRules.fillCellgrid(cellGrid,entry);        
     }
 
     public Cell[][] getCellList () {
@@ -37,12 +37,11 @@ public class CellManager {
     }
 
     public void moveNextToCurrentState () {
-        for (int i = 0; i < cellGrid.length; i++) {
-            for (int j = 0; j < cellGrid[0].length; j++) {
-                if (cellGrid[i][j].getCurrState() != SimulationRules.BLOCKED) {
+        for (int i = 1; i < cellGrid.length-1; i++) {
+            for (int j = 1; j < cellGrid[0].length-1; j++) {
                     cellGrid[i][j].setCurrState(cellGrid[i][j].getNextState());
-                    cellGrid[i][j].setNextState(0);
-                }
+                    cellGrid[i][j].setNextState(SimulationRules.EMPTY);
+                
             }
         }
     }
