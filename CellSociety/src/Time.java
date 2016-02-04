@@ -11,7 +11,7 @@ public class Time {
 	private List<String> simulations =Arrays.asList("Segregation", "Predator_Prey", "Spreading_Fire","Game_of_Life");
 	
 	private Timeline timeline;
-	private Duration stepTime;
+	private Duration stepTime = new Duration(INITIAL_SPEED);
 	private CellManager Cells;
 	private Display celldisplay;
 
@@ -30,9 +30,8 @@ public class Time {
 	public Time (String info){
 		settingsFromFile(info);
 		//break up string w/method
-		setSpeed(INITIAL_SPEED);
 		initSimulation();
-
+		setSpeed(INITIAL_SPEED);
 	}
 
 	private void settingsFromFile(String info){
@@ -42,9 +41,12 @@ public class Time {
 		title = settings[1];
 		author= settings[2];
 		numstates = Integer.parseInt(settings[3]);
-		n =  settings[4].charAt(0)-'0';
-		m =  settings[4].charAt(2)-'0';
-
+		String[] dim = settings[4].split("x");
+		n = Integer.parseInt(dim[0]);
+		m = Integer.parseInt(dim[1]);
+		System.out.println(n);
+		System.out.println(m);
+		
 		char[] ini = settings[5].toCharArray();
 		initial = new int[ini.length];
 		for(int i=0; i<ini.length;i++ ){
@@ -72,7 +74,6 @@ public class Time {
 		//		checkConditions();
 		Cells = new CellManager();
 		celldisplay = new Display(n, m, numstates);
-
 		Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
 		celldisplay.updateDisplay(Cells.getCellList());
 		System.out.println("Grid Stuff "+n+" "+m);
@@ -89,7 +90,6 @@ public class Time {
 		Cells.moveNextToCurrentState();
 
 		celldisplay.updateDisplay(Cells.getCellList());
-		timeline.setDelay(new Duration(speed));
 	}
 
 	public double getSpeed(){
@@ -97,9 +97,12 @@ public class Time {
 	}
 
 	public void setSpeed(double s ){
-		speed = s;
 		stepTime = new Duration(speed);
+		timeline.setRate(s/speed);
+		speed = s;
+		System.out.println(speed);
 	}
+	
 	public void startAnimation(){
 		timeline.playFromStart();
 	}
