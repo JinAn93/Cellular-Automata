@@ -15,7 +15,7 @@ public class UserInterface {
 	public static final double WIDTH = 530;
 	public static final double HEIGHT = 500;
 	public static final double SPEED_CHANGE = 0.3;
-	public static final double SPACING = 10;
+	public static final double SPACING = 5;
 	private String RESOURCE_PACKAGE_BUTTONS = "Resources/ButtonLabels";
 	private Scene myScene;
 	private Group root;

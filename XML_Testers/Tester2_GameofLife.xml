@@ -4,6 +4,7 @@
 	<title>GOL_Tester1</title>
 	<author>Team15</author>
 	<numstates>3</numstates>
+	<setting></setting>
 	<dimension>10x5</dimension>
 	<Initial>11111111111222111111111111111111111122211111111111</Initial>
 </simulation>

@@ -4,9 +4,7 @@
 	<title>PP_Tester1</title>
 	<author>Team15</author>
 	<numstates>3</numstates>
-	<reproduce>1</reproduce>
-	<startEnergy>3</startEnergy>
-	<fishEnergy>1</fishEnergy>	
+	<setting>1 3 1</setting>
 	<dimension>5x5</dimension>
 	<Initial>1000201112010010001211111</Initial>
 </simulation>

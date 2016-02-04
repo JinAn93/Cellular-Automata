@@ -39,18 +39,7 @@ public class XMLReader {
 					strsimInfo+=(",") +getElements(eElement, "NUMSTATES");
 					strsimInfo+=(",") +getElements(eElement, "DIMENSION");
 					strsimInfo+=(",") +getElements(eElement, "INITIAL");
-					if(whichSim.equals(myResources.getString("SEG"))){ 
-						strsimInfo+=(",") +getElements(eElement, "PERCENTAGE");
-					}
-					if(whichSim.equals(myResources.getString("PP"))){
-						strsimInfo+=(",") +getElements(eElement, "REPRODUCE");
-						strsimInfo+=(",") +getElements(eElement, "STARTENERGY");
-						strsimInfo+=(",") +getElements(eElement, "FISHENERGY");
-					}
-						
-					if(whichSim.equals(myResources.getString("SF"))){
-						strsimInfo+=(",") +getElements(eElement, "PROBABILITY");					
-					}				
+					strsimInfo+=(",") +getElements(eElement, "SETTING");
 				}
 			}
 		}

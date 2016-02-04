@@ -4,7 +4,7 @@
 	<title>SF_Tester1</title>
 	<author>Team15</author>
 	<numstates>3</numstates>
-	<probability>0.3</probability>
+	<setting>0.3</setting>
 	<dimension>5x5</dimension>
 	<Initial>0000110000000100000000000</Initial>
 </simulation>

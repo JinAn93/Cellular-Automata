@@ -4,7 +4,7 @@
 	<title>Seg_Tester1</title>
 	<author>Team15</author>
 	<numstates>3</numstates>
-	<percentage>50</percentage>
+	<setting>50</setting>
 	<dimension>5x5</dimension>
 	<Initial>0000000000000000000000000</Initial>
 </simulation>
