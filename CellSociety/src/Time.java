@@ -50,7 +50,7 @@ public class Time {
 		for(int i=0; i<ini.length;i++ ){
 			initial[i] = ini[i]-'0';
 		}
-		if (settings.length>5){
+		if (settings.length>6){
 			params = settings[6].split(" ");		
 		}
 		else{
