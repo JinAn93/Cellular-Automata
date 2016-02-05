@@ -12,23 +12,6 @@ public class PredatorPreyRules extends SimulationRules {
 	}
 
 	@Override
-	protected void applyRule(Cell[][] cellGrid) {
-		for (int i = 1; i < cellGrid.length - 1; i++) {
-			for (int j = 1; j < cellGrid[0].length - 1; j++) {
-
-				Cell[] neighbors = setNeighbors(cellGrid, i, j);
-				if (cellGrid[i][j].getNextState() == OPEN_NEXT
-						|| cellGrid[i][j].getCurrState() == SHARK) {
-					int nextState = findNextState(cellGrid[i][j], neighbors,
-							cellGrid);
-					cellGrid[i][j].setNextState(nextState);
-				}
-			}
-		}
-
-	}
-
-	@Override
 	protected int findNextState(Cell curr, Cell[] neighbors, Cell[][] grid) {
 		curr.setTurnsOnState(curr.getTurnsOnState() + 1); // TODO Check if this
 															// is in the correct
