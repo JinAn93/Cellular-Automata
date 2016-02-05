@@ -17,6 +17,8 @@ public class UserInterface {
 	public static final double HEIGHT = 500;
 	public static final double SPEED_CHANGE = 0.3;
 	public static final double SPACING = 5;
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	public static final String STYLESHEET = "custom.css";
 	private String RESOURCE_PACKAGE_BUTTONS = "Resources/ButtonLabels";
 	private Scene myScene;
 	private Group root;
@@ -28,7 +30,8 @@ public class UserInterface {
 		s.setResizable(false);
 		root = new Group();
 		root.getChildren().add(makeButtons());
-		myScene = new Scene(root, WIDTH,HEIGHT, Color.WHITE);
+		myScene = new Scene(root, WIDTH,HEIGHT,Color.SKYBLUE);
+	        myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		s.setScene(myScene);
 	}
 

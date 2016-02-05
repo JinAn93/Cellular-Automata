@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <simulation>
 	<name>Game_of_Life</name>
-	<title>GOL_Tester1</title>
+	<title>GOL_Tester2</title>
 	<author>Team15</author>
 	<numstates>3</numstates>
 	<setting></setting>
-	<dimension>10x5</dimension>
-	<Initial>11111111111222111111111111111111111122211111111111</Initial>
+	<dimension>6x6</dimension>
+	<Initial>111111122111122111111221111221111111</Initial>
 </simulation>
