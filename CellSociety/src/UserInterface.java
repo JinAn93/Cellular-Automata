@@ -23,8 +23,16 @@ public class UserInterface {
     private String RESOURCE_PACKAGE_BUTTONS = "Resources/ButtonLabels";
     private Scene myScene;
     private Group root;
-    private Time time;
+    private Time time = null;
     private String info = null;
+
+    private Button start;
+    private Button pause;
+    private Button resume;
+    private Button step;
+    private Button addspeed;
+    private Button reducespeed;
+    private Button reset;
 
     public void initStage (Stage s) {
         s.setTitle("Cell Society");
@@ -39,6 +47,7 @@ public class UserInterface {
     private void makeTime () {
 
         time = new Time(info);
+        enableButtons();
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
         root.getChildren().add(n);
@@ -54,46 +63,47 @@ public class UserInterface {
         return b;
     }
 
+    private void enableButtons () {
+        start.setDisable(time == (null));
+        pause.setDisable(time == null);
+        resume.setDisable(time == null);
+        step.setDisable(time == null);
+        addspeed.setDisable(time == null);
+        reducespeed.setDisable(time == null);
+        reset.setDisable(time == null);
+
+    }
+
     private HBox makeButtons () {
 
         // TODO: make a resources file for buttons
-        Button start = makeButton("start", e -> {
-            if (time != null) {
-                time.startAnimation();
-            }
+        start = makeButton("start", e -> {
+            time.startAnimation();
         });
-        Button pause = makeButton("pause", e -> {
-            if (time != null) {
-                time.pauseAnimation();
-            }
+
+        pause = makeButton("pause", e -> {
+            time.pauseAnimation();
         });
-        Button resume = makeButton("resume", e -> {
-            if (time != null) {
-                time.resumeAnimation();
-            }
+        resume = makeButton("resume", e -> {
+            time.resumeAnimation();
         });
-        Button step = makeButton("step", e -> {
-            if (time != null) {
-                time.stepAnimation();
-            }
+        step = makeButton("step", e -> {
+            time.stepAnimation();
         });
-        Button addspeed = makeButton("addspeed", e -> {
-            if (time != null) {
-                time.setSpeed(time.getSpeed() + SPEED_CHANGE);
-            }
+        addspeed = makeButton("addspeed", e -> {
+            time.setSpeed(time.getSpeed() + SPEED_CHANGE);
         });
-        Button reducespeed = makeButton("reducespeed", e -> {
-            if (time != null && time.getSpeed() - SPEED_CHANGE > 0) {
+        reducespeed = makeButton("reducespeed", e -> {
+            if (time.getSpeed() - SPEED_CHANGE > 0) {
                 time.setSpeed(time.getSpeed() - SPEED_CHANGE);
             }
         });
-        Button reset = makeButton("reset", e -> {
-            if (time != null) {
-                time.pauseAnimation();
-                makeTime();
-            }
+        reset = makeButton("reset", e -> {
+            time.pauseAnimation();
+            makeTime();
         });
         Button loadfile = makeButton("loadfile", e -> fileLoader());
+        enableButtons();
 
         HBox buttonlayout = new HBox(SPACING);
 
