@@ -4,7 +4,7 @@
 	<title>Seg_Tester2</title>
 	<author>Team15</author>
 	<numstates>3</numstates>
-	<setting>.3</setting>
+	<setting>.7</setting>
 	<dimension>10x10</dimension>
 	<Initial>2002010200001000211022011220122111221111111022101002020122221022122111022220101002201112122020120101</Initial>
 </simulation>
