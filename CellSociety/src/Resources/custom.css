@@ -1,0 +1,20 @@
+.root {
+    -fx-font-size: 12.5pt;
+    -fx-font-family: "Courier New";
+    -fx-base: red;
+    -fx-background: skyblue;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: grey;
+    -fx-border-radius: 1;
+    -fx-background-radius: 1;
+    -fx-padding: 0;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+
