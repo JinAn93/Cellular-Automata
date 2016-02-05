@@ -44,8 +44,8 @@ public class PredatorPreyRules extends SimulationRules {
 			int state) {
 		while (isNeighborState(curr, neighbors, grid, OPEN_NEXT)) {
 			int rand = getRand().nextInt(4);
-			if (checkState(neighbors[rand], EMPTY)
-					&& checkNextState(neighbors[rand], OPEN_NEXT)) {
+			if ((checkState(neighbors[rand], EMPTY)
+					&& checkNextState(neighbors[rand], OPEN_NEXT)) || checkNextState(neighbors[rand], EMPTY)) {
 				neighbors[rand].setNextState(state);
 				if (curr.getTurnsOnState() > reproductionTime) {
 					curr.setTurnsOnState(0);
