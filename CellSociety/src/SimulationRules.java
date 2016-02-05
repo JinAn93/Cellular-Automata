@@ -13,16 +13,15 @@ public abstract class SimulationRules {
 	protected void applyRule (Cell[][] cellGrid) {
 		for (int i = 1; i < cellGrid.length - 1; i++) {
 			for (int j = 1; j < cellGrid[0].length - 1; j++) {
-
+			    if(checkNextState(cellGrid[i][j],OPEN_NEXT)){
 				Cell[] neighbors = setNeighbors(cellGrid, i, j);
 
 				int nextState = findNextState(cellGrid[i][j], neighbors,
 						cellGrid);
 				cellGrid[i][j].setNextState(nextState);
-
+			    }
 			}
 		}
-
 	}
 
 	public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
@@ -30,7 +29,7 @@ public abstract class SimulationRules {
 		for (int j = 1; j < cellGrid[0].length - 1; j++) {
 			for (int i = 1; i < cellGrid.length - 1; i++) {
 				cellGrid[i][j].setCurrState(entry[count]);
-//				cellGrid[i][j].setNextState(OPEN_NEXT);
+				cellGrid[i][j].setNextState(OPEN_NEXT);
 				count++;
 			}
 		}
@@ -54,7 +53,7 @@ public abstract class SimulationRules {
 		return (curr.getNextState() == state);
 	}
 
-	protected double calculateLikeNeighbors (Cell curr, Cell[] neighbors) {
+	protected double calculateLikeNeighborsPercent (Cell curr, Cell[] neighbors) {
 		double likeCount = countNeighborState(neighbors, curr.getCurrState());
 		double occupiedNeighbors = neighbors.length - countNeighborState(neighbors, EMPTY);
 		return likeCount / occupiedNeighbors;
@@ -63,22 +62,11 @@ public abstract class SimulationRules {
 	protected double countNeighborState (Cell[] neighbors, int state) {
 		double count = 0;
 		for (int i = 0; i < neighbors.length; i++) {
-			if (neighbors[i].getCurrState() == state) {
+			if (checkState(neighbors[i],state)) {
 				count++;
 			}
 		}
 		return count;
-	}
-
-	protected boolean isGridOpen (Cell[][] grid) {
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				if (checkState(grid[i][j],EMPTY) && checkNextState(grid[i][j],EMPTY)) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	/**
