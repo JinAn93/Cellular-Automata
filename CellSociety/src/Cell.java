@@ -1,10 +1,8 @@
-
 public class Cell {
     private int currState = 0;
     private int nextState = 0;
     private double turnsOnState = 0;
     private double energy;
-
 
     public int getCurrState () {
         return currState;
@@ -21,8 +19,7 @@ public class Cell {
     public void setNextState (int nextState) {
         this.nextState = nextState;
     }
-    
-    
+
     public double getTurnsOnState () {
         return turnsOnState;
     }
@@ -30,6 +27,7 @@ public class Cell {
     public void setTurnsOnState (double turnsOnState) {
         this.turnsOnState = turnsOnState;
     }
+
     public double getEnergy () {
         return energy;
     }

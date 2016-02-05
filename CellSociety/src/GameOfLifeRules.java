@@ -1,4 +1,3 @@
-
 public class GameOfLifeRules extends SimulationRules {
     public static final int DEAD = 1;
     public static final int ALIVE = 2;
