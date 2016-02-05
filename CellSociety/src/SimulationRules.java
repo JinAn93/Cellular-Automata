@@ -3,12 +3,10 @@ import java.util.*;
 
 public abstract class SimulationRules {
 
-        public static final int OPEN_NEXT = -2;
+    public static final int OPEN_NEXT = -2;
 	public static final int BLOCKED = -1;
 	public static final int EMPTY = 0;
 	
-	//    private Random rand;
-
 	public SimulationRules () {
 	}
 
@@ -32,6 +30,7 @@ public abstract class SimulationRules {
 		for (int j = 1; j < cellGrid[0].length - 1; j++) {
 			for (int i = 1; i < cellGrid.length - 1; i++) {
 				cellGrid[i][j].setCurrState(entry[count]);
+//				cellGrid[i][j].setNextState(OPEN_NEXT);
 				count++;
 			}
 		}

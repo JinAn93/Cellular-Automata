@@ -40,7 +40,7 @@ public class CellManager {
         for (int i = 1; i < cellGrid.length-1; i++) {
             for (int j = 1; j < cellGrid[0].length-1; j++) {
                     cellGrid[i][j].setCurrState(cellGrid[i][j].getNextState());
-                    cellGrid[i][j].setNextState(SimulationRules.EMPTY);
+                    cellGrid[i][j].setNextState(SimulationRules.OPEN_NEXT);
                 
             }
         }
