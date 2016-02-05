@@ -78,17 +78,13 @@ public class PredatorPreyRules extends SimulationRules {
 
 	protected int handleShark(Cell curr, Cell[] neighbors, Cell[][] grid) {
 		curr.setEnergy(curr.getEnergy() - 1);
-		if (curr.getEnergy() == 0) {
+		if (curr.getEnergy() <= 0) {
 			return EMPTY;
 		}
 		while (isAround(curr, neighbors, grid, FISH)) {
 			int rand = getRand().nextInt(4);
-			System.out.println("Random number is " + rand);
-			if (checkState(neighbors[rand], FISH)
-					&& !checkNextState(neighbors[rand], SHARK)) {
+			if (checkState(neighbors[rand], FISH)) {
 				neighbors[rand].setNextState(SHARK);
-				System.out.println(neighbors[rand].getEnergy());
-
 				neighbors[rand].setEnergy(curr.getEnergy() + fishEnergy);
 				if (curr.getTurnsOnState() > reproductionTime) {
 					curr.setTurnsOnState(0);
