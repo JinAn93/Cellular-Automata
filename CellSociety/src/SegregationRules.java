@@ -31,11 +31,7 @@ public class SegregationRules extends SimulationRules {
         possLocs.add(new ArrayList<Integer>());
         for(int i=1;i<grid.length-1;i++){
             for(int j=1;j<grid[0].length-1;j++){
-                if(checkNextState(grid[i][j],OPEN_NEXT)&&checkState(grid[i][j],EMPTY)){
-                    possLocs.get(0).add(i);
-                    possLocs.get(1).add(j);
-                }
-                else if(checkNextState(grid[i][j],EMPTY)){
+                if((checkNextState(grid[i][j],OPEN_NEXT)&&checkState(grid[i][j],EMPTY))||(checkNextState(grid[i][j],EMPTY))){
                     possLocs.get(0).add(i);
                     possLocs.get(1).add(j);
                 }
