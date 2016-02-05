@@ -44,7 +44,7 @@ public class XMLReader {
 			}
 		}
 		catch (Exception e){
-			e.printStackTrace();
+			e.printStackTrace(); //TODO check this out
 		}
 		return strsimInfo;
 	}

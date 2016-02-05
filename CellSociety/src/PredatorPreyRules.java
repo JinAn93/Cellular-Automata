@@ -44,7 +44,7 @@ public class PredatorPreyRules extends SimulationRules {
     protected int handleMove (Cell curr, Cell[] neighbors, Cell[][] grid, int state) {
         while (isNeighborState(curr, neighbors, grid, EMPTY)) {
             int rand = getRand().nextInt(4);
-            if (isEmpty(neighbors[rand]) && isNextEmpty(neighbors[rand])) {
+            if (checkState(neighbors[rand],EMPTY) && checkNextState(neighbors[rand],EMPTY)) {
                 neighbors[rand].setNextState(state);
                 if (curr.getTurnsOnState() > reproductionTime) {
                     curr.setTurnsOnState(0);
@@ -85,7 +85,7 @@ public class PredatorPreyRules extends SimulationRules {
 
     protected boolean isNeighborState (Cell curr, Cell[] neighbors, Cell[][] grid, int state) {
         for (int i = 0; i < 4; i++) {
-            if (isEmpty(neighbors[i]) && neighbors[i].getNextState() == state) {
+            if (checkState(neighbors[i],EMPTY) && checkNextState(neighbors[i],state)) {
                 return true;
             }
         }

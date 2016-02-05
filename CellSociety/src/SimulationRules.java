@@ -3,8 +3,10 @@ import java.util.*;
 
 public abstract class SimulationRules {
 
+        public static final int OPEN_NEXT = -2;
 	public static final int BLOCKED = -1;
 	public static final int EMPTY = 0;
+	
 	//    private Random rand;
 
 	public SimulationRules () {
@@ -45,14 +47,6 @@ public abstract class SimulationRules {
 		return new Random();
 	}
 
-	protected boolean isEmpty (Cell currCell) {
-		return (currCell.getCurrState() == EMPTY);
-	}
-
-	protected boolean isNextEmpty (Cell currCell) {
-		return (currCell.getNextState() == EMPTY);
-	}
-
 	protected boolean checkState (Cell curr, int state) {
 		return (curr.getCurrState() == state);
 	}
@@ -80,7 +74,7 @@ public abstract class SimulationRules {
 	protected boolean isGridOpen (Cell[][] grid) {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
-				if (isEmpty(grid[i][j]) && isNextEmpty(grid[i][j])) {
+				if (checkState(grid[i][j],EMPTY) && checkNextState(grid[i][j],EMPTY)) {
 					return true;
 				}
 			}
