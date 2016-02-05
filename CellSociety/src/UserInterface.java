@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -36,7 +37,11 @@ public class UserInterface {
 	}
 
 	private void makeTime(){
+		
 		time = new Time(info);
+		Node n = root.getChildren().get(0);
+		root.getChildren().clear();
+		root.getChildren().add(n);
 		root.getChildren().addAll(time.getCellDisplay());
 
 	}
