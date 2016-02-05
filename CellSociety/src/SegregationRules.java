@@ -10,7 +10,7 @@ public class SegregationRules extends SimulationRules {
 
     @Override
     protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
-        if (isEmpty(curr)) {
+        if (checkState(curr,EMPTY)) {
             return EMPTY;
         }
         else {
@@ -28,7 +28,7 @@ public class SegregationRules extends SimulationRules {
         while (isGridOpen(grid)) {//check if this is the condition we want
             int x = getRand().nextInt(grid[0].length-3)+1;
             int y = getRand().nextInt(grid.length-3)+1;
-            if (isEmpty(grid[x][y]) && isNextEmpty(grid[x][y])) {
+            if (checkState(grid[x][y],EMPTY) && checkNextState(grid[x][y],EMPTY)) {
                 grid[x][y].setNextState(state);
                 break;
             }
@@ -39,7 +39,7 @@ public class SegregationRules extends SimulationRules {
     @Override
     protected void setSimulationParameters (String[] simParams) {
         percentToSatisfy = Double.parseDouble(simParams[0]);
-        
+        System.out.println(percentToSatisfy);
     }
 
 }
