@@ -17,6 +17,13 @@ Main class file: Main.java
 
 Data (non Java) files needed: All files are provided in repository.  Non-java files include the XML configuration files, ButtonLabels.properties, XMLTags.properties, and custom.css
 
+Contributions:
+*Joe: Design and implementation of SimulationRules super class and  four SimulationRules subclasses
+*Jin: Implementation of XML reader class and the CellManager class.  Also designed formate for XML config files
+*Huijia: Design and implementation of Display, UserInterface, and Time classes.
+
+Although the contributions described above represent those areas of the project we were each in charge of, we came up with the overall design together as a group and spent a lot of time working together, often doing partner coding, to solve some of the difficult design challenges and make the program's classes function together properly.  We also helped each other out with the more difficult aspects of each task.
+
 How to run the Simulation:
 Click the 'Load File' Button, choose the initial configuration file for the simulation of choice, click 'Start' button.  The running simulation can be paused, restarted, sped up or slowed down, stepped through, and stopped mid way to run a new simulation by loading new XML configuration file.
 

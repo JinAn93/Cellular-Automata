@@ -34,7 +34,6 @@ public class Time {
     }
 
     private void settingsFromFile (String info) {
-        System.out.println(info);
         String[] settings = info.split(",");
         name = settings[0];
         title = settings[1];
@@ -43,8 +42,6 @@ public class Time {
         String[] dim = settings[4].split("x");
         n = Integer.parseInt(dim[0]);
         m = Integer.parseInt(dim[1]);
-        System.out.println(n);
-        System.out.println(m);
 
         char[] ini = settings[5].toCharArray();
         initial = new int[ini.length];
@@ -72,7 +69,6 @@ public class Time {
         celldisplay = new Display(n, m, numstates);
         Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
         celldisplay.updateDisplay(Cells.getCellList());
-        System.out.println("Grid Stuff " + n + " " + m);
 
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
