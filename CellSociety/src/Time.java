@@ -4,35 +4,48 @@ import javafx.util.*;
 import java.util.*;
 import javafx.animation.KeyFrame;
 
-
+/**
+ * Time is the class that controls the animation. It creates a CellManager and a Display object, and
+ * steps through the simulations using a Timeline object. This class is used by UserInterface.
+ * 
+ * @author Joseph Lilien
+ * @author Jin An
+ * @author Huijia Yu
+ *
+ */
 public class Time {
 
-    private List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
+    private static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
                                                      "Spreading_Fire", "Game_of_Life");
-
-    private Timeline timeline;
     private static final Duration STEPTIME = new Duration(1000);
+    private Timeline timeline;
     private CellManager Cells;
     private Display celldisplay;
 
     private double speed = 1;
-
-    // TODO: figure out what to do with these
     private String name;
     private String title;
     private String author;
-    private int numstates; // change this to make flexible--put in xml?
+    private int numstates;
     private int n;
     private int m;
     private int[] initial;
     private String[] params;
 
+    /**
+     * Info is the String returned by the XML filereader (in userinterface) which contains the information about the simulation.
+     * This is used to initialize the rest of the simulation. 
+     * @param info
+     */
     public Time (String info) {
         settingsFromFile(info);
-        // break up string w/method
         initSimulation();
     }
-
+    /**
+     * Takes the string created in XMLReader and gets the information, putting it into variables that will 
+     * be called when making the cellmanager and display.
+     * @param info
+     */
     private void settingsFromFile (String info) {
         String[] settings = info.split(",");
         name = settings[0];
@@ -56,15 +69,11 @@ public class Time {
         }
 
     }
-
-    // private void checkConditions(){
-    // if (info.isEmpty()){
-    // // error
-    // }
-    // }
-
+    /**
+     * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
+     * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
+     */
     public void initSimulation () {
-        // checkConditions();
         Cells = new CellManager();
         celldisplay = new Display(n, m, numstates);
         Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
@@ -75,7 +84,9 @@ public class Time {
         timeline.getKeyFrames().add(new KeyFrame(STEPTIME,
                                                  e -> step()));
     }
-
+    /**
+     * This updates cells (the cellmanager) and celldisplay (the display) using their methods for this.
+     */
     private void step () {
         Cells.updateStates();
         Cells.moveNextToCurrentState();
@@ -87,7 +98,6 @@ public class Time {
     }
 
     public void setSpeed (double s) {
-        // stepTime = new Duration(speed);
         timeline.setRate(s);
         speed = s;
     }
@@ -108,7 +118,10 @@ public class Time {
         timeline.pause();
         step();
     }
-
+    /**
+     * Returns a list of shapes (as opposed to a 2-D array) so that these can be added to the root group in interface 
+     * @return
+     */
     public List<Shape> getCellDisplay () {
         List<Shape> list = new ArrayList<Shape>();
         for (Shape[] array : celldisplay.getDisplay()) {
