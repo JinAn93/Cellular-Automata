@@ -31,11 +31,11 @@ Java FX documentation, Cellular Automata (from The Nature of Code, Daniel Shiffm
 
 #### Contributions:
 
-*Joe: Design and implementation of SimulationRules super class and  four SimulationRules subclasses
+* Joe: Design and implementation of SimulationRules super class and  four SimulationRules subclasses
 
-*Jin: Implementation of XML reader class and the CellManager class.  Also designed formate for XML config files
+* Jin: Implementation of XML reader class and the CellManager class.  Also designed formate for XML config files
 
-*Huijia: Design and implementation of Display, UserInterface, and Time classes.
+* Huijia: Design and implementation of Display, UserInterface, and Time classes.
 
 Although the contributions described above represent those areas of the project we were each in charge of, we came up with the overall design together as a group and spent a lot of time working together, often doing partner coding, to solve some of the difficult design challenges and make the program's classes function together properly.  We also helped each other out with the more difficult aspects of each task.
 
