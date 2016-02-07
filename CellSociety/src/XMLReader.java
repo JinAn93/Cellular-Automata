@@ -9,11 +9,26 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
+/**
+ * XMLReader serves to read XML files and return a concatenated string of relevant information extracted 
+ * from the XML file. Its readXMLFile method interacts with UserInterface class
+ * 
+ * @author Joseph Lilien
+ * @author Jin An
+ * @author Huijia Yu
+ *
+ */
 public class XMLReader {
     private String RESOURCE_PACKAGE_XML = "Resources/XMLTags";
     ResourceBundle myResources;
 
+    /**
+     * Called from UserInterface class. This method gets the loaded file and returns a concatenated
+     * String of information separated by ','. It frequently calls getElements method which is implemented
+     * within the class. 
+     * @param file
+     * @return
+     */
     public String readXMLFile (File file) {
         String strsimInfo = new String();
         try {
@@ -47,6 +62,13 @@ public class XMLReader {
         return strsimInfo;
     }
 
+    /**
+     * getElements serves to avoid repeated codes that get Elements in XML by tag Name. By using resources folder,
+     * mistakes from string input can be avoided.
+     * @param eElement
+     * @param s
+     * @return
+     */
     private String getElements (Element eElement, String s) {
         return (eElement.getElementsByTagName(myResources.getString(s)).item(0).getTextContent());
     }
