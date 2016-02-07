@@ -6,5 +6,5 @@
 	<numstates>3</numstates>
 	<setting>3 3 1</setting>
 	<dimension>5x5</dimension>
-	<Initial>1111211111111111111111111</Initial>
+	<Initial>0111211111112112211111001</Initial>
 </simulation>
