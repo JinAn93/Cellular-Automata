@@ -20,6 +20,11 @@ import org.w3c.dom.NodeList;
  */
 public class XMLReader {
     private String RESOURCE_PACKAGE_XML = "Resources/XMLTags";
+    private static final int NO_ERROR = 0;
+    private static final int NO_SIMULATION_TYPE = 1;
+    private static final int PARAMETER_ERROR = 2;
+    private static final int INVALID_CELL_STATE = 3;
+    private static final int GRID_INIT_ERROR = 4;
     ResourceBundle myResources;
 
     /**
@@ -60,6 +65,26 @@ public class XMLReader {
             e.printStackTrace(); // TODO check this out
         }
         return strsimInfo;
+    }
+    
+    public int checkError(int row, int column, String whichSim, int[] gridInit, String[] parameters){
+        if(!Time.simulations.contains(whichSim)){
+            return NO_SIMULATION_TYPE;
+        }
+        if(gridInit.length != row * column){
+            return GRID_INIT_ERROR;
+        }
+        for(int i=0; i<gridInit.length; i++){
+            if(gridInit[i] < 0 || gridInit[i] > 3){
+                return INVALID_CELL_STATE;
+            }
+        }
+        
+        int simIndex = Time.simulations.lastIndexOf(whichSim);
+        if(CellManager.myPossibleRules[simIndex].isInvalid(parameters)){
+            return PARAMETER_ERROR;
+        }
+        return NO_ERROR;
     }
 
     /**

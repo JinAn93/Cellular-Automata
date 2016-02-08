@@ -15,6 +15,7 @@ import java.util.*;
 public class SegregationRules extends SimulationRules {
     private static final int FIRST = 1;
     private static final int SECOND = 2;
+    private static final int paramNeeded = 1;
     private double percentToSatisfy;
 
     public SegregationRules () {
@@ -87,4 +88,14 @@ public class SegregationRules extends SimulationRules {
         percentToSatisfy = Double.parseDouble(simParams[0]);
     }
 
+    @Override
+    protected boolean isInvalid (String[] simParams) {
+        if (simParams.length != paramNeeded) {
+            return true;
+        }
+        if (Double.parseDouble(simParams[0]) > 1 || Double.parseDouble(simParams[0]) < 0) {
+            return true;
+        }
+        return false;
+    }
 }

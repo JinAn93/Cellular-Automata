@@ -16,6 +16,7 @@ import java.util.*;
 public class SpreadingFireRules extends SimulationRules {
     private static final int TREE = 1;
     private static final int BURNING = 2;
+    private static final int paramNeeded = 1;
     private double probCatch;
 
     public SpreadingFireRules () {
@@ -65,6 +66,17 @@ public class SpreadingFireRules extends SimulationRules {
     protected void setSimulationParameters (String[] simParams) {
         probCatch = Double.parseDouble(simParams[0]);
 
+    }
+    
+    @Override
+    protected boolean isInvalid (String[] simParams) {
+        if (simParams.length != paramNeeded) {
+            return true;
+        }
+        if (Double.parseDouble(simParams[0]) > 1 || Double.parseDouble(simParams[0]) < 0) {
+            return true;
+        }
+        return false;
     }
 
 }

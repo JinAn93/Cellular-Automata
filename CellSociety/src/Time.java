@@ -15,7 +15,7 @@ import javafx.animation.KeyFrame;
  */
 public class Time {
 
-    private static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
+    public static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
                                                      "Spreading_Fire", "Game_of_Life");
     private static final Duration STEPTIME = new Duration(1000);
     private Timeline timeline;

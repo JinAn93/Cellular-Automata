@@ -13,6 +13,7 @@
 public class PredatorPreyRules extends SimulationRules {
     private static final int FISH = 1;
     private static final int SHARK = 2;
+    private static final int paramNeeded = 3;
     private double reproductionTime;
     private double startEnergy;
     private double fishEnergy;
@@ -170,6 +171,19 @@ public class PredatorPreyRules extends SimulationRules {
         reproductionTime = Double.parseDouble(simParams[0]);
         startEnergy = Double.parseDouble(simParams[1]);
         fishEnergy = Double.parseDouble(simParams[2]);
+    }
+    
+    @Override
+    protected boolean isInvalid (String[] simParams){
+        if(simParams.length != paramNeeded){
+            return true;
+        }
+        for(int i=0; i<paramNeeded; i++){
+            if(Double.parseDouble(simParams[i]) <= 0){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

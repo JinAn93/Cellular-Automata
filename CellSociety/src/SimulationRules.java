@@ -82,7 +82,7 @@ public abstract class SimulationRules {
      * @param simParams
      */
     protected abstract void setSimulationParameters (String[] simParams);
-
+    protected abstract boolean isInvalid(String[] simParams);
     protected Random getRand () {
         return new Random();
     }

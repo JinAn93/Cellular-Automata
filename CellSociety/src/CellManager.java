@@ -14,11 +14,12 @@ import java.util.*;
  */
 public class CellManager {
     private Cell[][] cellGrid;
-    private SimulationRules[] myPossibleRules =
-    { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
-     new GameOfLifeRules() };
     private SimulationRules myRules;
-
+    public static final SimulationRules[] myPossibleRules =
+        { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
+         new GameOfLifeRules() };
+        
+    
     /**
      * setUp method is called from initSimulation method in Time class. It takes in # of rows, columns, and
      * all the relevant information extracted from XML File. By creating cellGrid larger (by 2 for both column
@@ -32,6 +33,7 @@ public class CellManager {
      * @param entry
      * @param simParams
      */
+    
     public void setUp (int r, int c, int whichSim, int[] entry, String[] simParams) {
         myRules = myPossibleRules[whichSim];
         cellGrid = new Cell[r + 2][c + 2];
