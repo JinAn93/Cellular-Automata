@@ -14,6 +14,7 @@ import java.util.*;
  */
 
 public class Cell {
+    //private PatchOfGround groundState = new PatchOfGround();
     private int currState = 0;
     private int nextState = 0;
     // PredatorPrey Properties
