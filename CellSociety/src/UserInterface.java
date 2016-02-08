@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  */
 public class UserInterface {
     public static final double WIDTH = 580;
-    public static final double HEIGHT = 650;
+    public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
 	public static final double BUTTON_HEIGHT = HEIGHT -15;

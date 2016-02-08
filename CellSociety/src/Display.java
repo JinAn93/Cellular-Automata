@@ -17,7 +17,7 @@ public class Display {
 	private static final double SATURATION = 0.7;
 	private static final double BRIGHTNESS = 1.0;
 	private static final int X_OFFSET = 10;
-	private static final int Y_OFFSET = 230;
+	private static final int Y_OFFSET = 210;
 	public final static int DISPLAY_WIDTH = 400;
     public final static int DISPLAY_HEIGHT = 400;
     private int COLUMNS;
