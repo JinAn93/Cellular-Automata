@@ -172,7 +172,7 @@ public abstract class SimulationRules {
         else {
             Cell[] neighbors =
                     { cellGrid[i - 1][j], cellGrid[i + 1][j], cellGrid[i][j-1],
-                      cellGrid[i][j+1], cellGrid[i + 1][j-1], cellGrid[i+1][j+1] };
+                      cellGrid[i][j+1], cellGrid[i - 1][j-1], cellGrid[i-1][j+1] };
             return neighbors;
         }
     }
