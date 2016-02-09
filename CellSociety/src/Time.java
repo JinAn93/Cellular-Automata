@@ -24,14 +24,14 @@ public class Time {
     private Display cellDisplay;
     private double speed = 1;
     private Display[] cellDisplayArray;
-    private int shape = 0;
+    
 
     /**
      * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
      * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
      */
 
-    public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params) {
+    public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape) {
         Cells = new CellManager();
         cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
         cellDisplay = cellDisplayArray[shape];
