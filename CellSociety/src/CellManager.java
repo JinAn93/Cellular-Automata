@@ -17,7 +17,7 @@ public class CellManager {
     private SimulationRules myRules;
     public static final SimulationRules[] myPossibleRules =
         { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
-         new GameOfLifeRules() };
+         new ForagingAntsRules() };
         
     
     /**

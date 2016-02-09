@@ -33,7 +33,7 @@ public abstract class SimulationRules {
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
                 if (checkNextState(cellGrid[i][j], OPEN_NEXT)) {
-                    Cell[] neighbors = setNeighbors(cellGrid, i, j);
+                    Cell[] neighbors = setNeighbors(cellGrid, i, j,0);
 
                     int nextState = findNextState(cellGrid[i][j], neighbors,
                                                   cellGrid);
@@ -82,7 +82,9 @@ public abstract class SimulationRules {
      * @param simParams
      */
     protected abstract void setSimulationParameters (String[] simParams);
-    protected abstract boolean isInvalid(String[] simParams);
+
+    protected abstract boolean isInvalid (String[] simParams);
+
     protected Random getRand () {
         return new Random();
     }
@@ -142,19 +144,32 @@ public abstract class SimulationRules {
     }
 
     /**
+     * Rectangular and Triangular:
      * Order of Array: {North, South, East, West, NorthEast, NorthWest,
      * SouthWest, SouthEast} Index: 0 1 2 3 4 5 6 7
+     * 
+     * Hexagonal:
+     * Order of Array: {North, South, NorthEast, NorthWest,
+     * SouthWest, SouthEast} Index: 0 1 2 3 4 5
      * 
      * @param cellGrid
      * @param i
      * @param j
      * @return
      */
-    public Cell[] setNeighbors (Cell[][] cellGrid, int i, int j) {
-        Cell[] neighbors = { cellGrid[i - 1][j], cellGrid[i + 1][j],
-                             cellGrid[i][j + 1], cellGrid[i][j - 1], cellGrid[i - 1][j + 1],
-                             cellGrid[i - 1][j - 1], cellGrid[i + 1][j - 1],
-                             cellGrid[i + 1][j + 1] };
-        return neighbors;
+    public Cell[] setNeighbors (Cell[][] cellGrid, int i, int j, int shape) {
+        if (shape == 0 || shape == 1) {
+            Cell[] neighbors = { cellGrid[i - 1][j], cellGrid[i + 1][j],
+                                 cellGrid[i][j + 1], cellGrid[i][j - 1], cellGrid[i - 1][j + 1],
+                                 cellGrid[i - 1][j - 1], cellGrid[i + 1][j - 1],
+                                 cellGrid[i + 1][j + 1] };
+            return neighbors;
+        }
+        else {
+            Cell[] neighbors =
+                    { cellGrid[i - 1][j], cellGrid[i + 1][j], cellGrid[i][j-1],
+                      cellGrid[i][j+1], cellGrid[i + 1][j-1], cellGrid[i+1][j+1] };
+            return neighbors;
+        }
     }
 }

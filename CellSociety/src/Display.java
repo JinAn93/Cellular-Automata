@@ -16,7 +16,8 @@ public class Display {
     private static final int TOTAL_HUE_DEGREES = 360;
 	private static final double SATURATION = 0.7;
 	private static final double BRIGHTNESS = 1.0;
-	private static final int BORDER_SIZE = 10;
+	private static final int X_OFFSET = 10;
+	private static final int Y_OFFSET = 210;
 	public final static int DISPLAY_WIDTH = 400;
     public final static int DISPLAY_HEIGHT = 400;
     private int COLUMNS;
@@ -51,8 +52,8 @@ public class Display {
             for (int j = 0; j < COLUMNS; j++) {
                 Grid[i][j] = new Rectangle();
                 Grid[i][j].setStroke(Color.BLACK);
-                Grid[i][j].setX(CELL_WIDTH * i + BORDER_SIZE);
-                Grid[i][j].setY(CELL_HEIGHT * j + BORDER_SIZE);
+                Grid[i][j].setX(CELL_WIDTH * i + X_OFFSET);
+                Grid[i][j].setY(CELL_HEIGHT * j + Y_OFFSET);
                 Grid[i][j].setWidth(CELL_WIDTH);
                 Grid[i][j].setHeight(CELL_HEIGHT);
             }
