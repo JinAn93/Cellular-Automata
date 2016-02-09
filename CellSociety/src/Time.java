@@ -25,6 +25,7 @@ public class Time {
     private double speed = 1;
     private Display[] cellDisplayArray;
 
+
     /**
      * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
      * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
