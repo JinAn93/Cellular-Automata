@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -31,6 +33,10 @@ public class UserInterface {
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
+    private String myName, myTitle, myAuthor;
+    private int myNumStates, myRow, myColumn;
+    private int[] myInitial;
+    private String[] myParams;
     private Scene myScene;
     private Group root;
     private Time time = null;
@@ -63,7 +69,8 @@ public class UserInterface {
      * previous displayed grid (if there is one) and puts in a new one.
      */
     private void makeTime () {
-        time = new Time(info);
+        time = new Time();
+        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams);
         enableButtons();
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
@@ -139,13 +146,55 @@ public class UserInterface {
      * Opens a new window for choosing XML file to start animation
      */
     private void fileLoader () {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        File file = fileChooser.showOpenDialog(new Stage());
-        if (file != null) {
-            XMLReader readfile = new XMLReader();
-            info = readfile.readXMLFile(file);
-            makeTime();
+        boolean isFileReady = false;
+        while(!isFileReady){
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            File file = fileChooser.showOpenDialog(new Stage());
+            if (file != null) {
+                XMLReader readfile = new XMLReader();
+                info = readfile.readXMLFile(file);
+                extractFile(info);
+                String errorCheck = readfile.checkError(myRow, myColumn, myName, myInitial, myParams);
+                if(XMLReader.errorTypes.get(XMLReader.NO_ERROR) == errorCheck){
+                    isFileReady = true;
+                }
+                else{
+                    showAlertMessage(errorCheck);
+                }
+            }
+        }
+        makeTime();
+    }
+        
+    private void showAlertMessage(String errorType){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("Look, an Error Dialog");
+        alert.setContentText(errorType);
+        alert.showAndWait();
+    }
+    
+    private void extractFile (String info) {
+        String[] settings = info.split(",");
+        myName = settings[0];
+        myTitle = settings[1];
+        myAuthor = settings[2];
+        myNumStates = Integer.parseInt(settings[3]);
+        String[] dim = settings[4].split("x");
+        myRow = Integer.parseInt(dim[0]);
+        myColumn = Integer.parseInt(dim[1]);
+
+        char[] ini = settings[5].toCharArray();
+        myInitial = new int[ini.length];
+        for (int i = 0; i < ini.length; i++) {
+            myInitial[i] = ini[i] - '0';
+        }
+        if (settings.length > 6) {
+            myParams = settings[6].split(" ");
+        }
+        else {
+            myParams = null;
         }
     }
 

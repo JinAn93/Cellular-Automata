@@ -11,7 +11,6 @@
  */
 
 public class GameOfLifeRules extends SimulationRules {
-    private static final int paramNeeded = 0;
     public static final int DEAD = 1;
     public static final int ALIVE = 2;
 
@@ -53,7 +52,7 @@ public class GameOfLifeRules extends SimulationRules {
 
     @Override
     protected boolean isInvalid (String[] simParams) {
-        if (simParams.length != paramNeeded) {
+        if (simParams != null) {
             return true;
         }
         return false;

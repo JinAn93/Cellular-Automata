@@ -21,62 +21,51 @@ public class Time {
     private Timeline timeline;
     private CellManager Cells;
     private Display celldisplay;
-
     private double speed = 1;
-    private String name;
-    private String title;
-    private String author;
-    private int numstates;
-    private int n;
-    private int m;
-    private int[] initial;
-    private String[] params;
-
+    
     /**
      * Info is the String returned by the XML filereader (in userinterface) which contains the information about the simulation.
      * This is used to initialize the rest of the simulation. 
      * @param info
      */
-    public Time (String info) {
-        settingsFromFile(info);
-        initSimulation();
+    public Time () {
     }
     /**
      * Takes the string created in XMLReader and gets the information, putting it into variables that will 
      * be called when making the cellmanager and display.
      * @param info
      */
-    private void settingsFromFile (String info) {
-        String[] settings = info.split(",");
-        name = settings[0];
-        title = settings[1];
-        author = settings[2];
-        numstates = Integer.parseInt(settings[3]);
-        String[] dim = settings[4].split("x");
-        n = Integer.parseInt(dim[0]);
-        m = Integer.parseInt(dim[1]);
-
-        char[] ini = settings[5].toCharArray();
-        initial = new int[ini.length];
-        for (int i = 0; i < ini.length; i++) {
-            initial[i] = ini[i] - '0';
-        }
-        if (settings.length > 6) {
-            params = settings[6].split(" ");
-        }
-        else {
-            params = null;
-        }
-
-    }
+//    private void settingsFromFile (String info) {
+//        String[] settings = info.split(",");
+//        name = settings[0];
+//        title = settings[1];
+//        author = settings[2];
+//        numstates = Integer.parseInt(settings[3]);
+//        String[] dim = settings[4].split("x");
+//        n = Integer.parseInt(dim[0]);
+//        m = Integer.parseInt(dim[1]);
+//
+//        char[] ini = settings[5].toCharArray();
+//        initial = new int[ini.length];
+//        for (int i = 0; i < ini.length; i++) {
+//            initial[i] = ini[i] - '0';
+//        }
+//        if (settings.length > 6) {
+//            params = settings[6].split(" ");
+//        }
+//        else {
+//            params = null;
+//        }
+//
+//    }
     /**
      * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
      * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
      */
-    public void initSimulation () {
+    public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params) {
         Cells = new CellManager();
-        celldisplay = new Display(n, m, numstates);
-        Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
+        celldisplay = new Display(row, column, numStates);
+        Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params);
         celldisplay.updateDisplay(Cells.getCellList());
 
         timeline = new Timeline();
