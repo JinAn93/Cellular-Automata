@@ -1,5 +1,5 @@
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,11 +20,12 @@ import org.w3c.dom.NodeList;
  */
 public class XMLReader {
     private String RESOURCE_PACKAGE_XML = "Resources/XMLTags";
-    private static final int NO_ERROR = 0;
-    private static final int NO_SIMULATION_TYPE = 1;
-    private static final int PARAMETER_ERROR = 2;
-    private static final int INVALID_CELL_STATE = 3;
-    private static final int GRID_INIT_ERROR = 4;
+    public static final int NO_ERROR = 0;
+    public static final List<String> errorTypes = Arrays.asList("No_Error","No_Simulation_Type", "Parameter_Error", "Invalid_Cell_State", "Grid_Init_Error");
+    public static final int NO_SIMULATION_TYPE = 1;
+    public static final int PARAMETER_ERROR = 2;
+    public static final int INVALID_CELL_STATE = 3;
+    public static final int GRID_INIT_ERROR = 4;
     ResourceBundle myResources;
 
     /**
@@ -67,24 +68,24 @@ public class XMLReader {
         return strsimInfo;
     }
     
-    public int checkError(int row, int column, String whichSim, int[] gridInit, String[] parameters){
+    public String checkError(int row, int column, String whichSim, int[] gridInit, String[] parameters){
         if(!Time.simulations.contains(whichSim)){
-            return NO_SIMULATION_TYPE;
+            return errorTypes.get(NO_SIMULATION_TYPE);
         }
         if(gridInit.length != row * column){
-            return GRID_INIT_ERROR;
+            return errorTypes.get(GRID_INIT_ERROR);
         }
         for(int i=0; i<gridInit.length; i++){
             if(gridInit[i] < 0 || gridInit[i] > 3){
-                return INVALID_CELL_STATE;
+                return errorTypes.get(INVALID_CELL_STATE);
             }
         }
         
         int simIndex = Time.simulations.lastIndexOf(whichSim);
         if(CellManager.myPossibleRules[simIndex].isInvalid(parameters)){
-            return PARAMETER_ERROR;
+            return errorTypes.get(PARAMETER_ERROR);
         }
-        return NO_ERROR;
+        return errorTypes.get(NO_ERROR);
     }
 
     /**

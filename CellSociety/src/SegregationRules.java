@@ -90,6 +90,7 @@ public class SegregationRules extends SimulationRules {
 
     @Override
     protected boolean isInvalid (String[] simParams) {
+        System.out.println(simParams.length);
         if (simParams.length != paramNeeded) {
             return true;
         }

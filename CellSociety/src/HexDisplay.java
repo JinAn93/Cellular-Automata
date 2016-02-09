@@ -1,29 +1,35 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-public class HexDisplay {
+public class HexDisplay extends Display{
 
-	public void initDisplay () {
-		int CELL_WIDTH = DISPLAY_WIDTH / ROWS;
-		int CELL_HEIGHT = DISPLAY_HEIGHT / COLUMNS;
+    public HexDisplay (int rows, int columns, int states) {
+        super(rows, columns, states);
+        // TODO Auto-generated constructor stub
+    }
+
+    @Override
+    public void initDisplay () {
+        // TODO Auto-generated method stub
+    	int CELL_WIDTH = DISPLAY_WIDTH / getRows();
+		int CELL_HEIGHT = DISPLAY_HEIGHT / getColumns();
 		initColors();
-		Grid = new Polygon[ROWS][COLUMNS];
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLUMNS; j++) {
-				Grid[i][j] = new Polygon();
-				Grid[i][j].setStroke(Color.BLACK);
+		for (int i = 0; i < getRows(); i++) {
+			for (int j = 0; j < getColumns(); j++) {
+				getDisplay()[i][j] = new Polygon();
+				getDisplay()[i][j].setStroke(Color.BLACK);
 				double k = i+.5*j%2;
-				Grid[i][j].getPoints().addAll(new Double[]{
+				getDisplay()[i][j].getPoints().addAll(new Double[]{
 						(CELL_WIDTH * i + X_OFFSET), (CELL_HEIGHT * (j+.25) + Y_OFFSET),
 						(CELL_WIDTH * (i+.5) + X_OFFSET), (CELL_HEIGHT * (j) + Y_OFFSET),
-						(CELL_WIDTH * (i+1) + X_OFFSET), (CELL_HEIGHT * (j+.25) + Y_OFFSET) 
+						(CELL_WIDTH * (i+1) + X_OFFSET), (CELL_HEIGHT * (j+.25) + Y_OFFSET), 
 						(CELL_WIDTH * i + X_OFFSET), (CELL_HEIGHT * (j+.75) + Y_OFFSET),
 						(CELL_WIDTH * (i+.5) + X_OFFSET), (CELL_HEIGHT * (j+1) + Y_OFFSET),
 						(CELL_WIDTH * (i+1) + X_OFFSET), (CELL_HEIGHT * (j+.75) + Y_OFFSET)  });
 
 			}
 		}
+    }
 
-	}
 
 }
