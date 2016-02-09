@@ -1,4 +1,5 @@
 import javafx.animation.Timeline;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.util.*;
 import java.util.*;
@@ -20,54 +21,22 @@ public class Time {
     private static final Duration STEPTIME = new Duration(1000);
     private Timeline timeline;
     private CellManager Cells;
-    private Display celldisplay;
+    private Display cellDisplay;
     private double speed = 1;
-    
-    /**
-     * Info is the String returned by the XML filereader (in userinterface) which contains the information about the simulation.
-     * This is used to initialize the rest of the simulation. 
-     * @param info
-     */
-    public Time () {
-    }
-    /**
-     * Takes the string created in XMLReader and gets the information, putting it into variables that will 
-     * be called when making the cellmanager and display.
-     * @param info
-     */
-//    private void settingsFromFile (String info) {
-//        String[] settings = info.split(",");
-//        name = settings[0];
-//        title = settings[1];
-//        author = settings[2];
-//        numstates = Integer.parseInt(settings[3]);
-//        String[] dim = settings[4].split("x");
-//        n = Integer.parseInt(dim[0]);
-//        m = Integer.parseInt(dim[1]);
-//
-//        char[] ini = settings[5].toCharArray();
-//        initial = new int[ini.length];
-//        for (int i = 0; i < ini.length; i++) {
-//            initial[i] = ini[i] - '0';
-//        }
-//        if (settings.length > 6) {
-//            params = settings[6].split(" ");
-//        }
-//        else {
-//            params = null;
-//        }
-//
-//    }
+    private Display[] cellDisplayArray;
+    private int shape = 0;
+
     /**
      * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
      * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
      */
+
     public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params) {
         Cells = new CellManager();
-        celldisplay = new Display(row, column, numStates);
+        cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
+        cellDisplay = cellDisplayArray[shape];
         Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params);
-        celldisplay.updateDisplay(Cells.getCellList());
-
+        cellDisplay.updateDisplay(Cells.getCellList());
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(STEPTIME,
@@ -79,7 +48,7 @@ public class Time {
     private void step () {
         Cells.updateStates();
         Cells.moveNextToCurrentState();
-        celldisplay.updateDisplay(Cells.getCellList());
+        cellDisplay.updateDisplay(Cells.getCellList());
     }
 
     public double getSpeed () {
@@ -111,9 +80,9 @@ public class Time {
      * Returns a list of shapes (as opposed to a 2-D array) so that these can be added to the root group in interface 
      * @return
      */
-    public List<Shape> getCellDisplay () {
-        List<Shape> list = new ArrayList<Shape>();
-        for (Shape[] array : celldisplay.getDisplay()) {
+    public List<Polygon> getCellDisplay () {
+        List<Polygon> list = new ArrayList<Polygon>();
+        for (Polygon[] array : cellDisplay.getDisplay()) {
             list.addAll(Arrays.asList(array));
         }
         return list;
