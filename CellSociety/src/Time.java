@@ -20,17 +20,18 @@ public class Time {
     private static final Duration STEPTIME = new Duration(1000);
     private Timeline timeline;
     private CellManager Cells;
-    private Display celldisplay;
-
+    private int numstates;
+    private int n;
+    private int m;   
+    private Display cellDisplay;
+    private Display[] cellDisplayArray;
     private double speed = 1;
     private String name;
     private String title;
     private String author;
-    private int numstates;
-    private int n;
-    private int m;
     private int[] initial;
     private String[] params;
+    private int shape = 0;
 
     /**
      * Info is the String returned by the XML filereader (in userinterface) which contains the information about the simulation.
@@ -39,14 +40,14 @@ public class Time {
      */
     public Time (String info) {
         settingsFromFile(info);
-        initSimulation();
+        initSimulation(shape);
     }
     /**
      * Takes the string created in XMLReader and gets the information, putting it into variables that will 
      * be called when making the cellmanager and display.
      * @param info
      */
-    private void settingsFromFile (String info) {
+    private void settingsFromFile (String info) {//TODO add in shape info
         String[] settings = info.split(",");
         name = settings[0];
         title = settings[1];
@@ -55,7 +56,7 @@ public class Time {
         String[] dim = settings[4].split("x");
         n = Integer.parseInt(dim[0]);
         m = Integer.parseInt(dim[1]);
-
+        cellDisplayArray = new Display[]{new RectDisplay(n,m,numstates), new TriDisplay(n,m,numstates), new HexDisplay(n,m,numstates)};
         char[] ini = settings[5].toCharArray();
         initial = new int[ini.length];
         for (int i = 0; i < ini.length; i++) {
@@ -73,11 +74,11 @@ public class Time {
      * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
      * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
      */
-    public void initSimulation () {
+    public void initSimulation (int shape) {//TODO read shape from XML
         Cells = new CellManager();
-        celldisplay = new Display(n, m, numstates);
+        cellDisplay = cellDisplayArray[shape];
         Cells.setUp(n, m, simulations.lastIndexOf(name), initial, params);
-        celldisplay.updateDisplay(Cells.getCellList());
+        cellDisplay.updateDisplay(Cells.getCellList());
 
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -90,7 +91,7 @@ public class Time {
     private void step () {
         Cells.updateStates();
         Cells.moveNextToCurrentState();
-        celldisplay.updateDisplay(Cells.getCellList());
+        cellDisplay.updateDisplay(Cells.getCellList());
     }
 
     public double getSpeed () {
@@ -124,7 +125,7 @@ public class Time {
      */
     public List<Shape> getCellDisplay () {
         List<Shape> list = new ArrayList<Shape>();
-        for (Shape[] array : celldisplay.getDisplay()) {
+        for (Shape[] array : cellDisplay.getDisplay()) {
             list.addAll(Arrays.asList(array));
         }
         return list;
