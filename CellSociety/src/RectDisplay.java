@@ -10,8 +10,8 @@ public class RectDisplay extends Display {
 
     @Override
     public void initDisplay () {
-        int CELL_WIDTH = DISPLAY_WIDTH / getRows();
-        int CELL_HEIGHT = DISPLAY_HEIGHT / getColumns();
+        int CELL_WIDTH = DISPLAY_WIDTH / getColumns();
+        int CELL_HEIGHT = DISPLAY_HEIGHT / getRows();
         initColors();
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getColumns(); j++) {

@@ -14,8 +14,11 @@ import java.awt.Point;
 
 public class ForagingAntsRules extends SimulationRules {
     private static final int paramNeeded = 0;
-    public static final int NO_FOOD_ANT = 1;
-    public static final int FOOD_ANT = 2;
+    private static final int NO_FOOD_ANT = 1;
+    private static final int FOOD_ANT = 2;
+    private static final int FOOD_SOURCE = 3;
+    private static final int NEST = 4;
+    private static final int PHER = 5;
     private int homePherInd = 0;
     private int foodPherInd = 1;
 
@@ -35,8 +38,11 @@ public class ForagingAntsRules extends SimulationRules {
         else if (checkState(curr, NO_FOOD_ANT)) {
             findFood(curr,neighbors,grid);
         }
-        else{
+        else if (checkState(curr, FOOD_ANT)){
             returnToNest(curr,neighbors,grid);
+        }
+        else if (checkState(curr, FOOD_SOURCE)){
+            return FOOD_SOURCE;
         }
         return EMPTY;
     }
