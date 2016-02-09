@@ -3,7 +3,7 @@
 	<name>Game_of_Life</name>
 	<title>GOL_Tester2</title>
 	<author>Team15</author>
-	<shape>Rectangle<shape>
+	<shape>1<shape>
 	<numstates>3</numstates>
 	<setting></setting>
 	<dimension>6x6</dimension>

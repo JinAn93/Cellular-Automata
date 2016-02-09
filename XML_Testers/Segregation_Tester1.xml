@@ -3,7 +3,7 @@
 	<name>Segregation</name>
 	<title>Seg_Tester1</title>
 	<author>Team15</author>
-	<shape>Rectangle<shape>
+	<shape>2<shape>
 	<numstates>3</numstates>
 	<setting>.3</setting>
 	<dimension>5x5</dimension>
