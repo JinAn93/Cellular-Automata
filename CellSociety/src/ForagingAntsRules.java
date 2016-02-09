@@ -28,7 +28,7 @@ public class ForagingAntsRules extends SimulationRules {
      * neighbors and the rules of the ForagingAnts simulation
      */
     @Override
-    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
         if (checkState(curr, EMPTY)) {
             return EMPTY;
         }

@@ -24,7 +24,7 @@ public class SlimeMoldRules extends SimulationRules {
      * neighbors and the rules of the SlimeMold simulation
      */
     @Override
-    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
         if (curr.getCurrState() == ALIVE) {
             if (countNeighborState(neighbors, ALIVE) < 2) {
                 return DEAD;

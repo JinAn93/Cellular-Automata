@@ -24,7 +24,7 @@ public class SugarScapeRules extends SimulationRules {
      * neighbors and the rules of the SugarScape simulation
      */
     @Override
-    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
         return 0;
     }
 
