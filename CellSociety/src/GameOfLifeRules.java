@@ -23,7 +23,7 @@ public class GameOfLifeRules extends SimulationRules {
      * neighbors and the rules of the GameOfLife simulation
      */
     @Override
-    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
         if (curr.getCurrState() == ALIVE) {
             if (countNeighborState(neighbors, ALIVE) < 2) {
                 return DEAD;

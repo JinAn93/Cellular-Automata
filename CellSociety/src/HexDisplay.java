@@ -16,8 +16,8 @@ public class HexDisplay extends Display{
 			for (int j = 0; j < getColumns(); j++) {
 				getDisplay()[i][j] = new Polygon();
 				getDisplay()[i][j].setStroke(Color.BLACK);
-				double k = i*.75;
-				double l = j+.5*(i%2);
+				double l = i*.75;
+				double k = j+.5*(i%2);
 				
 				getDisplay()[i][j].getPoints().addAll(new Double[]{
 						(CELL_WIDTH * (k) + X_OFFSET), (CELL_HEIGHT * (l+.5) + Y_OFFSET),

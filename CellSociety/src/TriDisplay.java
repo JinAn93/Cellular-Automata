@@ -18,7 +18,7 @@ public class TriDisplay extends Display{
                 getDisplay()[i][j] = new Polygon();
                 getDisplay()[i][j].setStroke(Color.BLACK);
                 double k = (i)/2.;
-                System.out.println(k);
+                //System.out.println(k);
                 if((i+j)%2==0){
                 	getDisplay()[i][j].getPoints().addAll(new Double[]{
                 		(CELL_WIDTH * k + X_OFFSET), (CELL_HEIGHT * j + Y_OFFSET),
