@@ -29,12 +29,12 @@ public class UserInterface {
     public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
-	public static final double BUTTON_HEIGHT = HEIGHT -15;
+public static final double BUTTON_HEIGHT = HEIGHT -15;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
     private String myName, myTitle, myAuthor;
-    private int myNumStates, myRow, myColumn;
+    private int myNumStates, myRow, myColumn, myShape;
     private int[] myInitial;
     private String[] myParams;
     private Scene myScene;
@@ -70,7 +70,7 @@ public class UserInterface {
      */
     private void makeTime () {
         time = new Time();
-        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams);
+        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape);
         enableButtons();
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
@@ -180,18 +180,19 @@ public class UserInterface {
         myName = settings[0];
         myTitle = settings[1];
         myAuthor = settings[2];
-        myNumStates = Integer.parseInt(settings[3]);
-        String[] dim = settings[4].split("x");
+        myShape = Integer.parseInt(settings[3]);
+        myNumStates = Integer.parseInt(settings[4]);
+        String[] dim = settings[5].split("x");
         myRow = Integer.parseInt(dim[0]);
         myColumn = Integer.parseInt(dim[1]);
 
-        char[] ini = settings[5].toCharArray();
+        char[] ini = settings[6].toCharArray();
         myInitial = new int[ini.length];
         for (int i = 0; i < ini.length; i++) {
             myInitial[i] = ini[i] - '0';
         }
         if (settings.length > 6) {
-            myParams = settings[6].split(" ");
+            myParams = settings[7].split(" ");
         }
         else {
             myParams = null;

@@ -55,6 +55,7 @@ public class XMLReader {
                     strsimInfo += whichSim;
                     strsimInfo += (",") + getElements(eElement, "TITLE");
                     strsimInfo += (",") + getElements(eElement, "AUTHOR");
+                    strsimInfo += (",") + getElements(eElement, "SHAPE");
                     strsimInfo += (",") + getElements(eElement, "NUMSTATES");
                     strsimInfo += (",") + getElements(eElement, "DIMENSION");
                     strsimInfo += (",") + getElements(eElement, "INITIAL");

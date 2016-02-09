@@ -3,6 +3,8 @@
 	<name>Segregation</name>
 	<title>Seg_Tester2</title>
 	<author>Team15</author>
+	<shape>Rectangle<shape>
+	<shape>Rectangle<shape>
 	<numstates>3</numstates>
 	<setting>.6</setting>
 	<dimension>40x40</dimension>

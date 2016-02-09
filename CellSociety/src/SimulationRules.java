@@ -29,11 +29,11 @@ public abstract class SimulationRules {
      * 
      * @param cellGrid
      */
-    protected void applyRule (Cell[][] cellGrid) {
+    protected void applyRule (Cell[][] cellGrid, int shape) {
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
                 if (checkNextState(cellGrid[i][j], OPEN_NEXT)) {
-                    Cell[] neighbors = setNeighbors(cellGrid, i, j,0);
+                    Cell[] neighbors = setNeighbors(cellGrid, i, j, shape);
 
                     int nextState = findNextState(cellGrid[i][j], neighbors,
                                                   cellGrid);

@@ -3,6 +3,7 @@
 	<name>Predator_Prey</name>
 	<title>PP_Tester1</title>
 	<author>Team15</author>
+		<shape>Rectangle<shape>
 	<numstates>3</numstates>
 	<setting>3 3 1</setting>
 	<dimension>5x5</dimension>
