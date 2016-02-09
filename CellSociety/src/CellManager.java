@@ -15,6 +15,7 @@ import java.util.*;
 public class CellManager {
     private Cell[][] cellGrid;
     private SimulationRules myRules;
+    private int myShape;
     public static final SimulationRules[] myPossibleRules =
         { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(), new GameOfLifeRules(),
          new ForagingAntsRules() };
@@ -34,8 +35,9 @@ public class CellManager {
      * @param simParams
      */
     
-    public void setUp (int r, int c, int whichSim, int[] entry, String[] simParams) {
+    public void setUp (int r, int c, int whichSim, int[] entry, String[] simParams, int shape) {
         myRules = myPossibleRules[whichSim];
+        myShape = shape;
         cellGrid = new Cell[r + 2][c + 2];
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
@@ -59,7 +61,7 @@ public class CellManager {
     }
 
     public void updateStates () {
-        myRules.applyRule(cellGrid);
+        myRules.applyRule(cellGrid, myShape);
     }
 
     /**
