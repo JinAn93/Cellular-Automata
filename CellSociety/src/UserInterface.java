@@ -191,7 +191,7 @@ public static final double BUTTON_HEIGHT = HEIGHT -15;
         for (int i = 0; i < ini.length; i++) {
             myInitial[i] = ini[i] - '0';
         }
-        if (settings.length > 6) {
+        if (settings.length > 7) { //magic number
             myParams = settings[7].split(" ");
         }
         else {

@@ -3,7 +3,7 @@
 	<name>Spreading_Fire</name>
 	<title>SF_Tester1</title>
 	<author>Team15</author>
-	<shape>2<shape>
+	<shape>2</shape>
 	<numstates>3</numstates>
 	<setting>0.3</setting>
 	<dimension>20x5</dimension>
