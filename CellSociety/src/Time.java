@@ -1,6 +1,6 @@
 import javafx.animation.Timeline;
+import javafx.scene.chart.LineChart;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
 import javafx.util.*;
 import java.util.*;
 import javafx.animation.KeyFrame;
@@ -16,75 +16,90 @@ import javafx.animation.KeyFrame;
  */
 public class Time {
 
-    public static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
-                                                     "Spreading_Fire", "Game_of_Life");
-    private static final Duration STEPTIME = new Duration(1000);
-    private Timeline timeline;
-    private CellManager Cells;
-    private Display cellDisplay;
-    private double speed = 1;
-    private Display[] cellDisplayArray;
+	public static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
+			"Spreading_Fire", "Game_of_Life");
+	private static final Duration STEPTIME = new Duration(1000);
+	private Timeline timeline;
+	private CellManager Cells;
+	private Display cellDisplay;
+	private double speed = 1;
+	private Display[] cellDisplayArray;
+	private Graph cellGraph; 
 
+	/**
+	 * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
+	 * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
+	 */
 
-    /**
-     * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
-     * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
-     */
+	public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape) {
 
-    public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape) {
-        Cells = new CellManager();
-        cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
-        cellDisplay = cellDisplayArray[shape];
-        Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape);
-        cellDisplay.updateDisplay(Cells.getCellList());
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(STEPTIME,
-                                                 e -> step()));
-    }
-    /**
-     * This updates cells (the cellmanager) and celldisplay (the display) using their methods for this.
-     */
-    private void step () {
-        Cells.updateStates();
-        Cells.moveNextToCurrentState();
-        cellDisplay.updateDisplay(Cells.getCellList());
-    }
+		Cells = new CellManager();
+		cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
+		cellDisplay = cellDisplayArray[shape];
+		Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape);
+		cellDisplay.updateDisplay(Cells.getCellList());
+		
+		cellGraph = new Graph(numStates);
+		cellGraph.updateValues(Cells.getCellList());
+		
+		timeline = new Timeline();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.getKeyFrames().add(new KeyFrame(STEPTIME,
+				e -> step()));
+	}
+	/**
+	 * This updates cells (the cellmanager) and celldisplay (the display) using their methods for this.
+	 */
+	private void step () {
+		Cells.updateStates();
+		Cells.moveNextToCurrentState();
+		cellDisplay.updateDisplay(Cells.getCellList());
 
-    public double getSpeed () {
-        return speed;
-    }
+		cellGraph.updateValues(Cells.getCellList());
 
-    public void setSpeed (double s) {
-        timeline.setRate(s);
-        speed = s;
-    }
+	}
 
-    public void startAnimation () {
-        timeline.playFromStart();
-    }
+	
+	
+	public double getSpeed () {
+		return speed;
+	}
 
-    public void pauseAnimation () {
-        timeline.pause();
-    }
+	public void setSpeed (double s) {
+		timeline.setRate(s);
+		speed = s;
+	}
 
-    public void resumeAnimation () {
-        timeline.play();
-    }
+	public void startAnimation () {
+		timeline.playFromStart();
+	}
 
-    public void stepAnimation () {
-        timeline.pause();
-        step();
-    }
-    /**
-     * Returns a list of shapes (as opposed to a 2-D array) so that these can be added to the root group in interface 
-     * @return
-     */
-    public List<Polygon> getCellDisplay () {
-        List<Polygon> list = new ArrayList<Polygon>();
-        for (Polygon[] array : cellDisplay.getDisplay()) {
-            list.addAll(Arrays.asList(array));
-        }
-        return list;
-    }
+	public void pauseAnimation () {
+		timeline.pause();
+	}
+
+	public void resumeAnimation () {
+		timeline.play();
+	}
+
+	public void stepAnimation () {
+		timeline.pause();
+		step();
+	}
+	/**
+	 * Returns a list of shapes (as opposed to a 2-D array) so that these can be added to the root group in interface 
+	 * @return
+	 */
+	public List<Polygon> getCellDisplay () {
+		List<Polygon> list = new ArrayList<Polygon>();
+		for (Polygon[] array : cellDisplay.getDisplay()) {
+			list.addAll(Arrays.asList(array));
+		}
+		return list;
+	}
+
+	public LineChart<Number, Number> getCellGraph(){
+		return cellGraph.getGraph();
+	}
+
 }

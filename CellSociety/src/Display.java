@@ -1,7 +1,6 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+
 
 /**
  * Display is the class that deals with the visual representation of the cells. It is 
@@ -91,5 +90,4 @@ public abstract class Display {
         this.states = states;
     }
     
-
 }

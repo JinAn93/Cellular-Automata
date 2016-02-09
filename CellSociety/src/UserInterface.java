@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -29,7 +30,8 @@ public class UserInterface {
     public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
-public static final double BUTTON_HEIGHT = HEIGHT -15;
+    public static final double BUTTON_HEIGHT = HEIGHT -15;
+    public static final double GRAPH_HEIGHT = 125;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
@@ -76,6 +78,9 @@ public static final double BUTTON_HEIGHT = HEIGHT -15;
         root.getChildren().clear();
         root.getChildren().add(n);
         root.getChildren().addAll(time.getCellDisplay());
+        LineChart<Number, Number> c = time.getCellGraph();
+        c.setMaxHeight(GRAPH_HEIGHT);
+        root.getChildren().add(c);
     }
 
     /**
