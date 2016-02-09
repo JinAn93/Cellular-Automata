@@ -28,12 +28,15 @@ public class SpreadingFireRules extends SimulationRules {
      * neighbors and the rules of the SpreadingFire simulation
      */
     @Override
-    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
+        if(shape==0||shape==1){
+            neighbors = shortenNeighbors(neighbors);
+        }
         if (checkState(curr, BURNING)) {
             return EMPTY;
         }
-        else if (checkState(curr, TREE)) {
-            if (checkBurning(neighbors[0], neighbors[1], neighbors[2], neighbors[3]) &&
+        else if (checkState(curr, TREE)) {            
+            if (checkBurning(neighbors) &&
                 getRand().nextDouble() < probCatch) {
                 return BURNING;
             }
@@ -53,9 +56,13 @@ public class SpreadingFireRules extends SimulationRules {
      * @param West
      * @return
      */
-    private boolean checkBurning (Cell North, Cell South, Cell East, Cell West) {
-        return checkState(North, BURNING) || checkState(South, BURNING) ||
-               checkState(East, BURNING) || checkState(West, BURNING);
+    private boolean checkBurning (Cell[] neighbors) {
+        for(int i=0;i<neighbors.length;i++){
+            if(checkState(neighbors[i],BURNING)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

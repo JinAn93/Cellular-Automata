@@ -29,14 +29,14 @@ public abstract class SimulationRules {
      * 
      * @param cellGrid
      */
-    protected void applyRule (Cell[][] cellGrid) {
+    protected void applyRule (Cell[][] cellGrid, int shape) {
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
                 if (checkNextState(cellGrid[i][j], OPEN_NEXT)) {
-                    Cell[] neighbors = setNeighbors(cellGrid, i, j,0);
+                    Cell[] neighbors = setNeighbors(cellGrid, i, j,shape);
 
                     int nextState = findNextState(cellGrid[i][j], neighbors,
-                                                  cellGrid);
+                                                  cellGrid,shape);
                     cellGrid[i][j].setNextState(nextState);
                 }
             }
@@ -73,7 +73,7 @@ public abstract class SimulationRules {
      */
     protected abstract int findNextState (Cell curr,
                                           Cell[] neighbors,
-                                          Cell[][] grid);
+                                          Cell[][] grid, int shape);
 
     /**
      * Abstract method to be implemented by each specific SimulationRules subclass. Sets constants
@@ -149,8 +149,8 @@ public abstract class SimulationRules {
      * SouthWest, SouthEast} Index: 0 1 2 3 4 5 6 7
      * 
      * Hexagonal:
-     * Order of Array: {North, South, NorthEast, NorthWest,
-     * SouthWest, SouthEast} Index: 0 1 2 3 4 5
+     * Order of Array: {North, South, SouthEast, SouthWest,
+     * NorthWest, NorthEast} Index: 0 1 2 3 4 5
      * 
      * @param cellGrid
      * @param i
@@ -171,5 +171,9 @@ public abstract class SimulationRules {
                       cellGrid[i][j+1], cellGrid[i + 1][j-1], cellGrid[i+1][j+1] };
             return neighbors;
         }
+    }
+    
+    public Cell[] shortenNeighbors(Cell[] neighbors){
+        return new Cell[]{neighbors[0],neighbors[1],neighbors[2],neighbors[3]};
     }
 }

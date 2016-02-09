@@ -28,7 +28,10 @@ public class PredatorPreyRules extends SimulationRules {
      * neighbors and the rules of the PredatorPrey simulation
      */
     @Override
-    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid) {
+    protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
+        if(shape==0||shape==1){
+            neighbors = shortenNeighbors(neighbors);
+        }
         curr.setTurnsOnState(curr.getTurnsOnState() + 1);
         if (checkState(curr, FISH)) {
             return handleMove(curr, neighbors, grid, FISH);
@@ -74,7 +77,7 @@ public class PredatorPreyRules extends SimulationRules {
      */
     private int handleMove (Cell curr, Cell[] neighbors, Cell[][] grid, int state) {
         while (isNeighborState(curr, neighbors, grid, OPEN_NEXT)) {
-            int rand = getRand().nextInt(4);
+            int rand = getRand().nextInt(neighbors.length);
             if ((checkState(neighbors[rand], EMPTY) &&
                  checkNextState(neighbors[rand], OPEN_NEXT)) ||
                 checkNextState(neighbors[rand], EMPTY)) {
@@ -107,7 +110,7 @@ public class PredatorPreyRules extends SimulationRules {
             return EMPTY;
         }
         while (isAround(curr, neighbors, grid, FISH)) {
-            int rand = getRand().nextInt(4);
+            int rand = getRand().nextInt(neighbors.length);
             if (checkState(neighbors[rand], FISH)) {
                 neighbors[rand].setNextState(SHARK);
                 neighbors[rand].setEnergy(curr.getEnergy() + fishEnergy);
@@ -136,7 +139,7 @@ public class PredatorPreyRules extends SimulationRules {
      * @return
      */
     private boolean isAround (Cell curr, Cell[] neighbors, Cell[][] grid, int state) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < neighbors.length; i++) {
             if (checkState(neighbors[i], state)) {
                 return true;
             }
@@ -155,7 +158,7 @@ public class PredatorPreyRules extends SimulationRules {
      * @return
      */
     private boolean isNeighborState (Cell curr, Cell[] neighbors, Cell[][] grid, int state) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < neighbors.length; i++) {
             if (checkState(neighbors[i], EMPTY) && checkNextState(neighbors[i], state)) {
                 return true;
             }
