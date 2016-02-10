@@ -32,13 +32,13 @@ public class Time {
 	 * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
 	 */
 
-	public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape) {
+	public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape, int edge) {
 		this.numStates = numStates;
 		
 		Cells = new CellManager();
 		cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
 		cellDisplay = cellDisplayArray[shape];
-		Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape);
+		Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape, edge);
 		cellDisplay.updateDisplay(Cells.getCellList());
 		
 		cellGraph = new Graph(numStates);

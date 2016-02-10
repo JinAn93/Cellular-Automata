@@ -4,6 +4,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -56,6 +62,7 @@ public class XMLManager {
                     strsimInfo += (",") + getElements(eElement, "TITLE");
                     strsimInfo += (",") + getElements(eElement, "AUTHOR");
                     strsimInfo += (",") + getElements(eElement, "SHAPE");
+                    strsimInfo += (",") + getElements(eElement, "EDGE");
                     strsimInfo += (",") + getElements(eElement, "NUMSTATES");
                     strsimInfo += (",") + getElements(eElement, "DIMENSION");
                     strsimInfo += (",") + getElements(eElement, "INITIAL");
@@ -69,6 +76,47 @@ public class XMLManager {
         return strsimInfo;
     }
     
+    public void writeXMLFile(String name, String title, String author, int shape, int edge, int numStates, String setting, int row, int column, String initial){
+        try{
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            
+            Document doc = docBuilder.newDocument();
+            Element rootElement = createElements(doc,"SIMULATION");
+            doc.appendChild(rootElement);
+            
+            rootElement.appendChild(addElements(doc,"NAME",name));
+            rootElement.appendChild(addElements(doc,"TITLE",title));
+            rootElement.appendChild(addElements(doc,"AUTHOR",author));
+            rootElement.appendChild(addElements(doc,"SHAPE",Integer.toString(shape)));
+            rootElement.appendChild(addElements(doc,"EDGE",Integer.toString(edge)));
+            rootElement.appendChild(addElements(doc,"NUMSTATES",Integer.toString(numStates)));
+            rootElement.appendChild(addElements(doc,"Setting",setting));
+            rootElement.appendChild(addElements(doc,"DIMENSION",Integer.toString(row) + "x" + Integer.toString(column)));
+            rootElement.appendChild(addElements(doc,"INITIAL",initial));
+            
+            
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+//            StreamResult result = new StreamResult(new File());
+//            
+//            transformer.transform(source, result);
+//            System.out.println("File saved!");
+        }
+        catch (ParserConfigurationException pce){
+            pce.printStackTrace();
+        }
+        catch (TransformerException tfe){
+            tfe.printStackTrace();
+        }
+    }
+    
+    private Element addElements(Document doc, String s, String content){
+        Element element = createElements(doc,s);
+        element.appendChild(doc.createTextNode(content));
+        return element;
+    }
     public String checkError(int row, int column, String whichSim, int[] gridInit, String[] parameters){
         if(!Time.simulations.contains(whichSim)){
             return errorTypes.get(NO_SIMULATION_TYPE);
@@ -98,5 +146,10 @@ public class XMLManager {
      */
     private String getElements (Element eElement, String s) {
         return (eElement.getElementsByTagName(myResources.getString(s)).item(0).getTextContent());
+    }
+    
+    private Element createElements (Document doc, String s){
+        return (doc.createElement(myResources.getString(s)));
+        
     }
 }

@@ -41,12 +41,12 @@ public class UserInterface {
     public static final double BUTTON_SPACING = 5;
     public static final double BUTTON_HEIGHT = HEIGHT - 15;
     public static final double GRAPH_HEIGHT = 125;
-    private static final int SETTINGINDEX = 7;
+    private static final int SETTINGINDEX = 8;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
-    private String myName, myTitle, myAuthor;
-    private int myNumStates, myRow, myColumn, myShape, myGridSize;
+    private String myName, myTitle, myAuthor, mySetting;
+    private int myNumStates, myRow, myColumn, myShape, myGridSize, myEdge;
     private int[] myInitial;
     private String[] myParams;
     private Scene myScene;
@@ -83,7 +83,7 @@ public class UserInterface {
      */
     private void makeTime () {
         time = new Time();
-        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape);
+        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape, myEdge);
         enableButtons();
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
@@ -214,12 +214,14 @@ public class UserInterface {
         myTitle = settings[1];
         myAuthor = settings[2];
         myShape = Integer.parseInt(settings[3]);
-        myNumStates = Integer.parseInt(settings[4]);
-        String[] dim = settings[5].split("x");
+        myEdge = Integer.parseInt(settings[4]);
+        myNumStates = Integer.parseInt(settings[5]);
+        String[] dim = settings[6].split("x");
         myRow = Integer.parseInt(dim[0]);
         myColumn = Integer.parseInt(dim[1]);
         myGridSize = myRow * myColumn;
-        myInitial = considerInitConfig(settings[6]);
+        mySetting = settings[7];
+        myInitial = considerInitConfig(settings[7]);
 
         if (settings.length > SETTINGINDEX) {
             myParams = settings[7].split(" ");
