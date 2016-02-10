@@ -42,18 +42,11 @@ public class CellManager {
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
                 cellGrid[i][j] = new Cell();
-                if (i == 0 || i == r + 1) {
-                    cellGrid[i][j].setCurrState(SimulationRules.BLOCKED);
-                    cellGrid[i][j].setNextState(SimulationRules.BLOCKED);
-                }
             }
-            cellGrid[i][0].setCurrState(SimulationRules.BLOCKED);
-            cellGrid[i][0].setNextState(SimulationRules.BLOCKED);
-            cellGrid[i][c + 1].setCurrState(SimulationRules.BLOCKED);
-            cellGrid[i][c + 1].setNextState(SimulationRules.BLOCKED);
         }
         myRules.setSimulationParameters(simParams);
         myRules.fillCellgrid(cellGrid, entry);
+        updateBorderCells();
     }
 
     public Cell[][] getCellList () {
@@ -62,6 +55,37 @@ public class CellManager {
 
     public void updateStates () {
         myRules.applyRule(cellGrid, myShape);
+        updateBorderCells();
+    }
+    private void updateBorderCells(){
+        for (int i = 0; i < cellGrid.length; i++) {
+            for (int j = 0; j < cellGrid[0].length; j++) {
+                cellGrid[i][j] = new Cell();
+                if (i == 0 || i == cellGrid.length-1) {
+                    cellGrid[i][j].setCurrState(determineBorderState(i,j,0));
+                    cellGrid[i][j].setNextState(determineBorderState(i,j,1));
+                }
+            }
+            cellGrid[i][0].setCurrState(determineBorderState(i,0,0));
+            cellGrid[i][0].setNextState(determineBorderState(i,0,1));
+            cellGrid[i][cellGrid[0].length-1].setCurrState(determineBorderState(i,cellGrid[0].length-1,0));
+            cellGrid[i][cellGrid[0].length-1].setNextState(determineBorderState(i,cellGrid[0].length-1,1));
+        }
+    }
+    private int determineBorderState(int i, int j, int type){
+        if(i==0){
+            return(cellGrid[cellGrid.length-2][j].getState(type));
+        }
+        else if(i==cellGrid.length-1){
+            return(cellGrid[1][j].getState(type));
+        }
+        else if(j==0){
+            return(cellGrid[i][cellGrid[0].length-2].getState(type));
+        }
+        else if(j==cellGrid[0].length-1){
+            return(cellGrid[i][1].getState(type));
+        }
+        return 0;
     }
 
     /**

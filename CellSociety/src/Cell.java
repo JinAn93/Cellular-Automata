@@ -21,7 +21,12 @@ public class Cell {
     public ArrayList<Double> getSimParams () {
         return simParams;
     }
-    
+    public int getState(int num){
+        if (num==0){
+            return getCurrState();
+        }
+        return getNextState();
+    }
     public int getCurrState () {
         return currState;
     }
