@@ -224,7 +224,7 @@ public class UserInterface {
         myInitial = considerInitConfig(settings[7]);
 
         if (settings.length > SETTINGINDEX) {
-            myParams = settings[7].split(" ");
+            myParams = settings[8].split(" ");
         }
         else {
             myParams = null;
