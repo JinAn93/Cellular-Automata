@@ -1,4 +1,7 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -38,7 +41,6 @@ public class UserInterface {
     public static final double BUTTON_HEIGHT = HEIGHT - 15;
     public static final double GRAPH_HEIGHT = 125;
     private static final int SETTINGINDEX = 7;
-    private static final int UNTOUCHED = -1;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
@@ -231,36 +233,36 @@ public class UserInterface {
         else {
             System.out.println("initial config is given!");
             char[] ini = initConfig.toCharArray();
-            myInitial = new int[ini.length];
+            init = new int[ini.length];
             for (int i = 0; i < ini.length; i++) {
-                myInitial[i] = ini[i] - '0';
+                init[i] = ini[i] - '0';
             }
         }
         return init;
     }
 
     private int[] setProbRandomConfig (String initConfig) {
+        List<Integer> stateList = new ArrayList<Integer>();
         int[] probRandomConfig = new int[myGridSize];
-        for (int i = 0; i < myGridSize; i++) {
-            probRandomConfig[i] = UNTOUCHED;
-        }
         double[] randomEachState = new double[myNumStates];
         String[] probs = initConfig.split(" ");
+        int setState = 0, countGrid = 0;
+
         for (int i = 0; i < probs.length; i++) {
             randomEachState[i] = Double.parseDouble(probs[i]) * myGridSize;
         }
-        for (int i = 0; i < randomEachState.length; i++) {
-            for (int j = 0; j < randomEachState[i]; j++) {
-                boolean isEmpty = true;
-                while (isEmpty) {
-                    int randomRow = new Random().nextInt(myRow - 1);
-                    int randomColumn = new Random().nextInt(myColumn - 1);
-                    if (probRandomConfig[randomRow * myRow + randomColumn] == UNTOUCHED) {
-                        probRandomConfig[randomRow * myRow + randomColumn] = i;
-                        isEmpty = false;
-                    }
-                }
+
+        for (int i = 0; i < myGridSize; i++) {
+            if (Math.round(randomEachState[setState]) == countGrid && (setState != myNumStates - 1)) {
+                setState++;
+                countGrid = 0;
             }
+            stateList.add(setState);
+            countGrid++;
+        }
+        Collections.shuffle(stateList);
+        for (int i = 0; i < stateList.size(); i++) {
+            probRandomConfig[i] = stateList.get(i);
         }
         return probRandomConfig;
     }
