@@ -33,12 +33,10 @@ public abstract class SimulationRules {
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
                 if (checkNextState(cellGrid[i][j], OPEN_NEXT)) {
-                    System.out.println(cellGrid[i][j].getCurrState());
-                    Cell[] neighbors = setNeighbors(cellGrid, i, j,shape);
-
+                    Cell[] neighbors = setNeighbors(cellGrid, i, j, shape);
 
                     int nextState = findNextState(cellGrid[i][j], neighbors,
-                                                  cellGrid,shape);
+                                                  cellGrid, shape);
                     cellGrid[i][j].setNextState(nextState);
                 }
             }
@@ -64,8 +62,9 @@ public abstract class SimulationRules {
             }
         }
     }
-    
-    protected void initializeCellParams(Cell curr){};
+
+    protected void initializeCellParams (Cell curr) {
+    };
 
     /**
      * Abstract method to be implemented in each SimulationRules subclass. Specific implementation
@@ -78,7 +77,8 @@ public abstract class SimulationRules {
      */
     protected abstract int findNextState (Cell curr,
                                           Cell[] neighbors,
-                                          Cell[][] grid, int shape);
+                                          Cell[][] grid,
+                                          int shape);
 
     /**
      * Abstract method to be implemented by each specific SimulationRules subclass. Sets constants
@@ -171,14 +171,16 @@ public abstract class SimulationRules {
             return neighbors;
         }
         else {
+            int m = (int) Math.pow(-1, j);
             Cell[] neighbors =
-                    { cellGrid[i - 1][j], cellGrid[i + 1][j], cellGrid[i][j-1],
-                      cellGrid[i][j+1], cellGrid[i - 1][j-1], cellGrid[i-1][j+1] };
+                    { cellGrid[i - 1][j], cellGrid[i + 1][j], cellGrid[i][j - 1],
+                      cellGrid[i][j + 1], cellGrid[i + m][j - 1], cellGrid[i + m][j + 1] };
             return neighbors;
+
         }
     }
-    
-    public Cell[] shortenNeighbors(Cell[] neighbors){
-        return new Cell[]{neighbors[0],neighbors[1],neighbors[2],neighbors[3]};
+
+    public Cell[] shortenNeighbors (Cell[] neighbors) {
+        return new Cell[] { neighbors[0], neighbors[1], neighbors[2], neighbors[3] };
     }
 }

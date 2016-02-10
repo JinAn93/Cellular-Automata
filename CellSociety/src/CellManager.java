@@ -60,7 +60,6 @@ public class CellManager {
     private void updateBorderCells(){
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
-                cellGrid[i][j] = new Cell();
                 if (i == 0 || i == cellGrid.length-1) {
                     cellGrid[i][j].setCurrState(determineBorderState(i,j,0));
                     cellGrid[i][j].setNextState(determineBorderState(i,j,1));

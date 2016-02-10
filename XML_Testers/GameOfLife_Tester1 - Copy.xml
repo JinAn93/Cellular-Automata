@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<simulation>
+	<name>Game_of_Life</name>
+	<title>GOL_Tester1</title>
+	<author>Team15</author>
+	<shape>0</shape>
+	<numstates>3</numstates>
+	<setting></setting>
+	<dimension>5x5</dimension>
+	<Initial>0.2 0.5 0.3</Initial>
+</simulation>
