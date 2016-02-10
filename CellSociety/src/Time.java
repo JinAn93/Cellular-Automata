@@ -24,15 +24,17 @@ public class Time {
 	private Display cellDisplay;
 	private double speed = 1;
 	private Display[] cellDisplayArray;
-	private Graph cellGraph; 
-
+	private Graph cellGraph; 	
+	private int numStates;
+	
 	/**
 	 * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
 	 * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
 	 */
 
 	public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape) {
-
+		this.numStates = numStates;
+		
 		Cells = new CellManager();
 		cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
 		cellDisplay = cellDisplayArray[shape];
@@ -90,16 +92,19 @@ public class Time {
 	 * Returns a list of shapes (as opposed to a 2-D array) so that these can be added to the root group in interface 
 	 * @return
 	 */
-	public List<Polygon> getCellDisplay () {
-		List<Polygon> list = new ArrayList<Polygon>();
-		for (Polygon[] array : cellDisplay.getDisplay()) {
-			list.addAll(Arrays.asList(array));
-		}
-		return list;
+	public Polygon[][] getCellDisplay () {
+		return cellDisplay.getDisplay();
 	}
 
 	public LineChart<Number, Number> getCellGraph(){
 		return cellGraph.getGraph();
+	}
+	
+	public void changeState(int i, int j) {
+		Cell c = Cells.getCellList()[i+1][j+1];
+		c.setCurrState((c.getCurrState()+1)%numStates);
+		cellDisplay.updateDisplay(Cells.getCellList());
+
 	}
 
 }

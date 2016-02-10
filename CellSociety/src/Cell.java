@@ -14,80 +14,25 @@ import java.util.*;
  */
 
 public class Cell {
-    //private PatchOfGround groundState = new PatchOfGround();
     private int currState = 0;
     private int nextState = 0;
-    // PredatorPrey Properties
-    private double turnsOnState = 0;
-    private double energy;
-    // ForagingAnts Properties
-    private Cell orientation;
-    private boolean isNest;
-    private boolean isFood;
-    private Integer[] pher = new Integer[2]; //pher[0] = homePher, pher[1] = foodPher
+    private ArrayList<Double> simParams = new ArrayList<Double>();
 
-    public Cell getOrientation () {
-        return orientation;
+    public ArrayList<Double> getSimParams () {
+        return simParams;
     }
-
-    public void setOrientation (Cell orientation) {
-        this.orientation = orientation;
-    }
-
-    public int getPher (int type) {
-        return pher[type];
-    }
-
-    public void setHomePher (int pher, int type) {
-        this.pher[type] = pher;
-    }
-
-    public boolean isNest () {
-        return isNest;
-    }
-
-    public void setNest (boolean isNest) {
-        this.isNest = isNest;
-    }
-
-    public boolean isFood () {
-        return isFood;
-    }
-
-    public void setFood (boolean isFood) {
-        this.isFood = isFood;
-    }
-
+    
     public int getCurrState () {
         return currState;
     }
-
     public void setCurrState (int currState) {
         this.currState = currState;
     }
-
     public int getNextState () {
         return nextState;
     }
-
     public void setNextState (int nextState) {
         this.nextState = nextState;
-    }
-
-    public double getTurnsOnState () {
-        return turnsOnState;
-    }
-
-    public void setTurnsOnState (double turnsOnState) {
-        this.turnsOnState = turnsOnState;
-    }
-
-    public double getEnergy () {
-        return energy;
-    }
-
-    public void setEnergy (double energy) {
-        this.energy = energy;
     }
 
 }

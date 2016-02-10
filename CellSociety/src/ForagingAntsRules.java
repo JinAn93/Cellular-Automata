@@ -20,7 +20,7 @@ public class ForagingAntsRules extends SimulationRules {
     private static final int NEST = 4;
     private static final int PHER = 5;
     private int homePherInd = 0;
-    private int foodPherInd = 1;
+   // private int foodPherInd = 1;
 
     public ForagingAntsRules () {
         super();
@@ -38,9 +38,9 @@ public class ForagingAntsRules extends SimulationRules {
         else if (checkState(curr, NO_FOOD_ANT)) {
             findFood(curr,neighbors,grid);
         }
-        else if (checkState(curr, FOOD_ANT)){
-            returnToNest(curr,neighbors,grid);
-        }
+//        else if (checkState(curr, FOOD_ANT)){
+//            returnToNest(curr,neighbors,grid);
+//        }
         else if (checkState(curr, FOOD_SOURCE)){
             return FOOD_SOURCE;
         }
@@ -51,22 +51,22 @@ public class ForagingAntsRules extends SimulationRules {
         
     }
     
-    private void returnToNest(Cell curr, Cell[] neighbors, Cell[][] grid){
-        if(curr.isFood()){
-            curr.setOrientation(findNextOrientation(curr,neighbors,homePherInd));
-        }
-        //TODO finish implementation
-        
-    }
-    
+//    private void returnToNest(Cell curr, Cell[] neighbors, Cell[][] grid){
+//     //   if(curr.isFood()){
+//       //     curr.setOrientation(findNextOrientation(curr,neighbors,homePherInd));
+//        }
+//        //TODO finish implementation
+//        
+//    }
+//    
     private Cell findNextOrientation(Cell curr, Cell[] neighbors, int pherType){
         int maxPher = 0;
         int maxCellIndex = 0;
         for(int i=0;i<neighbors.length;i++){
-            if(neighbors[i].getPher(pherType)>maxPher){
-                maxPher=neighbors[i].getPher(pherType);
-                maxCellIndex = i;
-            }
+//            if(neighbors[i].getPher(pherType)>maxPher){
+//                maxPher=neighbors[i].getPher(pherType);
+//                maxCellIndex = i;
+//            }
         }
         if(maxPher == 0){
             return null;

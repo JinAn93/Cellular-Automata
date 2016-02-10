@@ -24,6 +24,9 @@ public abstract class Display {
     private int rows;
     private int states;
     private Color[] colors;
+    
+    double CELL_WIDTH;
+    double CELL_HEIGHT;
 
     private Polygon[][] Grid; 
     /**
@@ -44,7 +47,19 @@ public abstract class Display {
      * This uses the number of rows and columns to calculate each cell's individual dimensions. It 
      * then creates the color array and the rectangle array, setting up their location as well as shape.
      */
-    public abstract void initDisplay ();
+    public void initDisplay (){
+    	initColors();
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                getDisplay()[i][j] = new Polygon();
+                getDisplay()[i][j].setStroke(Color.BLACK);
+                makeShape(i,j);
+            }
+        }
+    }
+    protected abstract void makeShape(int i, int j);
+            
+            
     /**
      * Makes the same number of colors as states, so that they will be evenly spaced out on the range of hues
      * (and thus distinguishable). This is to allow for more states to be displayed.

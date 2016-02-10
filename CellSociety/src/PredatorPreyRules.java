@@ -29,10 +29,10 @@ public class PredatorPreyRules extends SimulationRules {
      */
     @Override
     protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
-        if(shape==0||shape==1){
+        if (shape == 0 || shape == 1) {
             neighbors = shortenNeighbors(neighbors);
         }
-        curr.setTurnsOnState(curr.getTurnsOnState() + 1);
+        setTurnsOnState(curr,getTurnsOnState(curr) + 1);
         if (checkState(curr, FISH)) {
             return handleMove(curr, neighbors, grid, FISH);
         }
@@ -44,25 +44,6 @@ public class PredatorPreyRules extends SimulationRules {
         }
     }
 
-    /**
-     * Overrides fillCellGrid method of Simulation Rules. Initializes the cell grid of the
-     * simulation according to the XML configuration file and sets the energy level of a Shark cell
-     * to the initial shark energy, as defined in the configuration file
-     */
-    @Override
-    public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
-        int count = 0;
-        for (int i = 1; i < cellGrid.length - 1; i++) {
-            for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                cellGrid[i][j].setCurrState(entry[count]);
-                cellGrid[i][j].setNextState(OPEN_NEXT);
-                if (entry[count] == SHARK) {
-                    cellGrid[i][j].setEnergy(startEnergy);
-                }
-                count++;
-            }
-        }
-    }
 
     /**
      * Handles move for a given Cell. Chooses random new location from each of the cell's neighbors
@@ -82,8 +63,8 @@ public class PredatorPreyRules extends SimulationRules {
                  checkNextState(neighbors[rand], OPEN_NEXT)) ||
                 checkNextState(neighbors[rand], EMPTY)) {
                 neighbors[rand].setNextState(state);
-                if (curr.getTurnsOnState() > reproductionTime) {
-                    curr.setTurnsOnState(0);
+                if (getTurnsOnState(curr) > reproductionTime) {
+                    setTurnsOnState(curr,0);
                     return state;
                 }
                 else {
@@ -105,18 +86,18 @@ public class PredatorPreyRules extends SimulationRules {
      * @return
      */
     private int handleShark (Cell curr, Cell[] neighbors, Cell[][] grid) {
-        curr.setEnergy(curr.getEnergy() - 1);
-        if (curr.getEnergy() <= 0) {
+        setEnergy(curr,getEnergy(curr) - 1);
+        if (getEnergy(curr) <= 0) {
             return EMPTY;
         }
         while (isAround(curr, neighbors, grid, FISH)) {
             int rand = getRand().nextInt(neighbors.length);
             if (checkState(neighbors[rand], FISH)) {
                 neighbors[rand].setNextState(SHARK);
-                neighbors[rand].setEnergy(curr.getEnergy() + fishEnergy);
-                if (curr.getTurnsOnState() > reproductionTime) {
-                    curr.setTurnsOnState(0);
-                    curr.setEnergy(startEnergy);
+                setEnergy(neighbors[rand],getEnergy(curr) + fishEnergy);
+                if (getTurnsOnState(curr) > reproductionTime) {
+                    setTurnsOnState(curr,0);
+                    setEnergy(curr,startEnergy);
                     return SHARK;
                 }
                 else {
@@ -126,6 +107,30 @@ public class PredatorPreyRules extends SimulationRules {
 
         }
         return handleMove(curr, neighbors, grid, SHARK);
+    }
+    
+    @Override
+    protected void initializeCellParams(Cell curr){
+        setTurnsOnState(curr,0);
+        if (checkState(curr,SHARK)) {
+            setEnergy(curr,startEnergy);
+        }
+    }
+
+    private double getTurnsOnState (Cell curr) {
+        return curr.getSimParams().get(0);
+    }
+
+    private void setTurnsOnState (Cell curr, double turns) {
+        curr.getSimParams().set(0, turns);
+    }
+
+    private double getEnergy (Cell curr) {
+        return curr.getSimParams().get(1);
+    }
+
+    private void setEnergy (Cell curr, double energy) {
+        curr.getSimParams().set(1, energy);
     }
 
     /**
@@ -175,14 +180,14 @@ public class PredatorPreyRules extends SimulationRules {
         startEnergy = Double.parseDouble(simParams[1]);
         fishEnergy = Double.parseDouble(simParams[2]);
     }
-    
+
     @Override
-    protected boolean isInvalid (String[] simParams){
-        if(simParams.length != paramNeeded){
+    protected boolean isInvalid (String[] simParams) {
+        if (simParams.length != paramNeeded) {
             return true;
         }
-        for(int i=0; i<paramNeeded; i++){
-            if(Double.parseDouble(simParams[i]) <= 0){
+        for (int i = 0; i < paramNeeded; i++) {
+            if (Double.parseDouble(simParams[i]) <= 0) {
                 return true;
             }
         }

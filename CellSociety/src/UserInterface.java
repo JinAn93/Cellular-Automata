@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -87,11 +88,20 @@ public class UserInterface {
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
         root.getChildren().add(n);
-        root.getChildren().addAll(time.getCellDisplay());
+        Polygon[][] displayArray = time.getCellDisplay();
+        for (int i=0; i<displayArray.length;i++){
+                for (int j=0; j<displayArray[0].length;j++){
+                        final int k = i;
+                        final int l =j;
+                        displayArray[i][j].setOnMouseClicked(e->time.changeState(k,l));
+                        root.getChildren().add(displayArray[i][j]);
+                }
+        }
+
         LineChart<Number, Number> c = time.getCellGraph();
         c.setMaxHeight(GRAPH_HEIGHT);
         root.getChildren().add(c);
-    }
+}
 
     /**
      * Returns a button, getting its label from the resource file. Also sets its action.
