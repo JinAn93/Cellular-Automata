@@ -54,8 +54,8 @@ public class CellManager {
     }
 
     public void updateStates () {
-        myRules.applyRule(cellGrid, myShape);
         updateBorderCells();
+        myRules.applyRule(cellGrid, myShape);        
     }
     private void updateBorderCells(){
         for (int i = 0; i < cellGrid.length; i++) {
@@ -73,20 +73,26 @@ public class CellManager {
     }
     private int determineBorderState(int i, int j, int type){
         if(i==0){
-            return(cellGrid[cellGrid.length-2][j].getState(type));
+            return(getState(cellGrid[cellGrid.length-2][j],type));
         }
         else if(i==cellGrid.length-1){
-            return(cellGrid[1][j].getState(type));
+            return(getState(cellGrid[1][j],type));
         }
         else if(j==0){
-            return(cellGrid[i][cellGrid[0].length-2].getState(type));
+            return(getState(cellGrid[i][cellGrid[0].length-2],type));
         }
         else if(j==cellGrid[0].length-1){
-            return(cellGrid[i][1].getState(type));
+            return(getState(cellGrid[i][1],type));
         }
         return 0;
     }
 
+    public int getState(Cell curr,int num){
+        if (num==0){
+            return curr.getCurrState();
+        }
+        return curr.getNextState();
+    }
     /**
      * As cellGrid is iterated, its current state is updated with next state. Then, next state is initialized
      * to OPEN_Next (= -2) to notify the program that they have not been touched.
