@@ -184,12 +184,12 @@ public class UserInterface {
             fileChooser.setTitle("Open Resource File");
             File file = fileChooser.showOpenDialog(new Stage());
             if (file != null) {
-                XMLReader readfile = new XMLReader();
+                XMLManager readfile = new XMLManager();
                 info = readfile.readXMLFile(file);
                 extractFile(info);
                 String errorCheck =
                         readfile.checkError(myRow, myColumn, myName, myInitial, myParams);
-                if (XMLReader.errorTypes.get(XMLReader.NO_ERROR) == errorCheck) {
+                if (XMLManager.errorTypes.get(XMLManager.NO_ERROR) == errorCheck) {
                     isFileReady = true;
                 }
                 else {

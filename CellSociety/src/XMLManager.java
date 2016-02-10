@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
  * @author Huijia Yu
  *
  */
-public class XMLReader {
+public class XMLManager {
     private String RESOURCE_PACKAGE_XML = "Resources/XMLTags";
     public static final int NO_ERROR = 0;
     public static final List<String> errorTypes = Arrays.asList("No_Error","No_Simulation_Type", "Parameter_Error", "Invalid_Cell_State", "Grid_Init_Error");
