@@ -24,9 +24,9 @@ public abstract class Display {
     private int rows;
     private int states;
     private Color[] colors;
-    
-    double CELL_WIDTH;
-    double CELL_HEIGHT;
+//    
+    protected double CELL_WIDTH;
+    protected double CELL_HEIGHT;
 
     private Polygon[][] Grid; 
     /**
@@ -49,10 +49,10 @@ public abstract class Display {
      */
     public void initDisplay (){
     	initColors();
-        for (int i = 0; i < getRows(); i++) {
-            for (int j = 0; j < getColumns(); j++) {
-                getDisplay()[i][j] = new Polygon();
-                getDisplay()[i][j].setStroke(Color.BLACK);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Grid[i][j] = new Polygon();
+                Grid[i][j].setStroke(Color.BLACK);
                 makeShape(i,j);
             }
         }
