@@ -4,6 +4,7 @@
 	<title>SF_Tester1</title>
 	<author>Team15</author>
 	<shape>0</shape>
+	<edge>1</edge>
 	<numstates>3</numstates>
 	<setting>0.4</setting>
 	<dimension>5x5</dimension>

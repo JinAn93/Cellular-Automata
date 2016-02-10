@@ -4,6 +4,7 @@
 	<title>Seg_Tester1</title>
 	<author>Team15</author>
 	<shape>2</shape>
+	<edge>1</edge>
 	<numstates>3</numstates>
 	<setting>.3</setting>
 	<dimension>5x5</dimension>
