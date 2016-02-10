@@ -57,13 +57,15 @@ public abstract class SimulationRules {
         int count = 0;
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                System.out.println(entry[count]);
                 cellGrid[i][j].setCurrState(entry[count]);
                 cellGrid[i][j].setNextState(OPEN_NEXT);
+                initializeCellParams(cellGrid[i][j]);
                 count++;
             }
         }
     }
+    
+    protected void initializeCellParams(Cell curr){};
 
     /**
      * Abstract method to be implemented in each SimulationRules subclass. Specific implementation
@@ -143,7 +145,6 @@ public abstract class SimulationRules {
                 count++;
             }
         }
-       // System.out.println(count);
         return count;
     }
 
