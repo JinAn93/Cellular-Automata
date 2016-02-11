@@ -19,8 +19,7 @@ public class ForagingAntsRules extends SimulationRules {
     private static final int FOOD_ANT = 2;
     private static final int FOOD_SOURCE = 3;
     private static final int NEST = 4;
-    private static final int HOME_PHER = 5;
-    private static final int FOOD_PHER = 6;
+    private static final int PHER = 5;    
     private int homePherInd = 0;
     private int foodPherInd = 1;
     private double maxHomePher;
@@ -52,7 +51,7 @@ public class ForagingAntsRules extends SimulationRules {
         }
         else if (checkState(curr, NEST)) {
             return NEST;
-        }
+        }        
         return EMPTY;
     }
 
@@ -63,6 +62,7 @@ public class ForagingAntsRules extends SimulationRules {
     private int returnToNest (Cell curr, Cell[] neighbors, Cell[][] grid) {
         if (atFoodSource(neighbors)) {
             setOrientation(curr, findNextOrientation(curr, neighbors, homePherInd));
+            return FOOD_ANT;
         }
         else if (atNest(neighbors)) {
             setOrientation(curr, findNextOrientation(curr, neighbors, foodPherInd));
