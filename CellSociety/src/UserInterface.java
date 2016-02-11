@@ -172,7 +172,7 @@ public class UserInterface {
             makeTime();
         });
         save = makeButton("save", e-> {
-            myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, mySetting, myRow, myColumn, myConfig); //work on myConfig
+            myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, mySetting, myRow, myColumn, myConfig);
         });
         Button loadfile = makeButton("loadfile", e -> fileLoader());
         enableButtons();
@@ -222,6 +222,7 @@ public class UserInterface {
     private void fileLoader () {
         boolean isFileReady = false;
         while (!isFileReady) {
+            XMLManager myXMLManager = new XMLManager();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
             File file = fileChooser.showOpenDialog(new Stage());
