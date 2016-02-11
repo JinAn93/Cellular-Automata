@@ -4,6 +4,7 @@
 	<title>GOL_Tester2</title>
 	<author>Team15</author>
 	<shape>1</shape>
+	<edge>1</edge>
 	<numstates>3</numstates>
 	<setting></setting>
 	<dimension>6x6</dimension>

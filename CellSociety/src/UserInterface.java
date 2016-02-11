@@ -13,7 +13,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
@@ -41,12 +43,12 @@ public class UserInterface {
     public static final double BUTTON_SPACING = 5;
     public static final double BUTTON_HEIGHT = HEIGHT - 15;
     public static final double GRAPH_HEIGHT = 125;
-    private static final int SETTINGINDEX = 7;
+    private static final int SETTINGINDEX = 8;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
-    private String myName, myTitle, myAuthor;
-    private int myNumStates, myRow, myColumn, myShape, myGridSize;
+    private String myName, myTitle, myAuthor, mySetting;
+    private int myNumStates, myRow, myColumn, myShape, myGridSize, myEdge;
     private int[] myInitial;
     private String[] myParams;
     private Scene myScene;
@@ -83,8 +85,9 @@ public class UserInterface {
      */
     private void makeTime () {
         time = new Time();
-        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape);
+        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape, myEdge);
         enableButtons();
+        
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
         root.getChildren().add(n);
@@ -101,6 +104,9 @@ public class UserInterface {
         LineChart<Number, Number> c = time.getCellGraph();
         c.setMaxHeight(GRAPH_HEIGHT);
         root.getChildren().add(c);
+        root.getChildren().add(makeSliders());
+
+        
 }
 
     /**
@@ -173,6 +179,36 @@ public class UserInterface {
         buttonlayout.setLayoutX(BUTTON_SPACING);
         return buttonlayout;
     }
+    
+    
+    private VBox makeSliders(){
+    	VBox sliderlayout = new VBox(BUTTON_SPACING);
+    	for (int i= 0; i<myParams.length; i++){
+    		double p = Double.parseDouble(myParams[i]);
+    		double max = 10; //TODO:figure this out
+    		if (p<1){
+    			max = 1.0;
+    		}
+    		final int k = i;
+    	    Slider slider = new Slider(0, max, p );
+    	    
+    	    slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+    	    	 myParams[k]= String.valueOf(newValue.intValue());
+    	    	 time.updateParams(myParams);
+    	    
+    	    });
+    	    sliderlayout.getChildren().add(slider);
+            
+    	}
+    	sliderlayout.setLayoutX(WIDTH*2/3); //TODO: check
+    	sliderlayout.setLayoutY(10);
+
+    	return sliderlayout;
+    }
+    
+    
+    
+    
 
     /**
      * Opens a new window for choosing XML file to start animation
@@ -184,12 +220,12 @@ public class UserInterface {
             fileChooser.setTitle("Open Resource File");
             File file = fileChooser.showOpenDialog(new Stage());
             if (file != null) {
-                XMLReader readfile = new XMLReader();
+                XMLManager readfile = new XMLManager();
                 info = readfile.readXMLFile(file);
                 extractFile(info);
                 String errorCheck =
                         readfile.checkError(myRow, myColumn, myName, myInitial, myParams);
-                if (XMLReader.errorTypes.get(XMLReader.NO_ERROR) == errorCheck) {
+                if (XMLManager.errorTypes.get(XMLManager.NO_ERROR) == errorCheck) {
                     isFileReady = true;
                 }
                 else {
@@ -214,15 +250,17 @@ public class UserInterface {
         myTitle = settings[1];
         myAuthor = settings[2];
         myShape = Integer.parseInt(settings[3]);
-        myNumStates = Integer.parseInt(settings[4]);
-        String[] dim = settings[5].split("x");
+        myEdge = Integer.parseInt(settings[4]);
+        myNumStates = Integer.parseInt(settings[5]);
+        String[] dim = settings[6].split("x");
         myRow = Integer.parseInt(dim[0]);
         myColumn = Integer.parseInt(dim[1]);
         myGridSize = myRow * myColumn;
-        myInitial = considerInitConfig(settings[6]);
+        mySetting = settings[7];
+        myInitial = considerInitConfig(settings[7]);
 
         if (settings.length > SETTINGINDEX) {
-            myParams = settings[7].split(" ");
+            myParams = settings[8].split(" ");
         }
         else {
             myParams = null;

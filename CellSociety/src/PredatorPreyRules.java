@@ -122,7 +122,7 @@ public class PredatorPreyRules extends SimulationRules {
     }
 
     private void setTurnsOnState (Cell curr, double turns) {
-        curr.getSimParams().set(0, turns);
+        curr.getSimParams().add(0, turns);
     }
 
     private double getEnergy (Cell curr) {
@@ -130,7 +130,7 @@ public class PredatorPreyRules extends SimulationRules {
     }
 
     private void setEnergy (Cell curr, double energy) {
-        curr.getSimParams().set(1, energy);
+        curr.getSimParams().add(1, energy);
     }
 
     /**
