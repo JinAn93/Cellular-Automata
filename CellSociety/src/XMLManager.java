@@ -99,10 +99,10 @@ public class XMLManager {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-//            StreamResult result = new StreamResult(new File());
-//            
-//            transformer.transform(source, result);
-//            System.out.println("File saved!");
+            StreamResult result = new StreamResult(new File("C:\\file.xml"));
+            
+            transformer.transform(source, result);
+            System.out.println("File saved!");
         }
         catch (ParserConfigurationException pce){
             pce.printStackTrace();

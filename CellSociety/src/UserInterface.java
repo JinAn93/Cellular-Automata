@@ -47,11 +47,12 @@ public class UserInterface {
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
-    private String myName, myTitle, myAuthor, mySetting;
+    private String myName, myTitle, myAuthor, mySetting, myConfig;
     private int myNumStates, myRow, myColumn, myShape, myGridSize, myEdge;
     private int[] myInitial;
     private String[] myParams;
     private Scene myScene;
+    private XMLManager myXMLManager;
     private Group root;
     private Time time = null;
     private String info = null;
@@ -63,6 +64,7 @@ public class UserInterface {
     private Button addspeed;
     private Button reducespeed;
     private Button reset;
+    private Button save;
 
     /**
      * Called by main in order to set the stage and the scene.
@@ -135,6 +137,7 @@ public class UserInterface {
         addspeed.setDisable(time == null);
         reducespeed.setDisable(time == null);
         reset.setDisable(time == null);
+        save.setDisable(time == null);
     }
 
     /**
@@ -167,6 +170,9 @@ public class UserInterface {
         reset = makeButton("reset", e -> {
             time.pauseAnimation();
             makeTime();
+        });
+        save = makeButton("save", e-> {
+            myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, mySetting, myRow, myColumn, myConfig); //work on myConfig
         });
         Button loadfile = makeButton("loadfile", e -> fileLoader());
         enableButtons();
@@ -220,11 +226,10 @@ public class UserInterface {
             fileChooser.setTitle("Open Resource File");
             File file = fileChooser.showOpenDialog(new Stage());
             if (file != null) {
-                XMLManager readfile = new XMLManager();
-                info = readfile.readXMLFile(file);
+                info = myXMLManager.readXMLFile(file);
                 extractFile(info);
                 String errorCheck =
-                        readfile.checkError(myRow, myColumn, myName, myInitial, myParams);
+                        myXMLManager.checkError(myRow, myColumn, myName, myInitial, myParams);
                 if (XMLManager.errorTypes.get(XMLManager.NO_ERROR) == errorCheck) {
                     isFileReady = true;
                 }
@@ -269,7 +274,6 @@ public class UserInterface {
 
     private int[] considerInitConfig (String initConfig) {
         int[] init = new int[myGridSize];
-        System.out.println(initConfig);
         if (isRandom(initConfig)) {
             init = setRandomConfig();
         }
