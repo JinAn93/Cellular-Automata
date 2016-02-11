@@ -128,4 +128,9 @@ public class CellManager {
         }
     }
 
+	public void setParams(String[] simParams) {
+        myRules.setSimulationParameters(simParams);
+		
+	}
+
 }

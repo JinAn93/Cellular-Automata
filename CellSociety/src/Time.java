@@ -106,5 +106,9 @@ public class Time {
 		cellDisplay.updateDisplay(Cells.getCellList());
 
 	}
+	public void updateParams(String[] myParams) {
+		Cells.setParams(myParams);
+		
+	}
 
 }

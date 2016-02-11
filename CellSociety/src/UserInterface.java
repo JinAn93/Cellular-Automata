@@ -13,7 +13,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
@@ -85,6 +87,7 @@ public class UserInterface {
         time = new Time();
         time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape, myEdge);
         enableButtons();
+        
         Node n = root.getChildren().get(0);
         root.getChildren().clear();
         root.getChildren().add(n);
@@ -101,6 +104,9 @@ public class UserInterface {
         LineChart<Number, Number> c = time.getCellGraph();
         c.setMaxHeight(GRAPH_HEIGHT);
         root.getChildren().add(c);
+        root.getChildren().add(makeSliders());
+
+        
 }
 
     /**
@@ -173,6 +179,36 @@ public class UserInterface {
         buttonlayout.setLayoutX(BUTTON_SPACING);
         return buttonlayout;
     }
+    
+    
+    private VBox makeSliders(){
+    	VBox sliderlayout = new VBox(BUTTON_SPACING);
+    	for (int i= 0; i<myParams.length; i++){
+    		double p = Double.parseDouble(myParams[i]);
+    		double max = 10; //TODO:figure this out
+    		if (p<1){
+    			max = 1.0;
+    		}
+    		final int k = i;
+    	    Slider slider = new Slider(0, max, p );
+    	    
+    	    slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+    	    	 myParams[k]= String.valueOf(newValue.intValue());
+    	    	 time.updateParams(myParams);
+    	    
+    	    });
+    	    sliderlayout.getChildren().add(slider);
+            
+    	}
+    	sliderlayout.setLayoutX(WIDTH*2/3); //TODO: check
+    	sliderlayout.setLayoutY(10);
+
+    	return sliderlayout;
+    }
+    
+    
+    
+    
 
     /**
      * Opens a new window for choosing XML file to start animation
