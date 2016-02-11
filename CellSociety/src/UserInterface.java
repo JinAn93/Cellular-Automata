@@ -104,9 +104,9 @@ public class UserInterface {
         LineChart<Number, Number> c = time.getCellGraph();
         c.setMaxHeight(GRAPH_HEIGHT);
         root.getChildren().add(c);
-        root.getChildren().add(makeSliders());
-
-        
+        if(myParams != null){
+            root.getChildren().add(makeSliders());
+        }        
 }
 
     /**
@@ -271,15 +271,12 @@ public class UserInterface {
         int[] init = new int[myGridSize];
         System.out.println(initConfig);
         if (isRandom(initConfig)) {
-            System.out.println("random!");
             init = setRandomConfig();
         }
         else if (isProbRandom(initConfig)) {
-            System.out.println("random probability!");
             init = setProbRandomConfig(initConfig);
         }
         else {
-            System.out.println("initial config is given!");
             char[] ini = initConfig.toCharArray();
             init = new int[ini.length];
             for (int i = 0; i < ini.length; i++) {
