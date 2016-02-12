@@ -103,6 +103,7 @@ public class Time {
 	public void changeState(int i, int j) {
 		Cell c = Cells.getCellList()[i+1][j+1];
 		c.setCurrState((c.getCurrState()+1)%numStates);
+		c.setPrevState(SimulationRules.BLOCKED);
 		cellDisplay.updateDisplay(Cells.getCellList());
 
 	}
