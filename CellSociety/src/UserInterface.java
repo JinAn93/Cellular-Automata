@@ -12,6 +12,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -48,6 +49,7 @@ public class UserInterface {
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
+	private static final String SLIDERLABELS = "Sliders";
     private String myName, myTitle, myAuthor, mySetting, myConfig;
     private int myNumStates, myRow, myColumn, myShape, myGridSize, myEdge;
     private int[] myInitial;
@@ -194,7 +196,6 @@ public class UserInterface {
         return updatedConfig;
     }
     
-    //TODO:we actually don't need this?
     private String updateSetting(){
         String updatedSetting = new String();
         if(myParams == null)
@@ -211,26 +212,36 @@ public class UserInterface {
     private VBox makeSliders(){
     	VBox sliderlayout = new VBox(BUTTON_SPACING);
     	for (int i= 0; i<myParams.length; i++){
-    		double p = Double.parseDouble(myParams[i]);
+    		double curr = Double.parseDouble(myParams[i]);
     		double max = 10; //TODO:figure this out
-    		if (p<1){
+    		if (curr<1){
     			max = 1.0;
     		}
-    		final int k = i;
-    	    Slider slider = new Slider(0, max, p );
-    	    
-    	    slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-    	    	 myParams[k]= String.valueOf(newValue.intValue());
-    	    	 time.updateParams(myParams);
-    	    
-    	    });
-    	    sliderlayout.getChildren().add(slider);
+    	    sliderlayout.getChildren().add(makeSlider(i, curr, max));
+    	    sliderlayout.getChildren().add(makeLabel(i));
             
     	}
 
     	return sliderlayout;
     }
-    
+
+	private Slider makeSlider(int i, double curr, double max) {
+		Slider slider = new Slider(0, max, curr );
+		
+		slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+			 myParams[i]= String.valueOf(newValue.intValue());
+			 time.updateParams(myParams);
+		
+		});
+		return slider;
+	}
+	private Label makeLabel(int i){
+		ResourceBundle myResources =
+                ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SLIDERLABELS);
+        String name = (myResources.getString(myName+i));
+        Label label = new Label(name);
+        return label;
+	}
     
     
     
@@ -281,8 +292,10 @@ public class UserInterface {
         myRow = Integer.parseInt(dim[0]);
         myColumn = Integer.parseInt(dim[1]);
         myGridSize = myRow * myColumn;
-        myInitial = considerInitConfig(settings[7]);
+//        myInitial = considerInitConfig(settings[7]);
         myConfig = settings[7];
+        myInitial = new Config(myConfig,  myGridSize,  myNumStates).considerInitConfig();
+        
         if (settings.length > SETTINGINDEX) {
             myParams = settings[8].split(" ");
         }
@@ -291,72 +304,73 @@ public class UserInterface {
         }
     }
 
-    private int[] considerInitConfig (String initConfig) {
-        int[] init = new int[myGridSize];
-        if (isRandom(initConfig)) {
-            init = setRandomConfig();
-        }
-        else if (isProbRandom(initConfig)) {
-            init = setProbRandomConfig(initConfig);
-        }
-        else {
-            char[] ini = initConfig.toCharArray();
-            init = new int[ini.length];
-            for (int i = 0; i < ini.length; i++) {
-                init[i] = ini[i] - '0';
-            }
-        }
-        return init;
-    }
-
-    private int[] setProbRandomConfig (String initConfig) {
-        List<Integer> stateList = new ArrayList<Integer>();
-        int[] probRandomConfig = new int[myGridSize];
-        double[] randomEachState = new double[myNumStates];
-        String[] probs = initConfig.split(" ");
-        int setState = 0, countGrid = 0;
-
-        for (int i = 0; i < probs.length; i++) {
-            randomEachState[i] = Double.parseDouble(probs[i]) * myGridSize;
-        }
-
-        for (int i = 0; i < myGridSize; i++) {
-            if (Math.round(randomEachState[setState]) == countGrid && (setState != myNumStates - 1)) {
-                setState++;
-                countGrid = 0;
-            }
-            stateList.add(setState);
-            countGrid++;
-        }
-        Collections.shuffle(stateList);
-        for (int i = 0; i < stateList.size(); i++) {
-            probRandomConfig[i] = stateList.get(i);
-        }
-        return probRandomConfig;
-    }
-
-    private int[] setRandomConfig () {
-        int[] randomConfig = new int[myRow * myColumn];
-        for (int i = 0; i < randomConfig.length; i++) {
-            randomConfig[i] = new Random().nextInt(myNumStates - 1);
-        }
-        return randomConfig;
-    }
-
-    private boolean isRandom (String initConfig) {
-        if (initConfig.equals("random")) { // Use Resource Bundle
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    private boolean isProbRandom (String initConfig) {
-        if (initConfig.contains(" "))
-            return true;
-        else {
-            return false;
-        }
-    }
+    //TODO: delete this
+//    private int[] considerInitConfig (String initConfig) {
+//        int[] init = new int[myGridSize];
+//        if (isRandom(initConfig)) {
+//            init = setRandomConfig();
+//        }
+//        else if (isProbRandom(initConfig)) {
+//            init = setProbRandomConfig(initConfig);
+//        }
+//        else {
+//            char[] ini = initConfig.toCharArray();
+//            init = new int[ini.length];
+//            for (int i = 0; i < ini.length; i++) {
+//                init[i] = ini[i] - '0';
+//            }
+//        }
+//        return init;
+//    }
+//
+//    private int[] setProbRandomConfig (String initConfig) {
+//        List<Integer> stateList = new ArrayList<Integer>();
+//        int[] probRandomConfig = new int[myGridSize];
+//        double[] randomEachState = new double[myNumStates];
+//        String[] probs = initConfig.split(" ");
+//        int setState = 0, countGrid = 0;
+//
+//        for (int i = 0; i < probs.length; i++) {
+//            randomEachState[i] = Double.parseDouble(probs[i]) * myGridSize;
+//        }
+//
+//        for (int i = 0; i < myGridSize; i++) {
+//            if (Math.round(randomEachState[setState]) == countGrid && (setState != myNumStates - 1)) {
+//                setState++;
+//                countGrid = 0;
+//            }
+//            stateList.add(setState);
+//            countGrid++;
+//        }
+//        Collections.shuffle(stateList);
+//        for (int i = 0; i < stateList.size(); i++) {
+//            probRandomConfig[i] = stateList.get(i);
+//        }
+//        return probRandomConfig;
+//    }
+//
+//    private int[] setRandomConfig () {
+//        int[] randomConfig = new int[myRow * myColumn];
+//        for (int i = 0; i < randomConfig.length; i++) {
+//            randomConfig[i] = new Random().nextInt(myNumStates - 1);
+//        }
+//        return randomConfig;
+//    }
+//
+//    private boolean isRandom (String initConfig) {
+//        if (initConfig.equals("random")) { // Use Resource Bundle
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
+//    }
+//
+//    private boolean isProbRandom (String initConfig) {
+//        if (initConfig.contains(" "))
+//            return true;
+//        else {
+//            return false;
+//        }
+//    }
 }
