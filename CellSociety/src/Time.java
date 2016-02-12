@@ -100,6 +100,10 @@ public class Time {
 		return cellGraph.getGraph();
 	}
 	
+	public Cell[][] getUpdatedConfig() {
+	    return Cells.getCellList();
+	}
+	
 	public void changeState(int i, int j) {
 		Cell c = Cells.getCellList()[i+1][j+1];
 		c.setCurrState((c.getCurrState()+1)%numStates);

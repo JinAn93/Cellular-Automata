@@ -44,6 +44,7 @@ public class UserInterface {
     public static final double BUTTON_HEIGHT = HEIGHT - 15;
     public static final double GRAPH_HEIGHT = 125;
     private static final int SETTINGINDEX = 8;
+    private static final int STARTINDEX = 1;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
@@ -146,22 +147,11 @@ public class UserInterface {
      * @return
      */
     private HBox makeButtons () {
-        start = makeButton("start", e -> {
-            time.startAnimation();
-        });
-
-        pause = makeButton("pause", e -> {
-            time.pauseAnimation();
-        });
-        resume = makeButton("resume", e -> {
-            time.resumeAnimation();
-        });
-        step = makeButton("step", e -> {
-            time.stepAnimation();
-        });
-        addspeed = makeButton("addspeed", e -> {
-            time.setSpeed(time.getSpeed() + SPEED_CHANGE);
-        });
+        start = makeButton("start", e -> time.startAnimation());
+        pause = makeButton("pause", e -> time.pauseAnimation());
+        resume = makeButton("resume", e -> time.resumeAnimation());
+        step = makeButton("step", e -> time.stepAnimation());
+        addspeed = makeButton("addspeed", e -> time.setSpeed(time.getSpeed() + SPEED_CHANGE));
         reducespeed = makeButton("reducespeed", e -> {
             if (time.getSpeed() - SPEED_CHANGE > 0) {
                 time.setSpeed(time.getSpeed() - SPEED_CHANGE);
@@ -172,7 +162,8 @@ public class UserInterface {
             makeTime();
         });
         save = makeButton("save", e-> {
-            myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, mySetting, myRow, myColumn, myConfig);
+            time.pauseAnimation();
+            saveFile();
         });
         Button loadfile = makeButton("loadfile", e -> fileLoader());
         enableButtons();
@@ -186,6 +177,33 @@ public class UserInterface {
         return buttonlayout;
     }
     
+    private void saveFile(){
+        myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, updateSetting(), myRow, myColumn, updateConfig());
+    }
+    
+    private String updateConfig(){
+        String updatedConfig = new String();
+        Cell[][] recentConfig = time.getUpdatedConfig();
+        for(int i=0; i<recentConfig.length; i++){
+            for(int j=0; j<recentConfig[0].length; j++){
+                updatedConfig += recentConfig[i][j].getCurrState();
+            }
+        }
+        return updatedConfig;
+    }
+    
+    private String updateSetting(){
+        String updatedSetting = new String();
+        if(myParams == null)
+            return updatedSetting;
+        else{
+            for(int i=0; i<myParams.length; i++){
+                updatedSetting += (" "+myParams[i]);
+            }
+            updatedSetting = updatedSetting.substring(STARTINDEX);
+        }
+        return updatedSetting;
+    }
     
     private VBox makeSliders(){
     	VBox sliderlayout = new VBox(BUTTON_SPACING);
@@ -266,11 +284,9 @@ public class UserInterface {
         myConfig = settings[7];
         if (settings.length > SETTINGINDEX) {
             myParams = settings[8].split(" ");
-            mySetting = settings[8];
         }
         else {
             myParams = null;
-            mySetting = "";
         }
     }
 
