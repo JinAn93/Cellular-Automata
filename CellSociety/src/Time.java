@@ -41,7 +41,7 @@ public class Time {
 		Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape, edge);
 		cellDisplay.updateDisplay(Cells.getCellList());
 		
-		cellGraph = new Graph(numStates);
+		cellGraph = new Graph(cellDisplay.getColors());
 		cellGraph.updateValues(Cells.getCellList());
 		
 		timeline = new Timeline();

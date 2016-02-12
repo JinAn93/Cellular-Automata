@@ -38,7 +38,8 @@ import javafx.stage.Stage;
  *
  */
 public class UserInterface {
-    public static final double WIDTH = 580;
+    private static final String INTERFACE = "Interface";
+	public static final double WIDTH = 580;
     public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
@@ -60,6 +61,10 @@ public class UserInterface {
     private Time time = null;
     private String info = null;
 
+    
+    private ResourceBundle sceneResources =
+            ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + INTERFACE);
+    
     private BorderPane border;
 
     private Button start;
@@ -77,7 +82,7 @@ public class UserInterface {
      * @param s
      */
     public void initStage (Stage s) {
-        s.setTitle("Cell Society");
+        s.setTitle(sceneResources.getString("TITLE"));
         s.setResizable(false);
         root = new Group();
         border = new BorderPane();
@@ -214,7 +219,7 @@ public class UserInterface {
     	VBox sliderlayout = new VBox(BUTTON_SPACING);
     	for (int i= 0; i<myParams.length; i++){
     		double curr = Double.parseDouble(myParams[i]);
-    		double max = 10; //TODO:figure this out
+    		double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); //TODO:figure this out
     		if (curr<1){
     			max = 1.0;
     		}
@@ -255,7 +260,7 @@ public class UserInterface {
         while (!isFileReady) {
             myXMLManager = new XMLManager();
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Resource File");
+            fileChooser.setTitle(sceneResources.getString("OPENFILE"));
             File file = fileChooser.showOpenDialog(new Stage());
             if (file != null) {
                 info = myXMLManager.readXMLFile(file);
@@ -275,8 +280,8 @@ public class UserInterface {
 
     private void showAlertMessage (String errorType) {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error Dialog");
-        alert.setHeaderText("Look, an Error Dialog");
+        alert.setTitle(sceneResources.getString("ERRORTITLE"));
+        alert.setHeaderText(sceneResources.getString("ERRORHEADER"));
         alert.setContentText(errorType);
         alert.showAndWait();
     }

@@ -102,5 +102,8 @@ public abstract class Display {
     public void setStates (int states) {
         this.states = states;
     }
+    public Color[] getColors(){
+    	return colors;
+    }
     
 }

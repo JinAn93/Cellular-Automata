@@ -1,25 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.Node;
+
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.paint.Color;
 
 public class Graph {
 
 	private List<XYChart.Series<Number, Number> > values;
 	private int numStates;
 	private int count;
+	private Color[] colors;
 
-	public Graph(int numStates){
-		this.numStates = numStates;
+	public Graph(Color[] colors){
+		this.colors = colors;
+		numStates = colors.length;
 		init();
 	}
 	private void init(){
 		values = new ArrayList<XYChart.Series<Number, Number>>();
 		for (int i = 0; i<numStates; i++){
-			values.add(new XYChart.Series<Number, Number>());
+			XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+			
+//			Node line = series.getNode().lookup(".chart-series-area-line");
+//			line.setStroke(colors[i]);
+			values.add(series);
 		}
 		count =0;
 	}
@@ -41,6 +50,7 @@ public class Graph {
 		LineChart<Number, Number> lineChart = 
                 new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
         lineChart.getData().addAll(values);
+        lineChart.setCreateSymbols(false);
         return lineChart;
 	}
 }
