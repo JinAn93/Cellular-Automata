@@ -16,6 +16,14 @@ import java.util.*;
 public class Cell {
     private int currState = 0;
     private int nextState = 0;
+    private int prevState = 0;
+    
+    public int getPrevState () {
+        return prevState;
+    }
+    public void setPrevState (int prevState) {
+        this.prevState = prevState;
+    }
     private List<Double> cellParamList = new ArrayList<Double>();
 
     public List<Double> getCellParamList () {

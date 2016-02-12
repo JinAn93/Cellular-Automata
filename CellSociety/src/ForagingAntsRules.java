@@ -54,7 +54,11 @@ public class ForagingAntsRules extends SimulationRules {
             return NEST;
         }
         else if (checkState(curr, PHER)) {
-            if (getPher(curr,foodPherInd)>0&&getPher(curr,homePherInd)>0){
+            if(curr.getPrevState()==BLOCKED){
+                setPher(curr,maxPher,foodPherInd);
+                setPher(curr,maxPher,homePherInd);
+            }
+            if (getPher(curr,foodPherInd)>0||getPher(curr,homePherInd)>0){
                 return PHER;
             }
         }
@@ -74,7 +78,7 @@ public class ForagingAntsRules extends SimulationRules {
             setOrientation(curr, findNextOrientation(0,neighbors.length, homePherInd, neighbors));
             eatFood(neighbors);
             makeMove(curr,neighbors,homePherInd,true);
-            setPher(curr,maxPher,homePherInd );
+            setPher(curr,maxPher,foodPherInd );
             return PHER;
         }
         else if (atNest(neighbors)) {
@@ -84,6 +88,9 @@ public class ForagingAntsRules extends SimulationRules {
             return PHER;
         }
         else {// move the ant
+            if(getOrientation(curr)<0){
+                setOrientation(curr, findNextOrientation(0,neighbors.length,desiredPher,neighbors));
+            }
             makeMove(curr, neighbors,desiredPher,false);
             setPher(curr, maxPher, pherDrop);
             return PHER;
@@ -100,7 +107,11 @@ public class ForagingAntsRules extends SimulationRules {
     private void makeMove (Cell curr, Cell[] neighbors, int pherType, boolean change) {
         if (getOrientation(curr) < 0) {
             int nextLoc = getRand().nextInt(neighbors.length);
+            while(checkState(neighbors[nextLoc],BLOCKED)){
+                nextLoc = getRand().nextInt(neighbors.length);
+            }
             neighbors[nextLoc].setNextState(curr.getCurrState());
+            
             return;
         }
         int mid = (int) getOrientation(curr);
@@ -113,6 +124,9 @@ public class ForagingAntsRules extends SimulationRules {
             upper = 0;
         }
         int nextLoc = findMaxPher(lower,  upper, mid, pherType, neighbors);
+        while(checkState(neighbors[nextLoc],BLOCKED)){
+            nextLoc = getRand().nextInt(neighbors.length);
+        }
         if(change){
             neighbors[nextLoc].setNextState(otherAnt(curr.getCurrState()));
         }
@@ -185,7 +199,7 @@ public class ForagingAntsRules extends SimulationRules {
     protected void initializeCellParams (Cell curr) {
         curr.getCellParamList().add((double) 0);
         curr.getCellParamList().add((double) 0);
-        curr.getCellParamList().add((double) 0);
+        curr.getCellParamList().add((double) -1);
         if (checkState(curr, PHER)) {
             setPher(curr, maxPher, homePherInd);
             setPher(curr, maxPher, foodPherInd);
