@@ -114,7 +114,8 @@ public class UserInterface {
         border.setTop(c);
         if(myParams!=null){
             border.setRight(makeSliders());
-        }               
+        }
+        else{border.setRight(null);}
 }
 
     /**

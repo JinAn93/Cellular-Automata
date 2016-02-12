@@ -149,7 +149,8 @@ public class XMLManager {
             return errorTypes.get(GRID_INIT_ERROR);
         }
         for (int i = 0; i < gridInit.length; i++) {
-            if (gridInit[i] < 0 || gridInit[i] > 3) {
+            if (gridInit[i] < 0 ) {
+            	//|| gridInit[i] > 3
                 return errorTypes.get(INVALID_CELL_STATE);
             }
         }
