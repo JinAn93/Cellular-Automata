@@ -4,7 +4,11 @@
 	<title>GOL_Tester3</title>
 	<author>Team15</author>
 	<shape>2</shape>
+<<<<<<< HEAD
 	<edge>1</edge>
+=======
+	<edge>0</edge>
+>>>>>>> JoeLilien
 	<numstates>3</numstates>
 	<setting></setting>
 	<dimension>30x30</dimension>

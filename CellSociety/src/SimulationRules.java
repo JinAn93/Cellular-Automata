@@ -53,12 +53,14 @@ public abstract class SimulationRules {
      */
     public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
         int count = 0;
-        for (int i = 1; i < cellGrid.length - 1; i++) {
-            for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                cellGrid[i][j].setCurrState(entry[count]);
-                cellGrid[i][j].setNextState(OPEN_NEXT);
+        for (int i = 0; i < cellGrid.length; i++) {
+            for (int j = 0; j < cellGrid[0].length; j++) {
+                if (i != 0 && i != cellGrid.length-1 && j != 0 && j != cellGrid.length-1) {
+                    cellGrid[i][j].setCurrState(entry[count]);
+                    cellGrid[i][j].setNextState(OPEN_NEXT);
+                    count++;
+                }
                 initializeCellParams(cellGrid[i][j]);
-                count++;
             }
         }
     }
@@ -150,12 +152,12 @@ public abstract class SimulationRules {
 
     /**
      * Rectangular and Triangular:
-     * Order of Array: {North, South, East, West, NorthEast, NorthWest,
-     * SouthWest, SouthEast} Index: 0 1 2 3 4 5 6 7
+     * Order of Array: {North, NorthEast, East, SouthEast, South, SouthWest,
+     * West, NorthWest} Index: 0 1 2 3 4 5 6 7
      * 
      * Hexagonal:
-     * Order of Array: {North, South, SouthEast, SouthWest,
-     * NorthWest, NorthEast} Index: 0 1 2 3 4 5
+     * Order of Array: {North, NorthEast, SouthEast, South,
+     * SouthWest, NorthWest} Index: 0 1 2 3 4 5
      * 
      * @param cellGrid
      * @param i
@@ -164,23 +166,24 @@ public abstract class SimulationRules {
      */
     public Cell[] setNeighbors (Cell[][] cellGrid, int i, int j, int shape) {
         if (shape == 0 || shape == 1) {
-            Cell[] neighbors = { cellGrid[i - 1][j], cellGrid[i + 1][j],
-                                 cellGrid[i][j + 1], cellGrid[i][j - 1], cellGrid[i - 1][j + 1],
-                                 cellGrid[i - 1][j - 1], cellGrid[i + 1][j - 1],
-                                 cellGrid[i + 1][j + 1] };
+            Cell[] neighbors = { cellGrid[i - 1][j], cellGrid[i - 1][j + 1],
+                                 cellGrid[i][j + 1], cellGrid[i + 1][j + 1], cellGrid[i + 1][j],
+                                 cellGrid[i + 1][j - 1], cellGrid[i][j - 1],
+                                 cellGrid[i - 1][j - 1] };
             return neighbors;
         }
         else {
             int m = (int) Math.pow(-1, j);
             Cell[] neighbors =
-                    { cellGrid[i - 1][j], cellGrid[i + 1][j], cellGrid[i][j - 1],
-                      cellGrid[i][j + 1], cellGrid[i + m][j - 1], cellGrid[i + m][j + 1] };
+                    { cellGrid[i - 1][j], cellGrid[i][j - 1],
+                      cellGrid[i][j + 1], cellGrid[i + 1][j], cellGrid[i + m][j - 1],
+                      cellGrid[i + m][j + 1] };
             return neighbors;
 
         }
     }
 
     public Cell[] shortenNeighbors (Cell[] neighbors) {
-        return new Cell[] { neighbors[0], neighbors[1], neighbors[2], neighbors[3] };
+        return new Cell[] { neighbors[0], neighbors[2], neighbors[4], neighbors[6] };
     }
 }
