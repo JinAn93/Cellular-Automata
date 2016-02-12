@@ -110,5 +110,9 @@ public class Time {
 		Cells.setParams(myParams);
 		
 	}
+	public Cell[][] getUpdatedConfig() {
+		// TODO Auto-generated method stub
+		return Cells.getCellList();
+	}
 
 }
