@@ -39,12 +39,12 @@ import javafx.stage.Stage;
  */
 public class UserInterface {
     private static final String INTERFACE = "Interface";
-	public static final double WIDTH = 580;
+	public static final double WIDTH = 640;
     public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
     public static final double BUTTON_HEIGHT = HEIGHT - 15;
-    public static final double GRAPH_HEIGHT = 125;
+    public static final double GRAPH_HEIGHT = 200;
     private static final int SETTINGINDEX = 8;
     private static final int STARTINDEX = 1;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
@@ -310,73 +310,4 @@ public class UserInterface {
         }
     }
 
-    //TODO: delete this
-//    private int[] considerInitConfig (String initConfig) {
-//        int[] init = new int[myGridSize];
-//        if (isRandom(initConfig)) {
-//            init = setRandomConfig();
-//        }
-//        else if (isProbRandom(initConfig)) {
-//            init = setProbRandomConfig(initConfig);
-//        }
-//        else {
-//            char[] ini = initConfig.toCharArray();
-//            init = new int[ini.length];
-//            for (int i = 0; i < ini.length; i++) {
-//                init[i] = ini[i] - '0';
-//            }
-//        }
-//        return init;
-//    }
-//
-//    private int[] setProbRandomConfig (String initConfig) {
-//        List<Integer> stateList = new ArrayList<Integer>();
-//        int[] probRandomConfig = new int[myGridSize];
-//        double[] randomEachState = new double[myNumStates];
-//        String[] probs = initConfig.split(" ");
-//        int setState = 0, countGrid = 0;
-//
-//        for (int i = 0; i < probs.length; i++) {
-//            randomEachState[i] = Double.parseDouble(probs[i]) * myGridSize;
-//        }
-//
-//        for (int i = 0; i < myGridSize; i++) {
-//            if (Math.round(randomEachState[setState]) == countGrid && (setState != myNumStates - 1)) {
-//                setState++;
-//                countGrid = 0;
-//            }
-//            stateList.add(setState);
-//            countGrid++;
-//        }
-//        Collections.shuffle(stateList);
-//        for (int i = 0; i < stateList.size(); i++) {
-//            probRandomConfig[i] = stateList.get(i);
-//        }
-//        return probRandomConfig;
-//    }
-//
-//    private int[] setRandomConfig () {
-//        int[] randomConfig = new int[myRow * myColumn];
-//        for (int i = 0; i < randomConfig.length; i++) {
-//            randomConfig[i] = new Random().nextInt(myNumStates - 1);
-//        }
-//        return randomConfig;
-//    }
-//
-//    private boolean isRandom (String initConfig) {
-//        if (initConfig.equals("random")) { // Use Resource Bundle
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
-//
-//    private boolean isProbRandom (String initConfig) {
-//        if (initConfig.contains(" "))
-//            return true;
-//        else {
-//            return false;
-//        }
-//    }
 }
