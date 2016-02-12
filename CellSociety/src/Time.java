@@ -17,7 +17,7 @@ import javafx.animation.KeyFrame;
 public class Time {
 
 	public static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
-			"Spreading_Fire", "Game_of_Life");
+			"Spreading_Fire", "Game_of_Life","Foraging_Ants");
 	private static final Duration STEPTIME = new Duration(1000);
 	private Timeline timeline;
 	private CellManager Cells;
@@ -98,10 +98,6 @@ public class Time {
 
 	public LineChart<Number, Number> getCellGraph(){
 		return cellGraph.getGraph();
-	}
-	
-	public Cell[][] getUpdatedConfig() {
-	    return Cells.getCellList();
 	}
 	
 	public void changeState(int i, int j) {

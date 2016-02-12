@@ -121,6 +121,7 @@ public class CellManager {
     public void moveNextToCurrentState () {
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
+                cellGrid[i][j].setPrevState(cellGrid[i][j].getCurrState());
                 cellGrid[i][j].setCurrState(cellGrid[i][j].getNextState());
                 cellGrid[i][j].setNextState(SimulationRules.OPEN_NEXT);
 
