@@ -6,7 +6,7 @@
 	<shape>0</shape>
 	<edge>0</edge>
 	<numstates>6</numstates>
-	<setting>40 5</setting>
+	<setting>40 1</setting>
 	<dimension>10x10</dimension>
 	<Initial>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</Initial>
 </simulation>
