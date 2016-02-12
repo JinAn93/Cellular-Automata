@@ -180,7 +180,7 @@ public class UserInterface {
         HBox buttonlayout = new HBox(BUTTON_SPACING);
 
         buttonlayout.getChildren().addAll(start, pause, resume, step, addspeed, reducespeed, reset,
-                                          loadfile);
+                                          loadfile, save);
         buttonlayout.setLayoutY(BUTTON_HEIGHT);
         buttonlayout.setLayoutX(BUTTON_SPACING);
         return buttonlayout;
@@ -222,7 +222,7 @@ public class UserInterface {
     private void fileLoader () {
         boolean isFileReady = false;
         while (!isFileReady) {
-            XMLManager myXMLManager = new XMLManager();
+            myXMLManager = new XMLManager();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
             File file = fileChooser.showOpenDialog(new Stage());
@@ -262,14 +262,15 @@ public class UserInterface {
         myRow = Integer.parseInt(dim[0]);
         myColumn = Integer.parseInt(dim[1]);
         myGridSize = myRow * myColumn;
-        mySetting = settings[7];
         myInitial = considerInitConfig(settings[7]);
-
+        myConfig = settings[7];
         if (settings.length > SETTINGINDEX) {
             myParams = settings[8].split(" ");
+            mySetting = settings[8];
         }
         else {
             myParams = null;
+            mySetting = "";
         }
     }
 

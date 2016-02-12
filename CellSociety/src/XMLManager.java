@@ -91,7 +91,7 @@ public class XMLManager {
             rootElement.appendChild(addElements(doc,"SHAPE",Integer.toString(shape)));
             rootElement.appendChild(addElements(doc,"EDGE",Integer.toString(edge)));
             rootElement.appendChild(addElements(doc,"NUMSTATES",Integer.toString(numStates)));
-            rootElement.appendChild(addElements(doc,"Setting",setting));
+            rootElement.appendChild(addElements(doc,"SETTING",setting));
             rootElement.appendChild(addElements(doc,"DIMENSION",Integer.toString(row) + "x" + Integer.toString(column)));
             rootElement.appendChild(addElements(doc,"INITIAL",initial));
             
@@ -99,7 +99,7 @@ public class XMLManager {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\file.xml"));
+            StreamResult result = new StreamResult(new File("C:\\Users\\owner\\filename.xml"));
             
             transformer.transform(source, result);
             System.out.println("File saved!");
