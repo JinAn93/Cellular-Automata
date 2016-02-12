@@ -4,6 +4,7 @@
 	<title>FA_Tester1</title>
 	<author>Team15</author>
 	<shape>0</shape>
+	<edge>0</edge>
 	<numstates>6</numstates>
 	<setting>40 5</setting>
 	<dimension>10x10</dimension>

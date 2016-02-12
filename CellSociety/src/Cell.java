@@ -16,9 +16,9 @@ import java.util.*;
 public class Cell {
     private int currState = 0;
     private int nextState = 0;
-    private ArrayList<Double> simParams = new ArrayList<Double>();
+    private List<Double> simParams = new ArrayList<Double>();
 
-    public ArrayList<Double> getSimParams () {
+    public List<Double> getSimParams () {
         return simParams;
     }
     public int getCurrState () {

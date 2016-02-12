@@ -17,6 +17,8 @@ public class PredatorPreyRules extends SimulationRules {
     private double reproductionTime;
     private double startEnergy;
     private double fishEnergy;
+    private int turnsOnStateInd = 0;
+    private int energyInd = 1;
 
     public PredatorPreyRules () {
         super();
@@ -111,26 +113,28 @@ public class PredatorPreyRules extends SimulationRules {
     
     @Override
     protected void initializeCellParams(Cell curr){
-        setTurnsOnState(curr,0);
+        curr.getSimParams().add((double) 0);
+        curr.getSimParams().add((double) 0);
         if (checkState(curr,SHARK)) {
-            setEnergy(curr,startEnergy);
+            curr.getSimParams().set(energyInd,startEnergy);
         }
     }
 
     private double getTurnsOnState (Cell curr) {
-        return curr.getSimParams().get(0);
+        
+        return curr.getSimParams().get(turnsOnStateInd );
     }
 
     private void setTurnsOnState (Cell curr, double turns) {
-        curr.getSimParams().add(0, turns);
+        curr.getSimParams().set(turnsOnStateInd, turns);
     }
 
     private double getEnergy (Cell curr) {
-        return curr.getSimParams().get(1);
+        return curr.getSimParams().get(energyInd);
     }
 
     private void setEnergy (Cell curr, double energy) {
-        curr.getSimParams().add(1, energy);
+        curr.getSimParams().set(energyInd, energy);
     }
 
     /**
