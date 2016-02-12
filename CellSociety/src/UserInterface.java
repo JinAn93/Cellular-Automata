@@ -7,13 +7,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -58,6 +58,8 @@ public class UserInterface {
     private Time time = null;
     private String info = null;
 
+    private BorderPane border;
+
     private Button start;
     private Button pause;
     private Button resume;
@@ -76,7 +78,11 @@ public class UserInterface {
         s.setTitle("Cell Society");
         s.setResizable(false);
         root = new Group();
-        root.getChildren().add(makeButtons());
+        border = new BorderPane();
+        border.setBottom(makeButtons());
+        border.setPrefSize(WIDTH, HEIGHT);
+        
+        root.getChildren().add(border);
         myScene = new Scene(root, WIDTH, HEIGHT, Color.SKYBLUE);
         myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
         s.setScene(myScene);
@@ -90,10 +96,7 @@ public class UserInterface {
         time = new Time();
         time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape, myEdge);
         enableButtons();
-        
-        Node n = root.getChildren().get(0);
-        root.getChildren().clear();
-        root.getChildren().add(n);
+        root.getChildren().retainAll(border);
         Polygon[][] displayArray = time.getCellDisplay();
         for (int i=0; i<displayArray.length;i++){
                 for (int j=0; j<displayArray[0].length;j++){
@@ -106,10 +109,10 @@ public class UserInterface {
 
         LineChart<Number, Number> c = time.getCellGraph();
         c.setMaxHeight(GRAPH_HEIGHT);
-        root.getChildren().add(c);
-        if(myParams != null){
-            root.getChildren().add(makeSliders());
-        }        
+        border.setTop(c);
+        if(myParams!=null){
+            border.setRight(makeSliders());
+        }               
 }
 
     /**
@@ -172,8 +175,7 @@ public class UserInterface {
 
         buttonlayout.getChildren().addAll(start, pause, resume, step, addspeed, reducespeed, reset,
                                           loadfile, save);
-        buttonlayout.setLayoutY(BUTTON_HEIGHT);
-        buttonlayout.setLayoutX(BUTTON_SPACING);
+
         return buttonlayout;
     }
     
@@ -192,6 +194,7 @@ public class UserInterface {
         return updatedConfig;
     }
     
+    //TODO:we actually don't need this?
     private String updateSetting(){
         String updatedSetting = new String();
         if(myParams == null)
@@ -224,8 +227,6 @@ public class UserInterface {
     	    sliderlayout.getChildren().add(slider);
             
     	}
-    	sliderlayout.setLayoutX(WIDTH*2/3); //TODO: check
-    	sliderlayout.setLayoutY(10);
 
     	return sliderlayout;
     }
