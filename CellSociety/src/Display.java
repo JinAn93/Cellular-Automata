@@ -24,9 +24,7 @@ public abstract class Display {
     private int rows;
     private int states;
     private Color[] colors;
-//    
-    protected double CELL_WIDTH;
-    protected double CELL_HEIGHT;
+
 
     private Polygon[][] Grid; 
     /**

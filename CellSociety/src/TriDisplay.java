@@ -7,8 +7,8 @@ public class TriDisplay extends Display{
 
 	@Override
 	protected void makeShape(int i, int j) {
-		CELL_WIDTH = DISPLAY_WIDTH /Math.ceil(getColumns()/2.) ; 
-		CELL_HEIGHT = DISPLAY_HEIGHT / getRows();
+		double CELL_WIDTH = DISPLAY_WIDTH /Math.ceil(getColumns()/2.) ; 
+		double CELL_HEIGHT = DISPLAY_HEIGHT / getRows();
 
 		double k = (j)/2.;
 		if((i+j)%2==0){

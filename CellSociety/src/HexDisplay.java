@@ -6,8 +6,8 @@ public class HexDisplay extends Display{
 
 	@Override
 	protected  void makeShape(int i, int j) {
-		CELL_WIDTH = DISPLAY_WIDTH / (getColumns())*4/3;
-		CELL_HEIGHT = DISPLAY_HEIGHT / (getRows()+.5);
+		double CELL_WIDTH = DISPLAY_WIDTH / (getColumns())*4/3;
+		double CELL_HEIGHT = DISPLAY_HEIGHT / (getRows()+.5);
 		double k = j*.75;
 		double l = i+.5*(j%2);
 
