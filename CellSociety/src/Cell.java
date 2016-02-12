@@ -16,10 +16,10 @@ import java.util.*;
 public class Cell {
     private int currState = 0;
     private int nextState = 0;
-    private List<Double> simParams = new ArrayList<Double>();
+    private List<Double> cellParamList = new ArrayList<Double>();
 
-    public List<Double> getSimParams () {
-        return simParams;
+    public List<Double> getCellParamList () {
+        return cellParamList;
     }
     public int getCurrState () {
         return currState;

@@ -53,12 +53,14 @@ public abstract class SimulationRules {
      */
     public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
         int count = 0;
-        for (int i = 1; i < cellGrid.length - 1; i++) {
-            for (int j = 1; j < cellGrid[0].length - 1; j++) {
-                cellGrid[i][j].setCurrState(entry[count]);
-                cellGrid[i][j].setNextState(OPEN_NEXT);
+        for (int i = 0; i < cellGrid.length; i++) {
+            for (int j = 0; j < cellGrid[0].length; j++) {
+                if (i != 0 && i != cellGrid.length-1 && j != 0 && j != cellGrid.length-1) {
+                    cellGrid[i][j].setCurrState(entry[count]);
+                    cellGrid[i][j].setNextState(OPEN_NEXT);
+                    count++;
+                }
                 initializeCellParams(cellGrid[i][j]);
-                count++;
             }
         }
     }

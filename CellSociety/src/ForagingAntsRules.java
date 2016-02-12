@@ -166,26 +166,26 @@ public class ForagingAntsRules extends SimulationRules {
     }
 
     private double getPher (Cell curr, int pherType) {
-        return curr.getSimParams().get(pherType);
+        return curr.getCellParamList().get(pherType);
     }
 
     private void setPher (Cell curr, double pherLevel, int pherType) {
-        curr.getSimParams().set(pherType, pherLevel);
+        curr.getCellParamList().set(pherType, pherLevel);
     }
 
     private double getOrientation (Cell curr) {
-        return curr.getSimParams().get(orientationInd);
+        return curr.getCellParamList().get(orientationInd);
     }
 
     private void setOrientation (Cell curr, double orientation) {
-        curr.getSimParams().set(orientationInd, orientation);
+        curr.getCellParamList().set(orientationInd, orientation);
     }
 
     @Override
     protected void initializeCellParams (Cell curr) {
-        curr.getSimParams().add((double) 0);
-        curr.getSimParams().add((double) 0);
-        curr.getSimParams().add((double) 0);
+        curr.getCellParamList().add((double) 0);
+        curr.getCellParamList().add((double) 0);
+        curr.getCellParamList().add((double) 0);
         if (checkState(curr, PHER)) {
             setPher(curr, maxPher, homePherInd);
             setPher(curr, maxPher, foodPherInd);

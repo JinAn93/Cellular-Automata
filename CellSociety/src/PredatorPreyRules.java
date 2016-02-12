@@ -96,9 +96,10 @@ public class PredatorPreyRules extends SimulationRules {
             int rand = getRand().nextInt(neighbors.length);
             if (checkState(neighbors[rand], FISH)) {
                 neighbors[rand].setNextState(SHARK);
+                //System.out.println(curr.getSimParams().size());
                 setEnergy(neighbors[rand],getEnergy(curr) + fishEnergy);
                 if (getTurnsOnState(curr) > reproductionTime) {
-                    setTurnsOnState(curr,0);
+                    setTurnsOnState(curr,(double) 0);
                     setEnergy(curr,startEnergy);
                     return SHARK;
                 }
@@ -113,28 +114,35 @@ public class PredatorPreyRules extends SimulationRules {
     
     @Override
     protected void initializeCellParams(Cell curr){
-        curr.getSimParams().add((double) 0);
-        curr.getSimParams().add((double) 0);
+        //System.out.println("initCellParams");
+        curr.getCellParamList().add((double)0);
+        curr.getCellParamList().add((double)0);        
         if (checkState(curr,SHARK)) {
-            curr.getSimParams().set(energyInd,startEnergy);
+            curr.getCellParamList().set(energyInd,startEnergy);
+        }
+        if(curr.getCellParamList().size()<2){
+        System.out.println(curr.getCellParamList());
+        System.out.println(curr.getCellParamList().size());
         }
     }
 
     private double getTurnsOnState (Cell curr) {
         
-        return curr.getSimParams().get(turnsOnStateInd );
+        return curr.getCellParamList().get(turnsOnStateInd );
     }
 
     private void setTurnsOnState (Cell curr, double turns) {
-        curr.getSimParams().set(turnsOnStateInd, turns);
+        curr.getCellParamList().set(turnsOnStateInd, turns);
     }
 
     private double getEnergy (Cell curr) {
-        return curr.getSimParams().get(energyInd);
+        return curr.getCellParamList().get(energyInd);
     }
 
     private void setEnergy (Cell curr, double energy) {
-        curr.getSimParams().set(energyInd, energy);
+        System.out.println(energy);
+        System.out.println("size is" +curr.getCellParamList().size());
+        curr.getCellParamList().set(energyInd, energy);
     }
 
     /**
