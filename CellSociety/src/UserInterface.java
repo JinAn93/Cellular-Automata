@@ -194,8 +194,8 @@ public class UserInterface {
     private String updateConfig(){
         String updatedConfig = new String();
         Cell[][] recentConfig = time.getUpdatedConfig();
-        for(int i=0; i<recentConfig.length; i++){
-            for(int j=0; j<recentConfig[0].length; j++){
+        for(int i=1; i<recentConfig.length-1; i++){
+            for(int j=1; j<recentConfig[0].length-1; j++){
                 updatedConfig += recentConfig[i][j].getCurrState();
             }
         }
