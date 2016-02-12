@@ -175,8 +175,8 @@ public class UserInterface {
 
         HBox buttonlayout = new HBox(BUTTON_SPACING);
 
-        buttonlayout.getChildren().addAll(start, pause, resume, step, addspeed, reducespeed, reset,
-                                          loadfile, save);
+        buttonlayout.getChildren().addAll(loadfile, start, pause, resume, step, addspeed, reducespeed, reset,
+                                           save);
 
         return buttonlayout;
     }
@@ -227,7 +227,7 @@ public class UserInterface {
 
 	private Slider makeSlider(int i, double curr, double max) {
 		Slider slider = new Slider(0, max, curr );
-		
+		slider.setShowTickLabels(true);
 		slider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			 myParams[i]= String.valueOf(newValue.intValue());
 			 time.updateParams(myParams);
