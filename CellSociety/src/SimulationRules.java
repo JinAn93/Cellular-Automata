@@ -55,7 +55,7 @@ public abstract class SimulationRules {
         int count = 0;
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
-                if (i != 0 && i != cellGrid.length-1 && j != 0 && j != cellGrid.length-1) {
+                if (i != 0 && i != cellGrid.length - 1 && j != 0 && j != cellGrid.length - 1) {
                     cellGrid[i][j].setCurrState(entry[count]);
                     cellGrid[i][j].setNextState(OPEN_NEXT);
                     count++;
@@ -66,6 +66,9 @@ public abstract class SimulationRules {
     }
 
     protected void initializeCellParams (Cell curr) {
+    };
+
+    protected void handleUserInput (Cell curr) {
     };
 
     /**
@@ -119,6 +122,17 @@ public abstract class SimulationRules {
     }
 
     /**
+     * Returns true if the prev state of the cell is the same as the int state argument passed in
+     * 
+     * @param curr
+     * @param state
+     * @return
+     */
+    protected boolean checkPrevState (Cell curr, int state) {
+        return (curr.getPrevState() == state);
+    }
+
+    /**
      * Returns the percent of like neighbors. This is determined as the number of similar neighbors
      * divided by the number of total neighbor states that are not defined as EMPTY
      * 
@@ -148,6 +162,20 @@ public abstract class SimulationRules {
             }
         }
         return count;
+    }
+
+    /**
+     * Returns true if any of a cells neighbors are equal to the state argument passed in. Otherwise
+     * returns false
+     * 
+     * @param curr
+     * @param neighbors
+     * @param grid
+     * @param state
+     * @return
+     */
+    protected boolean isAround (Cell[] neighbors, int state) {
+        return countNeighborState(neighbors, state) > 0;
     }
 
     /**

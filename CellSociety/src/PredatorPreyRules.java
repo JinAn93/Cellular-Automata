@@ -31,10 +31,11 @@ public class PredatorPreyRules extends SimulationRules {
      */
     @Override
     protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
+        handleUserInput(curr);
         if (shape == 0 || shape == 1) {
             neighbors = shortenNeighbors(neighbors);
         }
-        setTurnsOnState(curr,getTurnsOnState(curr) + 1);
+        setTurnsOnState(curr, getTurnsOnState(curr) + 1);
         if (checkState(curr, FISH)) {
             return handleMove(curr, neighbors, grid, FISH);
         }
@@ -45,7 +46,6 @@ public class PredatorPreyRules extends SimulationRules {
             return EMPTY;
         }
     }
-
 
     /**
      * Handles move for a given Cell. Chooses random new location from each of the cell's neighbors
@@ -66,7 +66,7 @@ public class PredatorPreyRules extends SimulationRules {
                 checkNextState(neighbors[rand], EMPTY)) {
                 neighbors[rand].setNextState(state);
                 if (getTurnsOnState(curr) > reproductionTime) {
-                    setTurnsOnState(curr,0);
+                    setTurnsOnState(curr, 0);
                     return state;
                 }
                 else {
@@ -88,18 +88,18 @@ public class PredatorPreyRules extends SimulationRules {
      * @return
      */
     private int handleShark (Cell curr, Cell[] neighbors, Cell[][] grid) {
-        setEnergy(curr,getEnergy(curr) - 1);
+        setEnergy(curr, getEnergy(curr) - 1);
         if (getEnergy(curr) <= 0) {
             return EMPTY;
         }
-        while (isAround(curr, neighbors, grid, FISH)) {
+        while (isAround(neighbors, FISH)) {
             int rand = getRand().nextInt(neighbors.length);
             if (checkState(neighbors[rand], FISH)) {
                 neighbors[rand].setNextState(SHARK);
-                setEnergy(neighbors[rand],getEnergy(curr) + fishEnergy);
+                setEnergy(neighbors[rand], getEnergy(curr) + fishEnergy);
                 if (getTurnsOnState(curr) > reproductionTime) {
-                    setTurnsOnState(curr,(double) 0);
-                    setEnergy(curr,startEnergy);
+                    setTurnsOnState(curr, (double) 0);
+                    setEnergy(curr, startEnergy);
                     return SHARK;
                 }
                 else {
@@ -110,50 +110,35 @@ public class PredatorPreyRules extends SimulationRules {
         }
         return handleMove(curr, neighbors, grid, SHARK);
     }
-    
+
+    /**
+     * Initializes the each cell's list of parameters to the indicated starting values
+     * 
+     * @param curr
+     */
     @Override
-    protected void initializeCellParams(Cell curr){
-        curr.getCellParamList().add((double)0);
-        curr.getCellParamList().add((double)0);        
-        if (checkState(curr,SHARK)) {
-            curr.getCellParamList().set(energyInd,startEnergy);
+    protected void initializeCellParams (Cell curr) {
+        curr.getCellParamList().add((double) 0);
+        curr.getCellParamList().add((double) 0);
+        if (checkState(curr, SHARK)) {
+            setEnergy(curr, startEnergy);
         }
-    }
-
-    private double getTurnsOnState (Cell curr) {
-        
-        return curr.getCellParamList().get(turnsOnStateInd );
-    }
-
-    private void setTurnsOnState (Cell curr, double turns) {
-        curr.getCellParamList().set(turnsOnStateInd, turns);
-    }
-
-    private double getEnergy (Cell curr) {
-        return curr.getCellParamList().get(energyInd);
-    }
-
-    private void setEnergy (Cell curr, double energy) {
-        curr.getCellParamList().set(energyInd, energy);
     }
 
     /**
-     * Returns true if any of a cells neighbors are equal to the state argument passed in. Otherwise
-     * returns false
+     * Updates cell's list of parameters accordingly if a cell's state is changed by user input,
+     * rather than natural simulation progression
      * 
      * @param curr
-     * @param neighbors
-     * @param grid
-     * @param state
-     * @return
      */
-    private boolean isAround (Cell curr, Cell[] neighbors, Cell[][] grid, int state) {
-        for (int i = 0; i < neighbors.length; i++) {
-            if (checkState(neighbors[i], state)) {
-                return true;
+    @Override
+    protected void handleUserInput (Cell curr) {
+        if (checkPrevState(curr, BLOCKED)) {
+            setTurnsOnState(curr, 0);
+            if (checkState(curr, SHARK)) {
+                setEnergy(curr, startEnergy);
             }
         }
-        return false;
     }
 
     /**
@@ -177,6 +162,8 @@ public class PredatorPreyRules extends SimulationRules {
 
     /**
      * Sets the properties listed according to data read in from the XML configuration file
+     * 
+     * @param simParams
      */
     @Override
     protected void setSimulationParameters (String[] simParams) {
@@ -185,6 +172,12 @@ public class PredatorPreyRules extends SimulationRules {
         fishEnergy = Double.parseDouble(simParams[2]);
     }
 
+    /**
+     * Checks validity of parameter inputs, returns false if length of simParams is incorrect or if
+     * any values are negative
+     * 
+     * @param simParams
+     */
     @Override
     protected boolean isInvalid (String[] simParams) {
         if (simParams.length != paramNeeded) {
@@ -196,6 +189,22 @@ public class PredatorPreyRules extends SimulationRules {
             }
         }
         return false;
+    }
+
+    private double getTurnsOnState (Cell curr) {
+        return curr.getCellParamList().get(turnsOnStateInd);
+    }
+
+    private void setTurnsOnState (Cell curr, double turns) {
+        curr.getCellParamList().set(turnsOnStateInd, turns);
+    }
+
+    private double getEnergy (Cell curr) {
+        return curr.getCellParamList().get(energyInd);
+    }
+
+    private void setEnergy (Cell curr, double energy) {
+        curr.getCellParamList().set(energyInd, energy);
     }
 
 }

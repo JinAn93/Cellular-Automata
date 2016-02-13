@@ -50,6 +50,10 @@ public class GameOfLifeRules extends SimulationRules {
         // No Parameters to Set for this Simulation
     }
 
+    /**
+     * Checks to make sure that simParams input for this simulation is null. Returns false
+     * otherwise.
+     */
     @Override
     protected boolean isInvalid (String[] simParams) {
         if (simParams != null) {
