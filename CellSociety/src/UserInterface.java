@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  */
 public class UserInterface {
     private static final String INTERFACE = "Interface";
-	public static final double WIDTH = 640;
+    public static final double WIDTH = 640;
     public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
@@ -46,7 +46,7 @@ public class UserInterface {
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
-	private static final String SLIDERLABELS = "Sliders";
+    private static final String SLIDERLABELS = "Sliders";
     private String myName, myTitle, myAuthor, mySetting, myConfig;
     private int myNumStates, myRow, myColumn, myShape, myGridSize, myEdge;
     private int[] myInitial;
@@ -57,20 +57,11 @@ public class UserInterface {
     private Time time = null;
     private String info = null;
 
-    
     private ResourceBundle sceneResources =
             ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + INTERFACE);
-    
-    private BorderPane border;
 
-    private Button start;
-    private Button pause;
-    private Button resume;
-    private Button step;
-    private Button addspeed;
-    private Button reducespeed;
-    private Button reset;
-    private Button save;
+    private BorderPane border;
+    private Button start, pause, resume, step, addspeed, reducespeed, reset, save;
 
     /**
      * Called by main in order to set the stage and the scene.
@@ -84,7 +75,7 @@ public class UserInterface {
         border = new BorderPane();
         border.setBottom(makeButtons());
         border.setPrefSize(WIDTH, HEIGHT);
-        
+
         root.getChildren().add(border);
         myScene = new Scene(root, WIDTH, HEIGHT, Color.SKYBLUE);
         myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
@@ -97,27 +88,30 @@ public class UserInterface {
      */
     private void makeTime () {
         time = new Time();
-        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape, myEdge);
+        time.initSimulation(myRow, myColumn, myNumStates, myName, myInitial, myParams, myShape,
+                            myEdge);
         enableButtons();
         root.getChildren().retainAll(border);
         Polygon[][] displayArray = time.getCellDisplay();
-        for (int i=0; i<displayArray.length;i++){
-                for (int j=0; j<displayArray[0].length;j++){
-                        final int k = i;
-                        final int l =j;
-                        displayArray[i][j].setOnMouseClicked(e->time.changeState(k,l));
-                        root.getChildren().add(displayArray[i][j]);
-                }
+        for (int i = 0; i < displayArray.length; i++) {
+            for (int j = 0; j < displayArray[0].length; j++) {
+                final int k = i;
+                final int l = j;
+                displayArray[i][j].setOnMouseClicked(e -> time.changeState(k, l));
+                root.getChildren().add(displayArray[i][j]);
+            }
         }
 
         LineChart<Number, Number> c = time.getCellGraph();
         c.setMaxHeight(GRAPH_HEIGHT);
         border.setTop(c);
-        if(myParams!=null){
+        if (myParams != null) {
             border.setRight(makeSliders());
         }
-        else{border.setRight(null);}
-}
+        else {
+            border.setRight(null);
+        }
+    }
 
     /**
      * Returns a button, getting its label from the resource file. Also sets its action.
@@ -168,7 +162,7 @@ public class UserInterface {
             time.pauseAnimation();
             makeTime();
         });
-        save = makeButton("save", e-> {
+        save = makeButton("save", e -> {
             time.pauseAnimation();
             saveFile();
         });
@@ -177,124 +171,134 @@ public class UserInterface {
 
         HBox buttonlayout = new HBox(BUTTON_SPACING);
 
-        buttonlayout.getChildren().addAll(loadfile, start, pause, resume, step, addspeed, reducespeed, reset,
-                                           save);
+        buttonlayout.getChildren().addAll(loadfile, start, pause, resume, step, addspeed,
+                                          reducespeed, reset,
+                                          save);
 
         return buttonlayout;
     }
-    
+
     /**
      * saves variables into an XML file using the XMLmanager
      */
-    private void saveFile(){
-        myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, updateSetting(), myRow, myColumn, updateConfig());
+    private void saveFile () {
+        myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates,
+                                  updateSetting(), myRow, myColumn, updateConfig());
     }
-    
+
     /**
      * returns a string concatenating the curr states in the cell array
+     * 
      * @return
      */
-    private String updateConfig(){
+    private String updateConfig () {
         String updatedConfig = new String();
         Cell[][] recentConfig = time.getUpdatedConfig();
-        for(int i=1; i<recentConfig.length-1; i++){
-            for(int j=1; j<recentConfig[0].length-1; j++){
+        for (int i = 1; i < recentConfig.length - 1; i++) {
+            for (int j = 1; j < recentConfig[0].length - 1; j++) {
                 updatedConfig += recentConfig[i][j].getCurrState();
             }
         }
         return updatedConfig;
     }
-    
+
     /**
      * returns a string with the parameters, joined with spaces
+     * 
      * @return
      */
-    private String updateSetting(){
+    private String updateSetting () {
         String updatedSetting = new String();
-        if(myParams == null)
+        if (myParams == null)
             return updatedSetting;
-        else{
-            for(int i=0; i<myParams.length; i++){
-                updatedSetting += (" "+myParams[i]);
+        else {
+            for (int i = 0; i < myParams.length; i++) {
+                updatedSetting += (" " + myParams[i]);
             }
             updatedSetting = updatedSetting.substring(STARTINDEX);
         }
         return updatedSetting;
     }
-    
+
     /**
      * makes the sliders to change the parameters and their labels. Uses makeSlider and makeLabel.
      * returns the vbox that holds them and their labels
+     * 
      * @return
      */
-    private VBox makeSliders(){
-    	VBox sliderlayout = new VBox(BUTTON_SPACING);
-    	for (int i= 0; i<myParams.length; i++){
-    		
-    	    sliderlayout.getChildren().add(makeSlider(i));
-    	    sliderlayout.getChildren().add(makeLabel(i)); 
-    	}
+    private VBox makeSliders () {
+        VBox sliderlayout = new VBox(BUTTON_SPACING);
+        for (int i = 0; i < myParams.length; i++) {
 
-    	return sliderlayout;
+            sliderlayout.getChildren().add(makeSlider(i));
+            sliderlayout.getChildren().add(makeLabel(i));
+        }
+
+        return sliderlayout;
     }
 
     /**
      * returns an individual slider
+     * 
      * @param i- index of the param for which the slider will be made
      * @return
      */
-	private Slider makeSlider(int i) {
-		double curr = Double.parseDouble(myParams[i]);
-		double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); //TODO:figure this out
-		if (curr<1){
-			max = 1.0;
-		}
-		Slider slider = new Slider(0, max, curr );
-		slider.setShowTickLabels(true);
-		slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-			 myParams[i]= String.valueOf(newValue.intValue());
-			 time.updateParams(myParams);
-		
-		});
-		return slider;
-	}
+    private Slider makeSlider (int i) {
+        double curr = Double.parseDouble(myParams[i]);
+        double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); // TODO:figure this out
+        if (curr < 1) {
+            max = 1.0;
+        }
+        Slider slider = new Slider(0, max, curr);
+        slider.setShowTickLabels(true);
+        slider.valueProperty().addListener( (observable, oldValue, newValue) -> {
+            myParams[i] = String.valueOf(newValue.intValue());
+            time.updateParams(myParams);
+
+        });
+        return slider;
+    }
+
     /**
      * returns a label for a particular param
+     * 
      * @param i- index of the param for which the slider will be made
      * @return
      */
-	private Label makeLabel(int i){
-		ResourceBundle myResources =
+    private Label makeLabel (int i) {
+        ResourceBundle myResources =
                 ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SLIDERLABELS);
-        String name = (myResources.getString(myName+i));
+        String name = (myResources.getString(myName + i));
         Label label = new Label(name);
         return label;
-	}
+    }
 
     /**
      * Opens a new window for choosing XML file to start animation
      */
     private void fileLoader () {
         boolean isFileReady = false;
-        while (!isFileReady) {
-            myXMLManager = new XMLManager();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle(sceneResources.getString("OPENFILE"));
-            File file = fileChooser.showOpenDialog(new Stage());
-            if (file != null) {
-                info = myXMLManager.readXMLFile(file);
-                extractFile(info);
-                String errorCheck =
-                        myXMLManager.checkError(myRow, myColumn, myName, myInitial, myParams);
-                if (XMLManager.errorTypes.get(XMLManager.NO_ERROR) == errorCheck) {
-                    isFileReady = true;
-                }
-                else {
-                    showAlertMessage(errorCheck);
-                }
+
+        myXMLManager = new XMLManager();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(sceneResources.getString("OPENFILE"));
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            info = myXMLManager.readXMLFile(file);
+            extractFile(info);
+            String errorCheck =
+                    myXMLManager.checkError(myRow, myColumn, myName, myInitial, myParams);
+            if (XMLManager.errorTypes.get(XMLManager.NO_ERROR) == errorCheck) {
+                isFileReady = true;
+            }
+            else {
+                showAlertMessage(errorCheck);
             }
         }
-        makeTime();
+
+        if (isFileReady) {
+            makeTime();
+        }
     }
 
     private void showAlertMessage (String errorType) {
@@ -317,10 +321,9 @@ public class UserInterface {
         myRow = Integer.parseInt(dim[0]);
         myColumn = Integer.parseInt(dim[1]);
         myGridSize = myRow * myColumn;
-//        myInitial = considerInitConfig(settings[7]);
         myConfig = settings[7];
-        myInitial = new Config(myConfig,  myGridSize,  myNumStates).considerInitConfig();
-        
+        myInitial = new Config(myConfig, myGridSize, myNumStates).considerInitConfig();
+
         if (settings.length > SETTINGINDEX) {
             myParams = settings[8].split(" ");
         }

@@ -1,5 +1,4 @@
 import java.io.File;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -150,7 +149,6 @@ public class XMLManager {
         }
         for (int i = 0; i < gridInit.length; i++) {
             if (gridInit[i] < 0 ) {
-            	//|| gridInit[i] > 3
                 return errorTypes.get(INVALID_CELL_STATE);
             }
         }
