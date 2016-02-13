@@ -110,12 +110,12 @@ public class ForagingAntsRules extends SimulationRules {
         if (isAround(neighbors, FOOD_SOURCE)) {// at food source
             setOrientation(curr, findNextOrientation(homePherInd, neighbors));
             eatFood(neighbors);
-            makeMove(curr, neighbors, homePherInd, true);
+            makeMove(curr, neighbors, homePherInd, checkState(curr,NO_FOOD_ANT));
             setPher(curr, maxPher, foodPherInd);
         }
         else if (isAround(neighbors, NEST)) {// at nest
             setOrientation(curr, findNextOrientation(foodPherInd, neighbors));
-            makeMove(curr, neighbors, foodPherInd, true);
+            makeMove(curr, neighbors, foodPherInd, checkState(curr,FOOD_ANT));
             setPher(curr, maxPher, homePherInd);
         }
         else {// move the ant
@@ -171,6 +171,9 @@ public class ForagingAntsRules extends SimulationRules {
         }
         int nextLoc = findMaxPher(lower, upper, mid, pherType, neighbors);
         if (nextLoc < 0) {
+            nextLoc = makeRandomMove(neighbors);
+        }
+        if(!isValidMove(nextLoc,neighbors)){
             nextLoc = makeRandomMove(neighbors);
         }
         if (change) {

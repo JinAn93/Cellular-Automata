@@ -22,9 +22,9 @@ public abstract class CellManager {
     private SimulationRules myRules;
     private int myShape, myEdge;
     public static final SimulationRules[] myPossibleRules =
-    { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
-     new GameOfLifeRules(),
-     new ForagingAntsRules() };
+            { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
+              new GameOfLifeRules(),
+              new ForagingAntsRules() };
 
     /**
      * setUp method is called from initSimulation method in Time class. It takes in # of rows,
@@ -44,7 +44,7 @@ public abstract class CellManager {
      * @param simParams
      */
 
-    public void setUp (int r, int c, int whichSim, int[] entry, String[] simParams, int shape, int edge) {
+    public void setUp (int r,int c, int whichSim,int[] entry, String[] simParams,int shape, int edge) {
         myRules = myPossibleRules[whichSim];
         myShape = shape;
         myEdge = edge;
@@ -86,7 +86,7 @@ public abstract class CellManager {
     }
 
     protected abstract int determineBorderState (int i, int j, int type);
-    
+
     public int getState (Cell curr, int num) {
         if (num == 0) {
             return curr.getCurrState();
@@ -110,9 +110,9 @@ public abstract class CellManager {
         }
     }
 
-	public void setParams(String[] simParams) {
+    public void setParams (String[] simParams) {
         myRules.setSimulationParameters(simParams);
-		
-	}
+
+    }
 
 }
