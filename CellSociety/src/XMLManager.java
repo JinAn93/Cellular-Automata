@@ -2,6 +2,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,7 +29,8 @@ import org.w3c.dom.NodeList;
  *
  */
 public class XMLManager {
-    private String RESOURCE_PACKAGE_XML = "Resources/XMLTags";
+    private static final String RESOURCE_PACKAGE_XML = "Resources/XMLTags";
+    private static final String RESOURCE_PACKAGE_IF = "Resources/Interface";
     public static final int NO_ERROR = 0;
     public static final List<String> errorTypes = Arrays.asList("No_Error", "No_Simulation_Type",
                                                                 "Parameter_Error",
@@ -38,7 +40,7 @@ public class XMLManager {
     public static final int PARAMETER_ERROR = 2;
     public static final int INVALID_CELL_STATE = 3;
     public static final int GRID_INIT_ERROR = 4;
-    ResourceBundle myResources;
+    ResourceBundle myXMLResources, myInterResources;
 
     /**
      * Called from UserInterface class. This method gets the loaded file and returns a concatenated
@@ -58,9 +60,10 @@ public class XMLManager {
             doc.getDocumentElement().normalize();
             String whichSim = "";
 
-            myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE_XML);
+            myXMLResources = ResourceBundle.getBundle(RESOURCE_PACKAGE_XML);
+            myInterResources = ResourceBundle.getBundle(RESOURCE_PACKAGE_IF);
 
-            NodeList nList = doc.getElementsByTagName(myResources.getString("SIMULATION"));
+            NodeList nList = doc.getElementsByTagName(myXMLResources.getString("SIMULATION"));
             for (int i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -84,24 +87,15 @@ public class XMLManager {
         return strsimInfo;
     }
 
-    public void writeXMLFile (String name,
-                              String title,
-                              String author,
-                              int shape,
-                              int edge,
-                              int numStates,
-                              String setting,
-                              int row,
-                              int column,
-                              String initial) {
+    public void writeXMLFile (String name, String title, String author, int shape, int edge,
+                              int numStates, String setting, int row, int column, String initial) {
         try {
+            String filename = JOptionPane.showInputDialog(this,"Enter your file name.");
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
             Document doc = docBuilder.newDocument();
             Element rootElement = createElements(doc, "SIMULATION");
             doc.appendChild(rootElement);
-
             rootElement.appendChild(addElements(doc, "NAME", name));
             rootElement.appendChild(addElements(doc, "TITLE", title));
             rootElement.appendChild(addElements(doc, "AUTHOR", author));
@@ -117,10 +111,9 @@ public class XMLManager {
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("savedFile.xml"));
-
+            StreamResult result = new StreamResult(new File(filename+".xml"));
             transformer.transform(source, result);
-            System.out.println("File saved!");
+            showMessage(filename, "FILESAVED");
         }
         catch (ParserConfigurationException pce) {
             pce.printStackTrace();
@@ -130,16 +123,18 @@ public class XMLManager {
         }
     }
 
+    private void showMessage (String filename, String saved){
+        AlertMessage message = new AlertMessage();
+        message.showAlertMessage(getIFResource("INFO"), getIFResource("INFOTITLE"), getIFResource("INFOHEADER"), getIFResource("FILESAVED"));
+    }
+    
     private Element addElements (Document doc, String s, String content) {
         Element element = createElements(doc, s);
         element.appendChild(doc.createTextNode(content));
         return element;
     }
 
-    public String checkError (int row,
-                              int column,
-                              String whichSim,
-                              int[] gridInit,
+    public String checkError (int row, int column, String whichSim, int[] gridInit, 
                               String[] parameters) {
         if (!Time.simulations.contains(whichSim)) {
             return errorTypes.get(NO_SIMULATION_TYPE);
@@ -148,7 +143,7 @@ public class XMLManager {
             return errorTypes.get(GRID_INIT_ERROR);
         }
         for (int i = 0; i < gridInit.length; i++) {
-            if (gridInit[i] < 0 ) {
+            if (gridInit[i] < 0) {
                 return errorTypes.get(INVALID_CELL_STATE);
             }
         }
@@ -170,11 +165,18 @@ public class XMLManager {
      * @return
      */
     private String getElements (Element eElement, String s) {
-        return (eElement.getElementsByTagName(myResources.getString(s)).item(0).getTextContent());
+        return (eElement.getElementsByTagName(getXMLResource(s)).item(0).getTextContent());
     }
 
     private Element createElements (Document doc, String s) {
-        return (doc.createElement(myResources.getString(s)));
-
+        return (doc.createElement(getXMLResource(s)));
+    }
+    
+    private String getXMLResource(String s){
+        return myXMLResources.getString(s);
+    }
+    
+    private String getIFResource(String s){
+        return myInterResources.getString(s);
     }
 }

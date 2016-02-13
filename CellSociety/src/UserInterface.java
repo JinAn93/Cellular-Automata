@@ -5,8 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -302,11 +300,10 @@ public class UserInterface {
     }
 
     private void showAlertMessage (String errorType) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(sceneResources.getString("ERRORTITLE"));
-        alert.setHeaderText(sceneResources.getString("ERRORHEADER"));
-        alert.setContentText(errorType);
-        alert.showAndWait();
+        AlertMessage alert = new AlertMessage();
+        alert.showAlertMessage(sceneResources.getString("ERROR"),
+                               sceneResources.getString("ERRORTITLE"),
+                               sceneResources.getString("ERRORHEADER"), errorType);
     }
 
     private void extractFile (String info) {

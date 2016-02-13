@@ -339,7 +339,7 @@ public class ForagingAntsRules extends SimulationRules {
             return true;
         }
         for (int i = 0; i < paramNeeded; i++) {
-            if (Double.parseDouble(simParams[i]) <= 0) {
+            if (Double.parseDouble(simParams[i]) < 0) {
                 return true;
             }
         }
