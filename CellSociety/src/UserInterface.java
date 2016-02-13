@@ -1,8 +1,4 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,12 +35,12 @@ import javafx.stage.Stage;
  */
 public class UserInterface {
     private static final String INTERFACE = "Interface";
-	public static final double WIDTH = 580;
+	public static final double WIDTH = 640;
     public static final double HEIGHT = 640;
     public static final double SPEED_CHANGE = 0.3;
     public static final double BUTTON_SPACING = 5;
     public static final double BUTTON_HEIGHT = HEIGHT - 15;
-    public static final double GRAPH_HEIGHT = 125;
+    public static final double GRAPH_HEIGHT = 200;
     private static final int SETTINGINDEX = 8;
     private static final int STARTINDEX = 1;
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
@@ -187,21 +183,32 @@ public class UserInterface {
         return buttonlayout;
     }
     
+    /**
+     * saves variables into an XML file using the XMLmanager
+     */
     private void saveFile(){
         myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, updateSetting(), myRow, myColumn, updateConfig());
     }
     
+    /**
+     * returns a string concatenating the curr states in the cell array
+     * @return
+     */
     private String updateConfig(){
         String updatedConfig = new String();
         Cell[][] recentConfig = time.getUpdatedConfig();
-        for(int i=0; i<recentConfig.length; i++){
-            for(int j=0; j<recentConfig[0].length; j++){
+        for(int i=1; i<recentConfig.length-1; i++){
+            for(int j=1; j<recentConfig[0].length-1; j++){
                 updatedConfig += recentConfig[i][j].getCurrState();
             }
         }
         return updatedConfig;
     }
     
+    /**
+     * returns a string with the parameters, joined with spaces
+     * @return
+     */
     private String updateSetting(){
         String updatedSetting = new String();
         if(myParams == null)
@@ -215,23 +222,33 @@ public class UserInterface {
         return updatedSetting;
     }
     
+    /**
+     * makes the sliders to change the parameters and their labels. Uses makeSlider and makeLabel.
+     * returns the vbox that holds them and their labels
+     * @return
+     */
     private VBox makeSliders(){
     	VBox sliderlayout = new VBox(BUTTON_SPACING);
     	for (int i= 0; i<myParams.length; i++){
-    		double curr = Double.parseDouble(myParams[i]);
-    		double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); //TODO:figure this out
-    		if (curr<1){
-    			max = 1.0;
-    		}
-    	    sliderlayout.getChildren().add(makeSlider(i, curr, max));
-    	    sliderlayout.getChildren().add(makeLabel(i));
-            
+    		
+    	    sliderlayout.getChildren().add(makeSlider(i));
+    	    sliderlayout.getChildren().add(makeLabel(i)); 
     	}
 
     	return sliderlayout;
     }
 
-	private Slider makeSlider(int i, double curr, double max) {
+    /**
+     * returns an individual slider
+     * @param i- index of the param for which the slider will be made
+     * @return
+     */
+	private Slider makeSlider(int i) {
+		double curr = Double.parseDouble(myParams[i]);
+		double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); //TODO:figure this out
+		if (curr<1){
+			max = 1.0;
+		}
 		Slider slider = new Slider(0, max, curr );
 		slider.setShowTickLabels(true);
 		slider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -241,6 +258,11 @@ public class UserInterface {
 		});
 		return slider;
 	}
+    /**
+     * returns a label for a particular param
+     * @param i- index of the param for which the slider will be made
+     * @return
+     */
 	private Label makeLabel(int i){
 		ResourceBundle myResources =
                 ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SLIDERLABELS);
@@ -248,9 +270,6 @@ public class UserInterface {
         Label label = new Label(name);
         return label;
 	}
-    
-    
-    
 
     /**
      * Opens a new window for choosing XML file to start animation
@@ -310,73 +329,4 @@ public class UserInterface {
         }
     }
 
-    //TODO: delete this
-//    private int[] considerInitConfig (String initConfig) {
-//        int[] init = new int[myGridSize];
-//        if (isRandom(initConfig)) {
-//            init = setRandomConfig();
-//        }
-//        else if (isProbRandom(initConfig)) {
-//            init = setProbRandomConfig(initConfig);
-//        }
-//        else {
-//            char[] ini = initConfig.toCharArray();
-//            init = new int[ini.length];
-//            for (int i = 0; i < ini.length; i++) {
-//                init[i] = ini[i] - '0';
-//            }
-//        }
-//        return init;
-//    }
-//
-//    private int[] setProbRandomConfig (String initConfig) {
-//        List<Integer> stateList = new ArrayList<Integer>();
-//        int[] probRandomConfig = new int[myGridSize];
-//        double[] randomEachState = new double[myNumStates];
-//        String[] probs = initConfig.split(" ");
-//        int setState = 0, countGrid = 0;
-//
-//        for (int i = 0; i < probs.length; i++) {
-//            randomEachState[i] = Double.parseDouble(probs[i]) * myGridSize;
-//        }
-//
-//        for (int i = 0; i < myGridSize; i++) {
-//            if (Math.round(randomEachState[setState]) == countGrid && (setState != myNumStates - 1)) {
-//                setState++;
-//                countGrid = 0;
-//            }
-//            stateList.add(setState);
-//            countGrid++;
-//        }
-//        Collections.shuffle(stateList);
-//        for (int i = 0; i < stateList.size(); i++) {
-//            probRandomConfig[i] = stateList.get(i);
-//        }
-//        return probRandomConfig;
-//    }
-//
-//    private int[] setRandomConfig () {
-//        int[] randomConfig = new int[myRow * myColumn];
-//        for (int i = 0; i < randomConfig.length; i++) {
-//            randomConfig[i] = new Random().nextInt(myNumStates - 1);
-//        }
-//        return randomConfig;
-//    }
-//
-//    private boolean isRandom (String initConfig) {
-//        if (initConfig.equals("random")) { // Use Resource Bundle
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
-//
-//    private boolean isProbRandom (String initConfig) {
-//        if (initConfig.contains(" "))
-//            return true;
-//        else {
-//            return false;
-//        }
-//    }
 }

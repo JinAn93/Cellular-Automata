@@ -3,7 +3,10 @@ public class HexDisplay extends Display{
 	public HexDisplay (int rows, int columns, int states) {
 		super(rows, columns, states);
 	}
-
+	/**
+	 * This makes the hexagons. The cell width and height are calculated based on the amount of space that the hexagons will take up.
+	 * The points were also calculated mathematically
+	 */
 	@Override
 	protected  void makeShape(int i, int j) {
 		double CELL_WIDTH = DISPLAY_WIDTH / (getColumns())*4/3;
