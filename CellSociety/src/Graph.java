@@ -30,13 +30,6 @@ public class Graph {
 	public static final String STATES = "States";
 	private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + STATES);
 	private String myName;
-
-	  private void dump(Node n, int depth) {
-		    for (int i = 0; i < depth; i++) System.out.print("  ");
-		    System.out.println(n);
-		    if (n instanceof Parent) for (Node c: ((Parent) n).getChildrenUnmodifiable()) dump(c, depth + 1);
-		  }
-	
 	
 	public Graph(Color[] colors, String name){
 		this.colors = colors;
