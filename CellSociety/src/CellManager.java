@@ -17,7 +17,7 @@ import java.util.*;
  * @author Huijia Yu
  *
  */
-public class CellManager {
+public abstract class CellManager {
     private Cell[][] cellGrid;
     private SimulationRules myRules;
     private int myShape, myEdge;
@@ -72,40 +72,21 @@ public class CellManager {
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
                 if (i == 0 || i == cellGrid.length - 1) {
-                    cellGrid[i][j].setCurrState(determineBorderState(i, j, 0, edge));
-                    cellGrid[i][j].setNextState(determineBorderState(i, j, 1, edge));
+                    cellGrid[i][j].setCurrState(determineBorderState(i, j, 0));
+                    cellGrid[i][j].setNextState(determineBorderState(i, j, 1));
                 }
             }
-            cellGrid[i][0].setCurrState(determineBorderState(i, 0, 0, edge));
-            cellGrid[i][0].setNextState(determineBorderState(i, 0, 1, edge));
+            cellGrid[i][0].setCurrState(determineBorderState(i, 0, 0));
+            cellGrid[i][0].setNextState(determineBorderState(i, 0, 1));
             cellGrid[i][cellGrid[0].length - 1]
-                    .setCurrState(determineBorderState(i, cellGrid[0].length - 1, 0, edge));
+                    .setCurrState(determineBorderState(i, cellGrid[0].length - 1, 0));
             cellGrid[i][cellGrid[0].length - 1]
-                    .setNextState(determineBorderState(i, cellGrid[0].length - 1, 1, edge));
+                    .setNextState(determineBorderState(i, cellGrid[0].length - 1, 1));
         }
     }
 
-    private int determineBorderState (int i, int j, int type, int edge) {
-        if (edge == 1) {
-            if (i == 0) {
-                return (getState(cellGrid[cellGrid.length - 2][j], type));
-            }
-            else if (i == cellGrid.length - 1) {
-                return (getState(cellGrid[1][j], type));
-            }
-            else if (j == 0) {
-                return (getState(cellGrid[i][cellGrid[0].length - 2], type));
-            }
-            else if (j == cellGrid[0].length - 1) {
-                return (getState(cellGrid[i][1], type));
-            }
-            return 0;
-        }
-        else
-            return SimulationRules.BLOCKED;
-
-    }
-
+    protected abstract int determineBorderState (int i, int j, int type);
+    
     public int getState (Cell curr, int num) {
         if (num == 0) {
             return curr.getCurrState();

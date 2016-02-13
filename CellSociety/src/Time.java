@@ -18,9 +18,10 @@ public class Time {
 
 	public static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
 			"Spreading_Fire", "Game_of_Life","Foraging_Ants");
-	private static final Duration STEPTIME = new Duration(1000);
-	private Timeline timeline;
+	private static final CellManager[] myPossibleCellManagers = {new ClosedBoundsManager(), new ToroidalBoundsManager()};
 	private CellManager Cells;
+	private static final Duration STEPTIME = new Duration(1000);
+	private Timeline timeline;	
 	private Display cellDisplay;
 	private double speed = 1;
 	private Display[] cellDisplayArray;
@@ -35,7 +36,7 @@ public class Time {
 	public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape, int edge) {
 		this.numStates = numStates;
 		
-		Cells = new CellManager();
+		Cells = myPossibleCellManagers[edge];
 		cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
 		cellDisplay = cellDisplayArray[shape];
 		Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape, edge);
