@@ -18,9 +18,10 @@ public class Time {
 
 	public static final List<String> simulations = Arrays.asList("Segregation", "Predator_Prey",
 			"Spreading_Fire", "Game_of_Life","Foraging_Ants");
-	private static final Duration STEPTIME = new Duration(1000);
-	private Timeline timeline;
+	private static final CellManager[] myPossibleCellManagers = {new ClosedBoundsManager(), new ToroidalBoundsManager()};
 	private CellManager Cells;
+	private static final Duration STEPTIME = new Duration(1000);
+	private Timeline timeline;	
 	private Display cellDisplay;
 	private double speed = 1;
 	private Display[] cellDisplayArray;
@@ -28,20 +29,20 @@ public class Time {
 	private int numStates;
 	
 	/**
-	 * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
+	 * creates new cellmanager, display, graph, and timeline objects. Uses getcellList in cellmanager to pass 
 	 * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
 	 */
 
 	public void initSimulation (int row, int column, int numStates, String name, int[] initial, String[] params, int shape, int edge) {
 		this.numStates = numStates;
 		
-		Cells = new CellManager();
+		Cells = myPossibleCellManagers[edge];
 		cellDisplayArray = new Display[]{new RectDisplay(row,column,numStates), new TriDisplay(row,column,numStates), new HexDisplay(row,column,numStates)};
 		cellDisplay = cellDisplayArray[shape];
 		Cells.setUp(row, column, simulations.lastIndexOf(name), initial, params, shape, edge);
 		cellDisplay.updateDisplay(Cells.getCellList());
 		
-		cellGraph = new Graph(cellDisplay.getColors());
+		cellGraph = new Graph(cellDisplay.getColors(), name);
 		cellGraph.updateValues(Cells.getCellList());
 		
 		timeline = new Timeline();
@@ -61,8 +62,6 @@ public class Time {
 
 	}
 
-	
-	
 	public double getSpeed () {
 		return speed;
 	}
@@ -99,7 +98,11 @@ public class Time {
 	public LineChart<Number, Number> getCellGraph(){
 		return cellGraph.getGraph();
 	}
-	
+    /**
+     * adds one to the curr state of the cell at i,j and sets prev to blocked. Used to update the grid by clicking on the interface
+     * @param i-row
+     * @param j-col
+     */
 	public void changeState(int i, int j) {
 		Cell c = Cells.getCellList()[i+1][j+1];
 		c.setCurrState((c.getCurrState()+1)%numStates);
@@ -107,12 +110,16 @@ public class Time {
 		cellDisplay.updateDisplay(Cells.getCellList());
 
 	}
+	
 	public void updateParams(String[] myParams) {
 		Cells.setParams(myParams);
 		
 	}
+	 /**
+	  * gets the cell array
+	  * @return
+	  */
 	public Cell[][] getUpdatedConfig() {
-		// TODO Auto-generated method stub
 		return Cells.getCellList();
 	}
 

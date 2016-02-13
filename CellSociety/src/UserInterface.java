@@ -1,8 +1,4 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -187,10 +183,17 @@ public class UserInterface {
         return buttonlayout;
     }
     
+    /**
+     * saves variables into an XML file using the XMLmanager
+     */
     private void saveFile(){
         myXMLManager.writeXMLFile(myName, myTitle, myAuthor, myShape, myEdge, myNumStates, updateSetting(), myRow, myColumn, updateConfig());
     }
     
+    /**
+     * returns a string concatenating the curr states in the cell array
+     * @return
+     */
     private String updateConfig(){
         String updatedConfig = new String();
         Cell[][] recentConfig = time.getUpdatedConfig();
@@ -202,6 +205,10 @@ public class UserInterface {
         return updatedConfig;
     }
     
+    /**
+     * returns a string with the parameters, joined with spaces
+     * @return
+     */
     private String updateSetting(){
         String updatedSetting = new String();
         if(myParams == null)
@@ -215,23 +222,33 @@ public class UserInterface {
         return updatedSetting;
     }
     
+    /**
+     * makes the sliders to change the parameters and their labels. Uses makeSlider and makeLabel.
+     * returns the vbox that holds them and their labels
+     * @return
+     */
     private VBox makeSliders(){
     	VBox sliderlayout = new VBox(BUTTON_SPACING);
     	for (int i= 0; i<myParams.length; i++){
-    		double curr = Double.parseDouble(myParams[i]);
-    		double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); //TODO:figure this out
-    		if (curr<1){
-    			max = 1.0;
-    		}
-    	    sliderlayout.getChildren().add(makeSlider(i, curr, max));
-    	    sliderlayout.getChildren().add(makeLabel(i));
-            
+    		
+    	    sliderlayout.getChildren().add(makeSlider(i));
+    	    sliderlayout.getChildren().add(makeLabel(i)); 
     	}
 
     	return sliderlayout;
     }
 
-	private Slider makeSlider(int i, double curr, double max) {
+    /**
+     * returns an individual slider
+     * @param i- index of the param for which the slider will be made
+     * @return
+     */
+	private Slider makeSlider(int i) {
+		double curr = Double.parseDouble(myParams[i]);
+		double max = Math.pow(10.0, Math.ceil(Math.log10(curr))); //TODO:figure this out
+		if (curr<1){
+			max = 1.0;
+		}
 		Slider slider = new Slider(0, max, curr );
 		slider.setShowTickLabels(true);
 		slider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -241,6 +258,11 @@ public class UserInterface {
 		});
 		return slider;
 	}
+    /**
+     * returns a label for a particular param
+     * @param i- index of the param for which the slider will be made
+     * @return
+     */
 	private Label makeLabel(int i){
 		ResourceBundle myResources =
                 ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SLIDERLABELS);
@@ -248,9 +270,6 @@ public class UserInterface {
         Label label = new Label(name);
         return label;
 	}
-    
-    
-    
 
     /**
      * Opens a new window for choosing XML file to start animation

@@ -87,10 +87,13 @@ public class SegregationRules extends SimulationRules {
     protected void setSimulationParameters (String[] simParams) {
         percentToSatisfy = Double.parseDouble(simParams[0]);
     }
-
+    
+    /**
+     * Checks to make sure that amount of params in XML file is equal to amount needed and that
+     * percentToSatisfy is between 0 and 1
+     */
     @Override
     protected boolean isInvalid (String[] simParams) {
-        System.out.println(simParams.length);
         if (simParams.length != paramNeeded) {
             return true;
         }

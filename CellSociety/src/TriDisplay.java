@@ -4,7 +4,10 @@ public class TriDisplay extends Display{
 		super(rows, columns, states);
 
 	}
-
+	/**
+	 * cell width is half of columns (and rounded up) because 2n+1 triangles occupy the same space as n rectangles.
+	 * The triangles' orientation is determined by its i,j
+	 */
 	@Override
 	protected void makeShape(int i, int j) {
 		double CELL_WIDTH = DISPLAY_WIDTH /Math.ceil(getColumns()/2.) ; 

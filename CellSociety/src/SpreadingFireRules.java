@@ -1,4 +1,3 @@
-import java.util.*;
 
 
 /**
@@ -29,14 +28,14 @@ public class SpreadingFireRules extends SimulationRules {
      */
     @Override
     protected int findNextState (Cell curr, Cell[] neighbors, Cell[][] grid, int shape) {
-        if(shape==0||shape==1){
+        if (shape == 0 || shape == 1) {
             neighbors = shortenNeighbors(neighbors);
         }
         if (checkState(curr, BURNING)) {
             return EMPTY;
         }
-        else if (checkState(curr, TREE)) {            
-            if (checkBurning(neighbors) &&
+        else if (checkState(curr, TREE)) {
+            if (isAround(neighbors, BURNING) &&
                 getRand().nextDouble() < probCatch) {
                 return BURNING;
             }
@@ -48,24 +47,6 @@ public class SpreadingFireRules extends SimulationRules {
     }
 
     /**
-     * Returns true if any of the neighboring cells are currently burning
-     * 
-     * @param North
-     * @param South
-     * @param East
-     * @param West
-     * @return
-     */
-    private boolean checkBurning (Cell[] neighbors) {
-        for(int i=0;i<neighbors.length;i++){
-            if(checkState(neighbors[i],BURNING)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Sets the probCatch property of the simulation according to the data read in from the XML
      * configuration file
      */
@@ -74,7 +55,11 @@ public class SpreadingFireRules extends SimulationRules {
         probCatch = Double.parseDouble(simParams[0]);
 
     }
-    
+
+    /**
+     * Checks to make sure that amount of params in XML file is equal to amount needed and that
+     * probCatch is between 0 and 1
+     */
     @Override
     protected boolean isInvalid (String[] simParams) {
         if (simParams.length != paramNeeded) {

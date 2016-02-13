@@ -29,7 +29,7 @@ public abstract class Display {
     private Polygon[][] Grid; 
     /**
      * This class is initialized with a specific number of rows, columns and states so 
-     * that it will be flexible and create different sized rectangles each time. 
+     * that it will be flexible and create different sized shapes each time. 
      * @param rows
      * @param columns
      * @param states
@@ -42,8 +42,7 @@ public abstract class Display {
         initDisplay();
     }
     /**
-     * This uses the number of rows and columns to calculate each cell's individual dimensions. It 
-     * then creates the color array and the rectangle array, setting up their location as well as shape.
+     * This creates the color array and the shape array, setting up their location as well as shape.
      */
     public void initDisplay (){
     	initColors();
@@ -55,6 +54,11 @@ public abstract class Display {
             }
         }
     }
+    /**
+     * this is the method that creates the individual shapes, which are different for each type of display.
+     * @param i
+     * @param j
+     */
     protected abstract void makeShape(int i, int j);
             
             
@@ -69,7 +73,7 @@ public abstract class Display {
         }
     }
     /**
-     * Checks the state of each cell in the array, and sets the corresponding rectangle's color to match.
+     * Checks the state of each cell in the array, and sets the corresponding polygon's color to match.
      * Note that i,j go from 1 to length-1 in order to evade the border cells.
      * @param cellGrid
      */
