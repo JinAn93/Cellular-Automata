@@ -3,7 +3,9 @@ public class RectDisplay extends Display {
 	public RectDisplay (int rows, int columns, int states) {
 		super(rows, columns, states);
 	}
-
+	/**
+	 * This makes the rectangles by setting the corners.
+	 */
 	@Override
 	protected  void makeShape(int i, int j) {
 		double CELL_WIDTH = DISPLAY_WIDTH / getColumns();

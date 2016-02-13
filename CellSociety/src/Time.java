@@ -28,7 +28,7 @@ public class Time {
 	private int numStates;
 	
 	/**
-	 * creates new cellmanager, display, and timeline objects. Uses getcellList in cellmanager to pass 
+	 * creates new cellmanager, display, graph, and timeline objects. Uses getcellList in cellmanager to pass 
 	 * the updated states into Display celldisplay. Makes an indefinitely long timeline that "steps".
 	 */
 
@@ -61,8 +61,6 @@ public class Time {
 
 	}
 
-	
-	
 	public double getSpeed () {
 		return speed;
 	}
@@ -99,7 +97,11 @@ public class Time {
 	public LineChart<Number, Number> getCellGraph(){
 		return cellGraph.getGraph();
 	}
-	
+    /**
+     * adds one to the curr state of the cell at i,j and sets prev to blocked. Used to update the grid by clicking on the interface
+     * @param i-row
+     * @param j-col
+     */
 	public void changeState(int i, int j) {
 		Cell c = Cells.getCellList()[i+1][j+1];
 		c.setCurrState((c.getCurrState()+1)%numStates);
@@ -107,12 +109,16 @@ public class Time {
 		cellDisplay.updateDisplay(Cells.getCellList());
 
 	}
+	
 	public void updateParams(String[] myParams) {
 		Cells.setParams(myParams);
 		
 	}
+	 /**
+	  * gets the cell array
+	  * @return
+	  */
 	public Cell[][] getUpdatedConfig() {
-		// TODO Auto-generated method stub
 		return Cells.getCellList();
 	}
 
