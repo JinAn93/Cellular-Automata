@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
