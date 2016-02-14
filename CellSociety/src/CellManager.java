@@ -1,14 +1,12 @@
-
 /**
- * CellManager serves to manage cellGrid from setting up to updating states for each cell. All the
- * methods
- * in the class is called only from Time class. cellGrid is encapsulated as its contents can be
- * changed only
- * within the class. public getCellList method is used to get cellGrid from outside class.
- * myPossibleRules
+ * CellManager serves to manage cellGrid from setting up to updating states for each cell. It
+ * contains which shape of grid we are using and what kind of edge type we are implementing. It is
+ * an abstract super class to ClosedboundsManager and ToroidalBoundsManager. This hierarchy is
+ * determined by the grid edge types that is determined from information in XML File. This object is
+ * instantiated from Time class. cellGrid is encapsulated as its contents can be changed only within
+ * the class. public getCellList method is used to get cellGrid from outside class. myPossibleRules
  * contains all the possible Rule subclasses. Depending on the user input, it applies the specific
- * rule in
- * updateStates method.
+ * rule in updateStates method.
  * 
  * @author Joseph Lilien
  * @author Jin An
@@ -20,20 +18,17 @@ public abstract class CellManager {
     private SimulationRules myRules;
     private int myShape, myEdge;
     public static final SimulationRules[] myPossibleRules =
-            { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
-              new GameOfLifeRules(),
-              new ForagingAntsRules() };
+    { new SegregationRules(), new PredatorPreyRules(), new SpreadingFireRules(),
+     new GameOfLifeRules(),
+     new ForagingAntsRules() };
 
     /**
      * setUp method is called from initSimulation method in Time class. It takes in # of rows,
-     * columns, and
-     * all the relevant information extracted from XML File. By creating cellGrid larger (by 2 for
-     * both column
-     * and row), we avoid the NullPointer error. Also, setting all the edge cell's current and next
-     * states to
-     * BLOCKED constant (= -1) allows program to detect the four edges. This method calls
-     * setSimulationParameters
-     * and fillCellgrid methods in SimulationRules class.
+     * columns, and all the relevant information extracted from XML File. By creating cellGrid
+     * larger (by 2 for both column and row), we avoid the NullPointer error. Also, setting all the
+     * edge cell's current and next states to BLOCKED constant (= -1) allows program to detect the
+     * four edges. This method calls setSimulationParameters and fillCellgrid methods in
+     * SimulationRules class.
      * 
      * @param r
      * @param c
@@ -42,7 +37,8 @@ public abstract class CellManager {
      * @param simParams
      */
 
-    public void setUp (int r,int c, int whichSim,int[] entry, String[] simParams,int shape, int edge) {
+    public void setUp (int r, int c, int whichSim, int[] entry, String[] simParams, int shape,
+                       int edge) {
         myRules = myPossibleRules[whichSim];
         myShape = shape;
         myEdge = edge;
@@ -66,6 +62,10 @@ public abstract class CellManager {
         myRules.applyRule(cellGrid, myShape);
     }
 
+    /**
+     * Depending on the edge type, the states of border(edge) cells are determined differently. 
+     * @param edge
+     */
     private void updateBorderCells (int edge) {
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
