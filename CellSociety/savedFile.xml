@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<simulation>
+<name>Foraging_Ants</name>
+<title>FA_Tester1</title>
+<author>Team15</author>
+<shape>2</shape>
+<edge>1</edge>
+<numstates>6</numstates>
+<setting>40 1</setting>
+<dimension>10x10</dimension>
+<Initial>0000000000000000000000440000000041000000000050000000005500000000050000000003300000000030000000000000</Initial>
+</simulation>
