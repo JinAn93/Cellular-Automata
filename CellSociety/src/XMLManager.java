@@ -19,9 +19,8 @@ import org.w3c.dom.NodeList;
 
 
 /**
- * XMLReader serves to read XML files and return a concatenated string of relevant information
- * extracted
- * from the XML file. Its readXMLFile method interacts with UserInterface class
+ * XMLManager serves to read XML Files, check Errors from XML File, and write/save XML Files which
+ * can be loaded again to continue the simulation.
  * 
  * @author Joseph Lilien
  * @author Jin An
@@ -87,10 +86,25 @@ public class XMLManager {
         return strsimInfo;
     }
 
+    /**
+     * writeXMLFile method receives updated information (including parameters and configuration) and
+     * creates an XML File with the information. Users will have to input filename to save the file.
+     * 
+     * @param name
+     * @param title
+     * @param author
+     * @param shape
+     * @param edge
+     * @param numStates
+     * @param setting
+     * @param row
+     * @param column
+     * @param initial
+     */
     public void writeXMLFile (String name, String title, String author, int shape, int edge,
                               int numStates, String setting, int row, int column, String initial) {
         try {
-            String filename = JOptionPane.showInputDialog(this,"Enter your file name.");
+            String filename = JOptionPane.showInputDialog(this, "Enter your file name.");
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();
@@ -111,7 +125,7 @@ public class XMLManager {
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(filename+".xml"));
+            StreamResult result = new StreamResult(new File(filename + ".xml"));
             transformer.transform(source, result);
             showMessage(filename, "FILESAVED");
         }
@@ -123,18 +137,30 @@ public class XMLManager {
         }
     }
 
-    private void showMessage (String filename, String saved){
+    private void showMessage (String filename, String saved) {
         AlertMessage message = new AlertMessage();
-        message.showAlertMessage(getIFResource("INFO"), getIFResource("INFOTITLE"), getIFResource("INFOHEADER"), getIFResource("FILESAVED"));
+        message.showAlertMessage(getIFResource("INFO"), getIFResource("INFOTITLE"),
+                                 getIFResource("INFOHEADER"), getIFResource("FILESAVED"));
     }
-    
+
     private Element addElements (Document doc, String s, String content) {
         Element element = createElements(doc, s);
         element.appendChild(doc.createTextNode(content));
         return element;
     }
 
-    public String checkError (int row, int column, String whichSim, int[] gridInit, 
+    /**
+     * checkError method checks for four errors: no simulation type, initial grid error, invalid
+     * cell state error, and wrong parameter inputs.
+     * 
+     * @param row
+     * @param column
+     * @param whichSim
+     * @param gridInit
+     * @param parameters
+     * @return
+     */
+    public String checkError (int row, int column, String whichSim, int[] gridInit,
                               String[] parameters) {
         if (!Time.simulations.contains(whichSim)) {
             return errorTypes.get(NO_SIMULATION_TYPE);
@@ -156,9 +182,9 @@ public class XMLManager {
     }
 
     /**
-     * getElements serves to avoid repeated codes that get Elements in XML by tag Name. By using
-     * resources folder,
-     * mistakes from string input can be avoided.
+     * getElements, createElements, getXMLResources, and getIFResources serve to avoid repeated
+     * codes that get/create Elements in XML by tag Name. By using resources bundle, mistakes from
+     * string input can be avoided.
      * 
      * @param eElement
      * @param s
@@ -171,12 +197,12 @@ public class XMLManager {
     private Element createElements (Document doc, String s) {
         return (doc.createElement(getXMLResource(s)));
     }
-    
-    private String getXMLResource(String s){
+
+    private String getXMLResource (String s) {
         return myXMLResources.getString(s);
     }
-    
-    private String getIFResource(String s){
+
+    private String getIFResource (String s) {
         return myInterResources.getString(s);
     }
 }

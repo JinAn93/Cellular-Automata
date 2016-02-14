@@ -1,3 +1,9 @@
+/**
+ * This subclass of CellManager sets the states of border cells as BLOCKED 
+ * @author Joseph Lilien
+ * @author Jin An
+ * @author Huijia Yu
+ */
 
 public class ClosedBoundsManager extends CellManager{
 

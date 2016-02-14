@@ -19,12 +19,9 @@ import javafx.stage.Stage;
 
 /**
  * UserInterface is the class that displays the grid and the buttons necessary for the user to
- * interact
- * with the program. It also handles said input. It creates an instance of the Time class, and uses
- * its
- * public methods. It implements a resources package to make the buttons that control the animation
- * (with a
- * properties file) and to format these (with a css file).
+ * interact with the program. It also handles said input. It creates an instance of the Time class,
+ * and uses its public methods. It implements a resources package to make the buttons that control
+ * the animation (with properties file) and to format these (with a css file).
  * 
  * @author Joseph Lilien
  * @author Jin An
