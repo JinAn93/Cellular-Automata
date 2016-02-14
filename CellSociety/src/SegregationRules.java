@@ -13,8 +13,6 @@ import java.util.*;
  *
  */
 public class SegregationRules extends SimulationRules {
-    private static final int FIRST = 1;
-    private static final int SECOND = 2;
     private static final int paramNeeded = 1;
     private double percentToSatisfy;
 

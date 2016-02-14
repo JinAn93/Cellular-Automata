@@ -1,5 +1,3 @@
-import java.util.*;
-
 
 /**
  * CellManager serves to manage cellGrid from setting up to updating states for each cell. All the
