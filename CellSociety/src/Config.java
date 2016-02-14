@@ -16,7 +16,6 @@ public class Config {
 
 	public int[] considerInitConfig () {
 		int[] init = new int[myGridSize];
-		System.out.println(initConfig);
 		if (isRandom()) {
 			init = setRandomConfig();
 		}

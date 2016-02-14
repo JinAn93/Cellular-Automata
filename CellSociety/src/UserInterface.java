@@ -42,7 +42,7 @@ public class UserInterface {
     public static final String STYLESHEET = "custom.css";
     private static final String BUTTONLABELS = "ButtonLabels";
     private static final String SLIDERLABELS = "Sliders";
-    private String myName, myTitle, myAuthor, mySetting, myConfig;
+    private String myName, myTitle, myAuthor, myConfig;
     private int myNumStates, myRow, myColumn, myShape, myGridSize, myEdge;
     private int[] myInitial;
     private String[] myParams;
