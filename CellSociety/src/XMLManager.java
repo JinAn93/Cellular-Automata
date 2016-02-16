@@ -104,7 +104,7 @@ public class XMLManager {
     public void writeXMLFile (String name, String title, String author, int shape, int edge,
                               int numStates, String setting, int row, int column, String initial) {
         try {
-            String filename = JOptionPane.showInputDialog(this, "Enter your file name.");
+            String filename = JOptionPane.showInputDialog("Enter your file name.");
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();

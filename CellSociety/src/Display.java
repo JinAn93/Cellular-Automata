@@ -80,6 +80,7 @@ public abstract class Display {
     public void updateDisplay (Cell[][] cellGrid) {
         for (int i = 1; i < cellGrid.length - 1; i++) {
             for (int j = 1; j < cellGrid[0].length - 1; j++) {
+                System.out.println(i + " " + j);
                 Grid[i - 1][j - 1].setFill(colors[cellGrid[i][j].getCurrState()]);
             }
         }
