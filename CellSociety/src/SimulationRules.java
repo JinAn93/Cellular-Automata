@@ -52,13 +52,17 @@ public abstract class SimulationRules {
      * @param entry
      */
     public void fillCellgrid (Cell[][] cellGrid, int[] entry) {
+    	System.out.println(entry.length);
+    	System.out.println(cellGrid.length);
+    	System.out.println(cellGrid[0].length);
         int count = 0;
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid[0].length; j++) {
-                if (i != 0 && i != cellGrid.length - 1 && j != 0 && j != cellGrid.length - 1) {
+                if (i != 0 && i != cellGrid.length - 1 && j != 0 && j != cellGrid[0].length - 1) {
                     cellGrid[i][j].setCurrState(entry[count]);
                     cellGrid[i][j].setNextState(OPEN_NEXT);
                     count++;
+                    System.out.println(i+","+j+","+count);
                 }
                 initializeCellParams(cellGrid[i][j]);
             }
