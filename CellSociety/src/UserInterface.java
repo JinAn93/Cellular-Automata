@@ -247,7 +247,7 @@ public class UserInterface {
         Slider slider = new Slider(0, max, curr);
         slider.setShowTickLabels(true);
         slider.valueProperty().addListener( (observable, oldValue, newValue) -> {
-            myParams[i] = String.valueOf(newValue.intValue());
+            myParams[i] = String.valueOf(newValue.doubleValue());
             time.updateParams(myParams);
 
         });
