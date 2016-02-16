@@ -166,6 +166,8 @@ public class XMLManager {
             return errorTypes.get(NO_SIMULATION_TYPE);
         }
         if (gridInit.length != row * column) {
+            System.out.println(gridInit.length);
+            System.out.println(row*column);
             return errorTypes.get(GRID_INIT_ERROR);
         }
         for (int i = 0; i < gridInit.length; i++) {
